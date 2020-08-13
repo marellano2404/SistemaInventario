@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Almacen.Core.BL.Seguridad.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -11,29 +12,41 @@ namespace Almacen.Api.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
+        #region PROPIEDADES
 
-        private readonly ILogger<WeatherForecastController> _logger;
+        private readonly ISeguridad _SeguridadService;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+
+        #endregion
+
+        #region CONTRUCTOR
+        public WeatherForecastController(ISeguridad SeguridadService)
         {
-            _logger = logger;
+            _SeguridadService = SeguridadService;
         }
-
+        #endregion
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        public async Task<IActionResult> GetConexion()
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            try
             {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
+                var Result = await _SeguridadService.VerificaConexion();
+                if (Result == true)
+                {
+                    return Ok("La conexion es Exitosa");
+                }
+                else
+                {
+                    return Unauthorized();
+                }
+
+            }
+            catch (Exception)
+            {
+                return BadRequest("La Conexión no ha sido encontrado!");
+            }
+
         }
+
     }
 }
