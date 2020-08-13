@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Hospital Gilberto Gomez Maza</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="~/lib/angularjs.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <link href="~/css/StyleArea.css" rel="stylesheet" />
+    <link href="~/css/StyleContenido.css" rel="stylesheet" />
+    <script src="~/angularjs/globalwebang.js"></script>
+    <script src="~/angularjs/globalapp.js"></script>
+    <script src="~/lib/SweetAlert2.0.js"></script>
+    <script src="~/js/menuJs.js"></script>
+    @*<script src="~/lib/angularjs/pdf.js"></script>
+    <script src="~/lib/angularjs/angular-pdf.js"></script>*@
+    <script src="~/js/angular-simple-accordion.js"></script>
+</head>
+<body ng-app="multiAngular" ng-cloak>
+    <div class="app-container">
+        <div class="row content-container">
+            @await Html.PartialAsync("_menuPartial")
+            <div class="container-fluid">
+                <div class="side-body">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+    </div>
+    @RenderSection("css", false)
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,18 @@
+﻿[
+  {
+    "outputFile": "wwwroot/css/StyleLoading.css",
+    "inputFile": "wwwroot/css/StyleLoading.less"
+  },
+  {
+    "outputFile": "wwwroot/css/StyleLogin.css",
+    "inputFile": "wwwroot/css/StyleLogin.less"
+  },
+  {
+    "outputFile": "wwwroot/css/StyleContenido.css",
+    "inputFile": "wwwroot/css/StyleContenido.less"
+  },
+  {
+    "outputFile": "wwwroot/css/StyleArea.css",
+    "inputFile": "wwwroot/css/StyleArea.less"
+  }
+]

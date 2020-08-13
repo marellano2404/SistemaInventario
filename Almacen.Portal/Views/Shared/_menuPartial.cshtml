@@ -1,0 +1,110 @@
+﻿@*//#region - - - - - - - Login Partial*@
+<script src="~/angularjs/viewmodels/alumnocontroller.js"></script>
+<script src="~/angularjs/services/alumnoModel.js"></script>
+<div ng-controller="alumnoNgController" ng-cloak ng-init="ObtenerDatosAlumno();">
+    <nav class="navbar navbar-default navbar-fixed-top navbar-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-expand-toggle">
+                    <i class="fa fa-bars icon"></i>
+                </button>
+                <ol class="breadcrumb navbar-breadcrumb">
+                    <li class="active">Sistema de Control de Inventario </li>
+                </ol>
+                <button type="button" class="navbar-right-expand-toggle pull-right visible-xs">
+                    <i class="fa fa-Option icon"></i>
+                </button>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                <button type="button" class="navbar-right-expand-toggle pull-right visible-xs">
+                    <i class="fa fa-closeModulos icon"></i>
+                </button>
+                <li class="dropdown profile">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        <p @*ng-bind="UsuarioViewModel.curp"*@  style="color: #2f2c2c;" class="visible-lg" >Administrador</p><i class="fa fa-profile visible-xs"></i>
+                    </a>
+                    <ul class="dropdown-menu profile animated fadeInDown">
+                        <li class="title">
+                            Datos Personales
+                        </li>
+                        <li>
+                            <div class="profile-info">
+                                <p class="username">Administrador{{}}</p>
+                                @*<p class="username">Matricula: {{UsuarioViewModel.matricula}}</p>*@
+                                <p class="username">Te quedan <span>{{counter | counter | date:'mm:ss'}} </span>minutos activo.</p>
+
+                                <div class="btn-group" role="group">
+                                    <button type="button" ng-click="verModalCorreoUser()" class="btn btn-default"><span class="fa fa-actemail">Actualizar Correo</span></button>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown salir">
+                    <a ng-click="CerrarSesion();" class="dropdown-toggle" role="button" aria-expanded="false"><i class="fa fa-salir"></i></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    @*//#endregion - - - - - - - Login Partial*@
+
+    @*/**/ - - - - - - - Menu Partial*@
+    <div class="side-menu sidebar-inverse" >
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="side-menu-container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">
+                        <img class="icon_areaActiva" src="~/content/icons/LogoIcon.png" />
+                        <div class="title">Menú </div>
+                    </a>
+                    <button type="button" class="navbar-expand-toggle pull-right visible-xs">
+                        <i class="fa fa-closeModulos icon"></i>
+                    </button>
+                </div>
+                <ul class="nav navbar-nav" ng-show="false">
+                    <li class="panel panel-default dropdown">
+                        <a href="~/CenevalAspirantes/Index" ng-show="OpcionesSustentante">
+                            <img class="icon fa fa-table" src="~/content/icons/HomeWhite.png" /><p class="headerMenu">Inicio</p>
+                        </a>
+
+                        <a data-toggle="collapse" href="#dropdown-solicitudes" ng-click="validarSeccion(0);">
+                            <img class="icon fa fa-table" src="~/content/icons/UserProfileWhite.png" /><p class="headerMenu">Datos Generales</p>
+                        </a>
+                        <a data-toggle="collapse" href="#dropdown-servicioses" ng-click="validarSeccion(1);">
+                            <img class="icon fa fa-table" src="~/content/icons/Sede.png" /><p class="headerMenu">Selección de Plantel</p>
+                        </a>
+                        @*Dropdown level 2*@
+                        @*<div id="dropdown-servicioses" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <ul class="nav navbar-nav">
+                                    <li>
+                                        <a ng-click="ctrlA.validarFuncionesUsuarios('Configuracion')">
+                                            <img class="menuImg" src="~/content/icons/Check-white.png" />
+                                            <span class="subMenus">Configuración</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a ng-click="ctrlA.validarFuncionesUsuarios('SolicitudesSerEsc')"><img class="menuImg" src="~/content/icons/Check-white.png" /><span class="subMenus">Solicitudes de traslados</span></a>
+                                    </li>
+                                    <li>
+                                        <a ng-click="ctrlA.validarFuncionesUsuarios('RGAIProyeccionGrupos')"><img class="menuImg" src="~/content/icons/Check-white.png" /><span class="subMenus">Proyección de grupos</span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>*@
+                        <a data-toggle="collapse" href="#dropdown-table" ng-click="validarSeccion(2);">
+                            <img class="icon fa fa-table" src="~/content/icons/encuesta.png" /><p class="headerMenu">Encuesta</p>
+                        </a>
+                        <a data-toggle="collapse" href="#dropdown-table" ng-click="validarSeccion(3);">
+                            <img class="icon fa fa-table" src="~/content/icons/formadePago.png" /><p class="headerMenu">Forma de Pago</p>
+                        </a>
+
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    <div data-ng-include="Modal"></div>
+</div>
+@*- - - - - - - Menu Partial*@
