@@ -22,10 +22,7 @@
         { Descripcion: 'Hombre', Clave: 'H', },
         { Descripcion: 'Mujer', Clave: 'M', },
     ],
-    ResultLoginViewModel: {
-        exito: null,
-        mensaje: null
-    },
+    ResultLoginViewModel: {},
     ResulToken: {
         token: null,
         idAlumno: null,
@@ -48,8 +45,8 @@
         matricula: null
     },
     Usuarioview: {
-        Curp: null,
-        Matricula: null
+        Username: null,
+        Password: null
     },
     DatosReferenciaPago: {
         id_Cliente: null,
@@ -90,10 +87,10 @@
         method: null
     },
     //#endregion
-    autenticarAlumno: function (Usuarioview, callbackResult) {
+    autenticarUsuario: function (Usuarioview, callbackResult) {
         var self = this;
         $.ajax({
-            url: urlServer + 'Seguridad/AutenticarAlumno',
+            url: urlPortal + 'Home/AutentificarUser',
             type: 'POST',
             cache: false,
             contentType: "application/json",
@@ -108,26 +105,7 @@
                 callbackResult({ result: false, message: "No se pudo accesar a la lista de servicios" });
             }
         });
-    },
-    getDatosAlumno: function (Usuarioview, callbackResult) {
-        var self = this;
-        $.ajax({
-            url: urlPortal + 'Home/CrearToken',
-            type: 'POST',
-            cache: false,
-            contentType: "application/json",
-            data: JSON.stringify(Usuarioview)
-        }).done(function (res) {
-            self.ResulToken = res;
-            if (callbackResult !== null) {
-                callbackResult({ result: true, message: null });
-            }
-        }).fail(function (jqXHR, textStatus, errorThrown) {
-            if (callbackResult !== null) {
-                callbackResult({ result: false, message: "No se pudo accesar a la lista de servicios" });
-            }
-        });
-    },
+    },  
     registrarHistorial: function (opcion, idalumno, detalles, callbackResult) {
         var self = this;
         $.ajax({

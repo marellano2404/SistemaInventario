@@ -1,4 +1,4 @@
-﻿var urlServer = "https://localhost:44378/api/";
+﻿var urlServer = "https://localhost:44397/api/";
 var urlPortal = "/";
 //var urlServer = "https://" + window.location.hostname + "/ApiAspirantes/Api/";
 //var urlPortal = "/AspirantesCobach/";
