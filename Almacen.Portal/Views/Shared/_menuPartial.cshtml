@@ -1,7 +1,7 @@
 ﻿@*//#region - - - - - - - Login Partial*@
 <script src="~/angularjs/viewmodels/homeController.js"></script>
 <script src="~/angularjs/services/homeModel.js"></script>
-<div ng-controller="homeController" ng-cloak ng-init="CargarDatos();">
+<div ng-controller="homeController" ng-init="CargarDatos()" ng-cloak >
     <nav class="navbar navbar-default navbar-fixed-top navbar-top">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -34,7 +34,7 @@
                                 <p class="username">Te quedan <span>{{counter | counter | date:'hh:mm:ss'}} </span>minutos activo.</p>
 
                                 <div class="btn-group" role="group">
-                                    <button type="button" ng-click="verModalCorreoUser()" class="btn btn-default"><span class="fa fa-actemail">Actualizar Correo</span></button>
+                                    <button type="button" ng-click="verModalPasswordUser()" class="btn btn-default"><span class="fa fa-actemail">Actualizar Contraseña</span></button>
                                 </div>
                             </div>
                         </li>
@@ -61,17 +61,16 @@
                         <i class="fa fa-closeModulos icon"></i>
                     </button>
                 </div>
-                <ul class="nav navbar-nav" ng-show="false">
-                    <li class="panel panel-default dropdown">
-                        <a href="~/CenevalAspirantes/Index" ng-show="OpcionesSustentante">
+                <ul class="nav navbar-nav">
+                    <li class="panel panel-default dropdown" ng-show="menuAdministrador">
+                        <a href="~/CenevalAspirantes/Index" >
                             <img class="icon fa fa-table" src="~/content/icons/HomeWhite.png" /><p class="headerMenu">Inicio</p>
                         </a>
-
                         <a data-toggle="collapse" href="#dropdown-solicitudes" ng-click="validarSeccion(0);">
-                            <img class="icon fa fa-table" src="~/content/icons/UserProfileWhite.png" /><p class="headerMenu">Datos Generales</p>
+                            <img class="icon fa fa-table" src="~/content/icons/UserProfileWhite.png" /><p class="headerMenu">Padro Empleados</p>
                         </a>
                         <a data-toggle="collapse" href="#dropdown-servicioses" ng-click="validarSeccion(1);">
-                            <img class="icon fa fa-table" src="~/content/icons/Sede.png" /><p class="headerMenu">Selección de Plantel</p>
+                            <img class="icon fa fa-table" src="~/content/icons/Sede.png" /><p class="headerMenu">Usuarios</p>
                         </a>
                         @*Dropdown level 2*@
                         @*<div id="dropdown-servicioses" class="panel-collapse collapse">
@@ -93,10 +92,10 @@
                             </div>
                         </div>*@
                         <a data-toggle="collapse" href="#dropdown-table" ng-click="validarSeccion(2);">
-                            <img class="icon fa fa-table" src="~/content/icons/encuesta.png" /><p class="headerMenu">Encuesta</p>
+                            <img class="icon fa fa-table" src="~/content/icons/encuesta.png" /><p class="headerMenu">Permisos</p>
                         </a>
                         <a data-toggle="collapse" href="#dropdown-table" ng-click="validarSeccion(3);">
-                            <img class="icon fa fa-table" src="~/content/icons/formadePago.png" /><p class="headerMenu">Forma de Pago</p>
+                            <img class="icon fa fa-table" src="~/content/icons/formadePago.png" /><p class="headerMenu">Historial</p>
                         </a>
 
                     </li>

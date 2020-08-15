@@ -1,4 +1,4 @@
-﻿var alumnoContext = {
+﻿var seguridadContext = {
     //#region Datos del area ParaEscolares 
     alumno: {
         nombres: null,

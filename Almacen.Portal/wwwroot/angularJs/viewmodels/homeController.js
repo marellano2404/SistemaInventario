@@ -10,8 +10,7 @@
         $scope.pdfUrl = "";
         $scope.Usuarioview = homeContext.Usuarioview;
         $scope.ResultLoginViewModel = homeContext.ResultLoginViewModel;
-        $scope.UsuarioViewModel = homeContext.UsuarioViewModel;
-
+        $scope.menuAdministrador = false;
         $scope.banderaFicha = 0;
         const Toast = Swal.mixin({
             toast: true,
@@ -36,6 +35,7 @@
                     if (res5.result === true) {
                         $scope.ResultLoginViewModel = homeContext.ResultLoginViewModel;
                         sessionStorage.setItem('datosUsuarioToken', JSON.stringify(homeContext.ResultLoginViewModel));
+                        $scope.$apply();
                         window.location.href = urlPortal + "Home/Index"; 
                     }
                     else {
@@ -58,16 +58,25 @@
             }
         };
         $scope.validarFuncion = function (modulo) {
-            window.location.href = urlPortal + modulo +"/Index"; 
+            window.location.href = urlPortal + modulo + "/Index"; 
+            localStorage.setItem("modulo",modulo);
         };     
         //#endregion
 
         //#region inicio de Aspirante con Referencia de Pago
         $scope.CargarDatos = function () {
+            $scope.Loading_ = true;
+            $scope.VentanaModal = urlPortal + "home/_Loading";
+            $scope.Mensaje_modal = "Verificando datos...";
+
+            var array = sessionStorage.getItem('datosUsuarioToken');
+            $scope.UsuarioViewModel = JSON.parse(array);
+            homeContext.UsuarioViewModel = $scope.UsuarioViewModel;
+
             $interval(function () {
                 $scope.TimeSesion = $scope.counter--;
                 if ($scope.TimeSesion == 0) {
-                    alumnoContext.CerrarSesion(function (res) {
+                    homeContext.CerrarSesion(function (res) {
                         if (res.result === "ok") {
                             window.location.href = urlPortal + "Home/Login";
                         }
@@ -76,39 +85,18 @@
                         }
                     });
                 }
+                else {
+                    if ($scope.UsuarioViewModel.rol === 'Administrador') {                        
+                        $scope.permisoAdministrador = true;
+                        if (localStorage.getItem("modulo") === 'Seguridad')
+                            $scope.menuAdministrador = true;                       
+                    }
+                }
                 console.log($scope.TimeSesion)
-            }, 1000);
-            $scope.Loading_ = true;
-            $scope.VentanaModal = urlPortal + "home/_Loading";
-            $scope.Mensaje_modal = "Verificando datos...";
-            var array = sessionStorage.getItem('datosUsuarioToken');
-            $scope.UsuarioViewModel = JSON.parse(array);
-            aspiranteContext.UsuarioViewModel = $scope.UsuarioViewModel;
-
+            }, 1000);    
             $scope.$apply();
-        };
-        $scope.irRecibopago = function () {
-            window.location.href = urlPortal + "CenevalAspirantes/RecibodePago";
-        };
-        $scope.irDatosAspirante = function () {
-            window.location.href = urlPortal + "CenevalAspirantes/Registro";
-        };
-        $scope.irFichaExamen = function () {
-            if ($scope.UsuarioViewModel.bandera === 4 || $scope.banderaFicha === 4) {
-                window.location.href = urlPortal + "CenevalAspirantes/FichaExamen";
-            }
-            else {
-                Swal.fire({
-                    title: 'Mensaje del Sistema',
-                    text: "Si su pago fué realizado, podrá acceder a su ficha, gracias!",
-                    icon: 'info',
-                    confirmButtonText: 'OK'
-                });
-            }         
-        };
-
+        };   
         //#endregion
-
     }]);
     app.directive('withFloatingLabel', function () {
         return {
