@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Almacen.Core.BL.Seguridad.Interfaces;
+using Almacen.Core.BL.Seguridad.Services;
 using Almacen.Core.Helpers;
+using Almacen.Core.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,7 +33,7 @@ namespace Almacen.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            ContextConfiguration.ConexionString = Configuration.GetConnectionString("SIADBContext");
+            ContextConfiguration.ConexionString = Configuration.GetConnectionString("InventarioDbContext");
             services.AddControllers();
             services.AddCors(o => o.AddPolicy(MyAllowSpecificOrigins, builder =>
             {
@@ -57,7 +60,8 @@ namespace Almacen.Api
             });
 
             services.Configure<JWTSettings>(Configuration.GetSection("JWT"));
-            //services.AddDbContext<SIADbContext>(options => options.UseSqlServer(ContextConfiguration.ConexionString));
+            services.AddDbContext<InventarioDbContext>(options => options.UseSqlServer(ContextConfiguration.ConexionString));
+            services.AddTransient<ISeguridad, SeguridadService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,7 +1,7 @@
 ﻿@*//#region - - - - - - - Login Partial*@
-<script src="~/angularjs/viewmodels/alumnocontroller.js"></script>
-<script src="~/angularjs/services/alumnoModel.js"></script>
-<div ng-controller="alumnoNgController" ng-cloak ng-init="ObtenerDatosAlumno();">
+<script src="~/angularjs/viewmodels/homeController.js"></script>
+<script src="~/angularjs/services/homeModel.js"></script>
+<div ng-controller="homeController" ng-cloak ng-init="CargarDatos();">
     <nav class="navbar navbar-default navbar-fixed-top navbar-top">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -21,7 +21,7 @@
                 </button>
                 <li class="dropdown profile">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                        <p @*ng-bind="UsuarioViewModel.curp"*@  style="color: #2f2c2c;" class="visible-lg" >Administrador</p><i class="fa fa-profile visible-xs"></i>
+                        <p ng-bind="UsuarioViewModel.rol" style="color: #2f2c2c;" class="visible-lg"></p><i class="fa fa-profile visible-xs"></i>
                     </a>
                     <ul class="dropdown-menu profile animated fadeInDown">
                         <li class="title">
@@ -29,9 +29,9 @@
                         </li>
                         <li>
                             <div class="profile-info">
-                                <p class="username">Administrador{{}}</p>
-                                @*<p class="username">Matricula: {{UsuarioViewModel.matricula}}</p>*@
-                                <p class="username">Te quedan <span>{{counter | counter | date:'mm:ss'}} </span>minutos activo.</p>
+                                <p class="username">{{UsuarioViewModel.rol}}</p>
+                                <p class="username">RFC: {{UsuarioViewModel.rfc}}</p>
+                                <p class="username">Te quedan <span>{{counter | counter | date:'hh:mm:ss'}} </span>minutos activo.</p>
 
                                 <div class="btn-group" role="group">
                                     <button type="button" ng-click="verModalCorreoUser()" class="btn btn-default"><span class="fa fa-actemail">Actualizar Correo</span></button>
