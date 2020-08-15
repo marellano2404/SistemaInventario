@@ -57,15 +57,8 @@
                 });
             }
         };
-        $scope.verificarUsuarioAlumno = function () {
-            $scope.verModal = true;
-            $scope.Modal = urlPortal + "Home/_recuperarPassword";
-            Swal.fire({
-                title: 'Mensaje del Sistema',
-                text: "Proporcione sus datos para guardarlo en su expediente.",
-                icon: 'info',
-                confirmButtonText: 'OK'
-            });
+        $scope.validarFuncion = function (modulo) {
+            window.location.href = urlPortal + modulo +"/Index"; 
         };     
         //#endregion
 
