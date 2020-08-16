@@ -10,7 +10,12 @@
         $scope.pdfUrl = "";
         $scope.Usuarioview = homeContext.Usuarioview;
         $scope.ResultLoginViewModel = homeContext.ResultLoginViewModel;
-        $scope.menuAdministrador = false;
+        $scope.menuSeguridad = false;
+        $scope.menuFarmacia = false;
+        $scope.menuCatalogos = false;
+        $scope.menuUnidosis = false;
+        $scope.menuAlmacen = false;
+
         $scope.banderaFicha = 0;
         const Toast = Swal.mixin({
             toast: true,
@@ -85,17 +90,38 @@
                         }
                     });
                 }
-                else {
-                    if ($scope.UsuarioViewModel.rol === 'Administrador') {                        
-                        $scope.permisoAdministrador = true;
-                        if (localStorage.getItem("modulo") === 'Seguridad')
-                            $scope.menuAdministrador = true;                       
-                    }
-                }
                 console.log($scope.TimeSesion)
-            }, 1000);    
-            $scope.$apply();
+            }, 1000);  
+            if ($scope.UsuarioViewModel.rol === 'Administrador') {
+                $scope.permisoAdministrador = true;
+                if (localStorage.getItem("modulo") === 'Seguridad') {
+                $scope.menuSeguridad = true;
+                    $scope.$apply();
+                }               
+            }   
+            if (localStorage.getItem("modulo") === 'Almacen') {
+                $scope.menuAlmacen = true;
+                $scope.$apply();
+            }
+            if (localStorage.getItem("modulo") === 'Catalogos') {
+                $scope.menuCatalogos = true;
+                $scope.$apply();
+            }
+            if (localStorage.getItem("modulo") === 'Farmacia') {
+                $scope.menuFarmacia = true;
+                $scope.$apply();
+            }
+            if (localStorage.getItem("modulo") === 'Unidosis') {
+                $scope.menuUnidosis = true;
+                $scope.$apply();
+            }
         };   
+        $scope.irInicio = function () {
+            $scope.menuAdministrador = false;
+            window.location.href = urlPortal + "Home/Index";
+            $scope.$apply();
+
+        };
         //#endregion
     }]);
     app.directive('withFloatingLabel', function () {
