@@ -1,7 +1,7 @@
 ﻿var urlServer = "https://localhost:44397/api/";
 var urlPortal = "/";
-//var urlServer = "https://" + window.location.hostname + "/ApiAspirantes/Api/";
-//var urlPortal = "/AspirantesCobach/";
+//var urlServer = "http://marellano-002-site2.etempurl.com/";
+//var urlPortal = "/sicecesba/";
 //var urlserver = "http://" + window.location.hostname + ":84/api/";
 //var urlportal = "/aspirantescobach/";
 var itemsPorPagina = 10;

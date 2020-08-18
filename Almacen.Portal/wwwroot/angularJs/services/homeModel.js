@@ -1,27 +1,6 @@
 ﻿var homeContext = {
     //#region Datos del area ParaEscolares      
-    Turno: [
-        { Descripcion: 'Mat.', ClaveTurno: 'M', },
-        { Descripcion: 'Vesp.', ClaveTurno: 'V', },
-        { Descripcion: 'Mixto.', ClaveTurno: 'X', },
-        { Descripcion: 'Ambos.', ClaveTurno: 'A', },
-    ],
-    Semestres: [
-        { Descripcion: '1er. Semestre', IdSemestre: '1', },
-        { Descripcion: '2do. Semestre', IdSemestre: '2', },
-        { Descripcion: '3er. Semestre', IdSemestre: '3', },
-        { Descripcion: '4to. Semestre', IdSemestre: '4', },
-        { Descripcion: '5to. Semestre', IdSemestre: '5', },
-        { Descripcion: '6to. Semestre', IdSemestre: '6', },
-    ],
-    ListaPeriodos: [
-        { Descripcion: 'Mat.', ClaveTurno: 'M', },
-        { Descripcion: 'Vesp.', ClaveTurno: 'V', },
-    ],
-    ListaSexo: [
-        { Descripcion: 'Hombre', Clave: 'H', },
-        { Descripcion: 'Mujer', Clave: 'M', },
-    ],
+    
     ResultLoginViewModel: {},
     ResulToken: {
         token: null,
@@ -39,52 +18,9 @@
         turno: null,
         expires: null
     },
-    UsuarioViewModel: {
-        idAlumno: null,
-        idExpediente: null,
-        matricula: null
-    },
     Usuarioview: {
         Username: null,
         Password: null
-    },
-    DatosReferenciaPago: {
-        id_Cliente: null,
-        monto: null,
-        status: null,
-        fecha_Creacion: null,
-        order_Id: null,
-        metodo: null,
-        referencia_pago: null,
-        activo: null,
-        fecha_vencimiento: null
-    },
-    RecibosOpenPayViewModel: {
-        id_Cliente: null,
-        monto: null,
-        status: null,
-        fecha_Creacion: null,
-        order_Id: null,
-        metodo: null,
-        referencia_pago: null,
-        activo: null
-    },
-    PagoBancoViewModel: {
-        id: null,
-        description: null,
-        authorization: null,
-        amount: null,
-        operation_type: null,
-        payment_method: null,
-        type: null,
-        reference: null,
-        barcode_url: null,
-        order_id: null,
-        transaction_type: null,
-        creation_date: null,
-        currency: null,
-        status: null,
-        method: null
     },
     //#endregion
     autenticarUsuario: function (Usuarioview, callbackResult) {

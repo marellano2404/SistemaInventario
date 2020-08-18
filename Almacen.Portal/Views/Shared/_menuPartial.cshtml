@@ -1,7 +1,7 @@
 ﻿@*//#region - - - - - - - Login Partial*@
 <script src="~/angularjs/viewmodels/homeController.js"></script>
 <script src="~/angularjs/services/homeModel.js"></script>
-<div ng-controller="homeController" ng-cloak ng-init="CargarDatos();">
+<div ng-controller="homeController" ng-init="CargarDatos()" ng-cloak>
     <nav class="navbar navbar-default navbar-fixed-top navbar-top">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -34,7 +34,7 @@
                                 <p class="username">Te quedan <span>{{counter | counter | date:'hh:mm:ss'}} </span>minutos activo.</p>
 
                                 <div class="btn-group" role="group">
-                                    <button type="button" ng-click="verModalCorreoUser()" class="btn btn-default"><span class="fa fa-actemail">Actualizar Correo</span></button>
+                                    <button type="button" ng-click="verModalPasswordUser()" class="btn btn-default"><span class="fa fa-actemail">Actualizar Contraseña</span></button>
                                 </div>
                             </div>
                         </li>
@@ -49,7 +49,7 @@
     @*//#endregion - - - - - - - Login Partial*@
 
     @*/**/ - - - - - - - Menu Partial*@
-    <div class="side-menu sidebar-inverse" >
+    <div class="side-menu sidebar-inverse">
         <nav class="navbar navbar-default" role="navigation">
             <div class="side-menu-container">
                 <div class="navbar-header">
@@ -61,44 +61,135 @@
                         <i class="fa fa-closeModulos icon"></i>
                     </button>
                 </div>
-                <ul class="nav navbar-nav" ng-show="false">
-                    <li class="panel panel-default dropdown">
-                        <a href="~/CenevalAspirantes/Index" ng-show="OpcionesSustentante">
-                            <img class="icon fa fa-table" src="~/content/icons/HomeWhite.png" /><p class="headerMenu">Inicio</p>
+                <ul class="nav navbar-nav">
+                    <li class="panel panel-default dropdown" ng-show="menuSeguridad">
+                        <a ng-click="irInicio();">
+                            <img class="icon fa fa-table" src="~/content/icons/Home_black.png" /><p class="headerMenu">Inicio</p>
                         </a>
-
                         <a data-toggle="collapse" href="#dropdown-solicitudes" ng-click="validarSeccion(0);">
-                            <img class="icon fa fa-table" src="~/content/icons/UserProfileWhite.png" /><p class="headerMenu">Datos Generales</p>
+                            <img class="icon fa fa-table" src="~/content/icons/ListUsuarios.png" /><p class="headerMenu">Padro Empleados</p>
                         </a>
                         <a data-toggle="collapse" href="#dropdown-servicioses" ng-click="validarSeccion(1);">
-                            <img class="icon fa fa-table" src="~/content/icons/Sede.png" /><p class="headerMenu">Selección de Plantel</p>
+                            <img class="icon fa fa-table" src="~/content/icons/UsersSistema.png" /><p class="headerMenu">Usuarios</p>
                         </a>
-                        @*Dropdown level 2*@
-                        @*<div id="dropdown-servicioses" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <ul class="nav navbar-nav">
-                                    <li>
-                                        <a ng-click="ctrlA.validarFuncionesUsuarios('Configuracion')">
-                                            <img class="menuImg" src="~/content/icons/Check-white.png" />
-                                            <span class="subMenus">Configuración</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a ng-click="ctrlA.validarFuncionesUsuarios('SolicitudesSerEsc')"><img class="menuImg" src="~/content/icons/Check-white.png" /><span class="subMenus">Solicitudes de traslados</span></a>
-                                    </li>
-                                    <li>
-                                        <a ng-click="ctrlA.validarFuncionesUsuarios('RGAIProyeccionGrupos')"><img class="menuImg" src="~/content/icons/Check-white.png" /><span class="subMenus">Proyección de grupos</span></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>*@
                         <a data-toggle="collapse" href="#dropdown-table" ng-click="validarSeccion(2);">
-                            <img class="icon fa fa-table" src="~/content/icons/encuesta.png" /><p class="headerMenu">Encuesta</p>
+                            <img class="icon fa fa-table" src="~/content/icons/PermisosUser.png" /><p class="headerMenu">Permisos</p>
                         </a>
                         <a data-toggle="collapse" href="#dropdown-table" ng-click="validarSeccion(3);">
-                            <img class="icon fa fa-table" src="~/content/icons/formadePago.png" /><p class="headerMenu">Forma de Pago</p>
+                            <img class="icon fa fa-table" src="~/content/icons/HistorialUser.png" /><p class="headerMenu">Historial</p>
                         </a>
+                    </li>
+                    @*/* ----------------------------- MENU FARMACIA  -----------------------------------------------------------------*/*@
+                    <li class="panel panel-default dropdown" ng-show="menuFarmacia">
+                        <a ng-click="irInicio();">
+                            <img class="icon fa fa-table" src="~/content/icons/Home_black.png" /><p class="headerMenu">Inicio</p>
+                        </a>
+                        <a data-toggle="collapse" href="#dropdown-solicitudes" ng-click="validarSeccion(0);">
+                            <img class="icon fa fa-table" src="~/content/icons/DatosFarmacia.png" /><p class="headerMenu">Datos Generales</p>
+                        </a>
+                        <a data-toggle="collapse" href="#dropdown-servicioses" ng-click="validarSeccion(1);">
+                            <img class="icon fa fa-table" src="~/content/icons/Resguardos.png" /><p class="headerMenu">Resguardo</p>
+                        </a>
+                        <a data-toggle="collapse" href="#dropdown-table" ng-click="validarSeccion(2);">
+                            <img class="icon fa fa-table" src="~/content/icons/EntradasIcon.png" /><p class="headerMenu">Entradas</p>
+                        </a>
+                        <a data-toggle="collapse" href="#dropdown-table" ng-click="validarSeccion(3);">
+                            <img class="icon fa fa-table" src="~/content/icons/SalidasIcon.png" /><p class="headerMenu">Salidas</p>
+                        </a>
+                        <a data-toggle="collapse" href="#dropdown-table" ng-click="validarSeccion(3);">
+                            <img class="icon fa fa-table" src="~/content/icons/HistorialUser.png" /><p class="headerMenu">Bajas</p>
+                        </a>
+                        <a data-toggle="collapse" href="#dropdown-table" ng-click="validarSeccion(3);">
+                            <img class="icon fa fa-table" src="~/content/icons/HistorialUser.png" /><p class="headerMenu">Catalogos</p>
 
+                        </a>
+                        <a data-toggle="collapse" href="#dropdown-table" ng-click="validarSeccion(3);">
+                            <img class="icon fa fa-table" src="~/content/icons/HistorialUser.png" /><p class="headerMenu">Reportes</p>
+                        </a>
+                    </li>
+                    @*/* ----------------------------- MENU FARMACIA  -----------------------------------------------------------------*/*@
+                    <li class="panel panel-default dropdown" ng-show="menuUnidosis">
+                        <a ng-click="irInicio();">
+                            <img class="icon fa fa-table" src="~/content/icons/Home_black.png" /><p class="headerMenu">Inicio</p>
+                        </a>
+                        <a data-toggle="collapse" href="#dropdown-solicitudes" ng-click="validarSeccion(0);">
+                            <img class="icon fa fa-table" src="~/content/icons/DatosFarmacia.png" /><p class="headerMenu">Colectivos</p>
+                        </a>
+                        <a data-toggle="collapse" href="#dropdown-servicioses" ng-click="validarSeccion(1);">
+                            <img class="icon fa fa-table" src="~/content/icons/Resguardos.png" /><p class="headerMenu">Salidas</p>
+                        </a>
+                        <a data-toggle="collapse" href="#dropdown-table" ng-click="validarSeccion(2);">
+                            <img class="icon fa fa-table" src="~/content/icons/EntradasIcon.png" /><p class="headerMenu">Inventario</p>
+                        </a>
+                        <a data-toggle="collapse" href="#dropdown-table" ng-click="validarSeccion(3);">
+                            <img class="icon fa fa-table" src="~/content/icons/SalidasIcon.png" /><p class="headerMenu">Reportes</p>
+                        </a>
+                    </li>
+                    @*/* ----------------------------- MENU FARMACIA  -----------------------------------------------------------------*/*@
+                    <li class="panel panel-default dropdown" ng-show="menuCatalogos">
+                        <a ng-click="irInicio();">
+                            <img class="icon fa fa-table" src="~/content/icons/Home_black.png" /><p class="headerMenu">Inicio</p>
+                        </a>
+                        <a data-toggle="collapse" href="#dropdown-solicitudes" ng-click="validarSeccion(0);">
+                            <img class="icon fa fa-table" src="~/content/icons/DatosFarmacia.png" /><p class="headerMenu">Articulos</p>
+                        </a>
+                        <a data-toggle="collapse" href="#dropdown-tipoarticulos" ng-click="validarSeccion(1);">
+                            <img class="icon fa fa-table" src="~/content/icons/Resguardos.png" /><p class="headerMenu">Tipo de Articulos</p>
+                        </a>
+                        @*<div id="dropdown-tipoarticulos" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <ul class="nav navbar-nav">
+                                        <li>
+                                            <a ng-click="ctrlA.validarFuncionesUsuarios('Configuracion')">
+                                                <img class="menuImg" src="~/content/icons/Check-white.png" />
+                                                <span class="subMenus">CAUSES</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a ng-click="ctrlA.validarFuncionesUsuarios('SolicitudesSerEsc')">
+                                                <img class="menuImg" src="~/content/icons/Check-white.png" />
+                                                <span class="subMenus">NO CAUSES</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a ng-click="ctrlA.validarFuncionesUsuarios('RGAIProyeccionGrupos')">
+                                                <img class="menuImg" src="~/content/icons/Check-white.png" />
+                                                <span class="subMenus">CURACIÓN</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>*@
+                        <a data-toggle="collapse" href="#dropdown-table" ng-click="validarSeccion(2);">
+                            <img class="icon fa fa-table" src="~/content/icons/EntradasIcon.png" /><p class="headerMenu">Laboratorios</p>
+                        </a>
+                        <a data-toggle="collapse" href="#dropdown-table" ng-click="validarSeccion(3);">
+                            <img class="icon fa fa-table" src="~/content/icons/SalidasIcon.png" /><p class="headerMenu">Tipo de Servicios</p>
+                        </a>
+                    </li>
+                    @*/* ----------------------------- MENU ALMACEN -----------------------------------------------------------------*/*@
+                    <li class="panel panel-default dropdown" ng-show="menuAlmacen">
+                        <a ng-click="irInicio();">
+                            <img class="icon fa fa-table" src="~/content/icons/Home_black.png" /><p class="headerMenu">Inicio</p>
+                        </a>
+                        <a data-toggle="collapse" href="#dropdown-solicitudes" ng-click="validarSeccion(0);">
+                            <img class="icon fa fa-table" src="~/content/icons/DatosFarmacia.png" /><p class="headerMenu">Datos Almacen</p>
+                        </a>
+                        <a data-toggle="collapse" href="#dropdown-table" ng-click="validarSeccion(3);">
+                            <img class="icon fa fa-table" src="~/content/icons/SalidasIcon.png" /><p class="headerMenu">Periodos</p>
+                        </a>
+                        <a data-toggle="collapse" href="#dropdown-servicioses" ng-click="validarSeccion(1);">
+                            <img class="icon fa fa-table" src="~/content/icons/Resguardos.png" /><p class="headerMenu">Inventario</p>
+                        </a>
+                        <a data-toggle="collapse" href="#dropdown-table" ng-click="validarSeccion(2);">
+                            <img class="icon fa fa-table" src="~/content/icons/EntradasIcon.png" /><p class="headerMenu">Entradas</p>
+                        </a>
+                        <a data-toggle="collapse" href="#dropdown-table" ng-click="validarSeccion(3);">
+                            <img class="icon fa fa-table" src="~/content/icons/SalidasIcon.png" /><p class="headerMenu">Salidas</p>
+                        </a>
+                        <a data-toggle="collapse" href="#dropdown-table" ng-click="validarSeccion(3);">
+                            <img class="icon fa fa-table" src="~/content/icons/SalidasIcon.png" /><p class="headerMenu">Organismos Donadores</p>
+                        </a>
                     </li>
                 </ul>
             </div>

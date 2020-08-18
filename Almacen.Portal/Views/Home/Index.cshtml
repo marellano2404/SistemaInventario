@@ -1,8 +1,8 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<script src="~/angularjs/viewmodels/alumnocontroller.js"></script>
-<script src="~/angularJs/services/alumnoModel.js"></script>
+<script src="~/angularjs/viewmodels/homecontroller.js"></script>
+<script src="~/angularJs/services/homeModel.js"></script>
 <div ng-controller="homeController" ng-init="CargarDatos()" ng-cloak>
     <p>&nbsp;</p>
     <div class="content mt-5">
@@ -10,7 +10,7 @@
             <div class="col-lg-3 col-md-6">
                 <div class="card">
                     <div class="card-body bg-flat-color-1">
-                        <div class="stat-widget-one" ng-click="irDatosAspirante();">
+                        <div class="stat-widget-one" ng-click="validarFuncion('Catalogos');">
                             <div class="stat-icon dib"><i class="ti-registro text-success border-success"></i></div>
                             <div class="stat-content dib">
                                 <div class="stat-digit">Catalogos</div>
@@ -23,12 +23,12 @@
             </div>
             <div class="col-lg-3 col-md-6">
                 <div class="card">
-                    <div class="card-body  bg-flat-color-3">
-                        <div class="stat-widget-one" ng-click="irRecibopago();">
+                    <div class="card-body  bg-flat-color-3" ng-click="validarFuncion('Almacen');">
+                        <div class="stat-widget-one" >
                             <div class="stat-icon dib"><i class="ti-fichapago text-primary border-primary"></i></div>
                             <div class="stat-content dib">
                                 <div class="stat-digit">Almacen</div>
-                                <div class="stat-text">{{NumServicios}}</div>
+                                <div class="stat-text">{{}}</div>
                             </div>
                         </div>
                         <div class="progress progress-xs mt-3 mb-0 bg-light" style="width: 40%; height: 5px;"></div>
@@ -36,13 +36,14 @@
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">
-                <div id="CardFicha" class="card" ng-class="{fichaAprobada: fichaActiva}">
-                    <div class="card-body bg-flat-color-6">
-                        <div class="stat-widget-one" ng-click="irFichaExamen();">
+                <div id="CardFicha" class="card">
+                    @*ng-class="{fichaAprobada: fichaActiva}"*@
+                    <div class="card-body bg-flat-color-6" ng-click="validarFuncion('Farmacia');">
+                        <div class="stat-widget-one">
                             <div class="stat-icon dib"><i class="ti-fichaexamen text-warning border-warning"></i></div>
                             <div class="stat-content dib">
-                                <div class="stat-digit">Farmacias</div>
-                                <div class="stat-text">{{estadoPago}}</div>
+                                <div class="stat-digit">Farmacia</div>
+                                <div class="stat-text">{{}}</div>
                             </div>
                         </div>
                         <div class="progress progress-xs mt-3 mb-0 bg-light" style="width: 40%; height: 5px;"></div>
@@ -51,26 +52,25 @@
             </div>
             <div class="col-lg-3 col-md-6">
                 <div class="card">
-                    <div class="card-body bg-flat-color-4">
+                    <div class="card-body bg-flat-color-4" ng-click="validarFuncion('Unidosis');">
                         <div class="stat-widget-one">
                             <div class="stat-icon dib"><i class="ti-iconavisos text-danger border-danger"></i></div>
                             <div class="stat-content dib">
-                                <div class="stat-digit">Empleados</div>
-                                <div class="stat-text">1 nuevo!</div>
+                                <div class="stat-digit">UniDosis</div>                                
                             </div>
                         </div>
                         <div class="progress progress-xs mt-3 mb-0 bg-light" style="width: 40%; height: 5px;"></div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6" ng-show="verEgresados">
+            <div class="col-lg-3 col-md-6" ng-show="permisoAdministrador">
                 <div class="card">
-                    <div class="card-body  bg-flat-color-5">
+                    <div class="card-body  bg-flat-color-5" ng-click="validarFuncion('Seguridad');">
                         <div class="stat-widget-one">
                             <div class="stat-icon dib"><i class="ti-iconaspirante text-danger border-danger"></i></div>
                             <div class="stat-content dib">
-                                <div class="stat-digit">Reportes</div>
-                                <div class="stat-text">Pendiente{{valor}}</div>
+                                <div class="stat-digit">Seguridad</div>
+                                <div class="stat-text">Pendiente{{}}</div>
                             </div>
                         </div>
                         <div class="progress progress-xs mt-3 mb-0 bg-light" style="width: 50%; height: 5px;"></div>

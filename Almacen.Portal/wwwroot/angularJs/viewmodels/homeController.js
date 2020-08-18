@@ -6,11 +6,16 @@
             scr: null,
             data: null
         };
+        $scope.TimeSesion = 0;
         $scope.counter = 5400;
         $scope.pdfUrl = "";
         $scope.Usuarioview = homeContext.Usuarioview;
         $scope.ResultLoginViewModel = homeContext.ResultLoginViewModel;
-        $scope.UsuarioViewModel = homeContext.UsuarioViewModel;
+        $scope.menuSeguridad = false;
+        $scope.menuFarmacia = false;
+        $scope.menuCatalogos = false;
+        $scope.menuUnidosis = false;
+        $scope.menuAlmacen = false;
 
         $scope.banderaFicha = 0;
         const Toast = Swal.mixin({
@@ -34,8 +39,12 @@
                 //window.location.href = urlPortal + "Home/Index";
                 homeContext.autenticarUsuario($scope.Usuarioview, function (res5) {
                     if (res5.result === true) {
+
                         $scope.ResultLoginViewModel = homeContext.ResultLoginViewModel;
                         sessionStorage.setItem('datosUsuarioToken', JSON.stringify(homeContext.ResultLoginViewModel));
+                        window.localStorage.clear();
+                        localStorage.clear();
+                        $scope.$apply();
                         window.location.href = urlPortal + "Home/Index"; 
                     }
                     else {
@@ -57,24 +66,26 @@
                 });
             }
         };
-        $scope.verificarUsuarioAlumno = function () {
-            $scope.verModal = true;
-            $scope.Modal = urlPortal + "Home/_recuperarPassword";
-            Swal.fire({
-                title: 'Mensaje del Sistema',
-                text: "Proporcione sus datos para guardarlo en su expediente.",
-                icon: 'info',
-                confirmButtonText: 'OK'
-            });
+        $scope.validarFuncion = function (modulo) {
+            window.location.href = urlPortal + modulo + "/Index"; 
+            localStorage.setItem("modulo",modulo);
         };     
         //#endregion
 
         //#region inicio de Aspirante con Referencia de Pago
         $scope.CargarDatos = function () {
+            //$scope.loading = true;
+            //$scope.Modal = urlPortal + "home/_Loading";
+            //$scope.Mensaje_modal = "Verificando datos...";
+
+            var array = sessionStorage.getItem('datosUsuarioToken');
+            $scope.UsuarioViewModel = JSON.parse(array);
+            homeContext.UsuarioViewModel = $scope.UsuarioViewModel;
+
             $interval(function () {
                 $scope.TimeSesion = $scope.counter--;
                 if ($scope.TimeSesion == 0) {
-                    alumnoContext.CerrarSesion(function (res) {
+                    homeContext.CerrarSesion(function (res) {
                         if (res.result === "ok") {
                             window.location.href = urlPortal + "Home/Login";
                         }
@@ -84,38 +95,51 @@
                     });
                 }
                 console.log($scope.TimeSesion)
-            }, 1000);
-            $scope.Loading_ = true;
-            $scope.VentanaModal = urlPortal + "home/_Loading";
-            $scope.Mensaje_modal = "Verificando datos...";
-            var array = sessionStorage.getItem('datosUsuarioToken');
-            $scope.UsuarioViewModel = JSON.parse(array);
-            aspiranteContext.UsuarioViewModel = $scope.UsuarioViewModel;
-
-            $scope.$apply();
-        };
-        $scope.irRecibopago = function () {
-            window.location.href = urlPortal + "CenevalAspirantes/RecibodePago";
-        };
-        $scope.irDatosAspirante = function () {
-            window.location.href = urlPortal + "CenevalAspirantes/Registro";
-        };
-        $scope.irFichaExamen = function () {
-            if ($scope.UsuarioViewModel.bandera === 4 || $scope.banderaFicha === 4) {
-                window.location.href = urlPortal + "CenevalAspirantes/FichaExamen";
-            }
+            }, 1000); 
+            
+            if ($scope.UsuarioViewModel.rol === 'Administrador') {
+                $scope.permisoAdministrador = true;
+                if (localStorage.getItem("modulo") === 'Seguridad') {
+                    $scope.menuSeguridad = true;
+                }  
+                /* temporal */
+                if (localStorage.getItem("modulo") === 'Almacen') {
+                    $scope.menuAlmacen = true;
+                }
+                if (localStorage.getItem("modulo") === 'Catalogos') {
+                    $scope.menuCatalogos = true;
+                }
+                if (localStorage.getItem("modulo") === 'Farmacia') {
+                    $scope.menuFarmacia = true;
+                }
+                if (localStorage.getItem("modulo") === 'Unidosis') {
+                    $scope.menuUnidosis = true;
+                }
+                /* */
+            }   
             else {
-                Swal.fire({
-                    title: 'Mensaje del Sistema',
-                    text: "Si su pago fué realizado, podrá acceder a su ficha, gracias!",
-                    icon: 'info',
-                    confirmButtonText: 'OK'
-                });
-            }         
+                if (localStorage.getItem("modulo") === 'Almacen') {
+                    $scope.menuAlmacen = true;
+                }
+                if (localStorage.getItem("modulo") === 'Catalogos') {
+                    $scope.menuCatalogos = true;
+                }
+                if (localStorage.getItem("modulo") === 'Farmacia') {
+                    $scope.menuFarmacia = true;
+                }
+                if (localStorage.getItem("modulo") === 'Unidosis') {
+                    $scope.menuUnidosis = true;
+                }
+            }
+        };   
+        $scope.irInicio = function () {
+            $scope.menuAdministrador = false;
+            localStorage.clear();
+            window.location.href = urlPortal + "Home/Index";
+            $scope.$apply();
+
         };
-
         //#endregion
-
     }]);
     app.directive('withFloatingLabel', function () {
         return {
