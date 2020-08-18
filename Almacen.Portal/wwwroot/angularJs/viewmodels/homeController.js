@@ -6,6 +6,7 @@
             scr: null,
             data: null
         };
+        $scope.TimeSesion = 0;
         $scope.counter = 5400;
         $scope.pdfUrl = "";
         $scope.Usuarioview = homeContext.Usuarioview;
@@ -38,8 +39,11 @@
                 //window.location.href = urlPortal + "Home/Index";
                 homeContext.autenticarUsuario($scope.Usuarioview, function (res5) {
                     if (res5.result === true) {
+
                         $scope.ResultLoginViewModel = homeContext.ResultLoginViewModel;
                         sessionStorage.setItem('datosUsuarioToken', JSON.stringify(homeContext.ResultLoginViewModel));
+                        window.localStorage.clear();
+                        localStorage.clear();
                         $scope.$apply();
                         window.location.href = urlPortal + "Home/Index"; 
                     }
@@ -70,9 +74,9 @@
 
         //#region inicio de Aspirante con Referencia de Pago
         $scope.CargarDatos = function () {
-            $scope.Loading_ = true;
-            $scope.VentanaModal = urlPortal + "home/_Loading";
-            $scope.Mensaje_modal = "Verificando datos...";
+            //$scope.loading = true;
+            //$scope.Modal = urlPortal + "home/_Loading";
+            //$scope.Mensaje_modal = "Verificando datos...";
 
             var array = sessionStorage.getItem('datosUsuarioToken');
             $scope.UsuarioViewModel = JSON.parse(array);
@@ -91,33 +95,46 @@
                     });
                 }
                 console.log($scope.TimeSesion)
-            }, 1000);  
+            }, 1000); 
+            
             if ($scope.UsuarioViewModel.rol === 'Administrador') {
                 $scope.permisoAdministrador = true;
                 if (localStorage.getItem("modulo") === 'Seguridad') {
-                $scope.menuSeguridad = true;
-                    $scope.$apply();
-                }               
+                    $scope.menuSeguridad = true;
+                }  
+                /* temporal */
+                if (localStorage.getItem("modulo") === 'Almacen') {
+                    $scope.menuAlmacen = true;
+                }
+                if (localStorage.getItem("modulo") === 'Catalogos') {
+                    $scope.menuCatalogos = true;
+                }
+                if (localStorage.getItem("modulo") === 'Farmacia') {
+                    $scope.menuFarmacia = true;
+                }
+                if (localStorage.getItem("modulo") === 'Unidosis') {
+                    $scope.menuUnidosis = true;
+                }
+                /* */
             }   
-            if (localStorage.getItem("modulo") === 'Almacen') {
-                $scope.menuAlmacen = true;
-                $scope.$apply();
-            }
-            if (localStorage.getItem("modulo") === 'Catalogos') {
-                $scope.menuCatalogos = true;
-                $scope.$apply();
-            }
-            if (localStorage.getItem("modulo") === 'Farmacia') {
-                $scope.menuFarmacia = true;
-                $scope.$apply();
-            }
-            if (localStorage.getItem("modulo") === 'Unidosis') {
-                $scope.menuUnidosis = true;
-                $scope.$apply();
+            else {
+                if (localStorage.getItem("modulo") === 'Almacen') {
+                    $scope.menuAlmacen = true;
+                }
+                if (localStorage.getItem("modulo") === 'Catalogos') {
+                    $scope.menuCatalogos = true;
+                }
+                if (localStorage.getItem("modulo") === 'Farmacia') {
+                    $scope.menuFarmacia = true;
+                }
+                if (localStorage.getItem("modulo") === 'Unidosis') {
+                    $scope.menuUnidosis = true;
+                }
             }
         };   
         $scope.irInicio = function () {
             $scope.menuAdministrador = false;
+            localStorage.clear();
             window.location.href = urlPortal + "Home/Index";
             $scope.$apply();
 

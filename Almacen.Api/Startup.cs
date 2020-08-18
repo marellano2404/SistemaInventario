@@ -38,7 +38,7 @@ namespace Almacen.Api
             services.AddCors(o => o.AddPolicy(MyAllowSpecificOrigins, builder =>
             {
                 //Se llaman a todas las paginas web que va a usar la API
-                builder.WithOrigins("https://localhost:44377", "https://sistemascobach.cobach.edu.mx")
+                builder.WithOrigins("https://localhost:44377", "https://sicecesba.com", "https://www.sicecesba.com")
                        .AllowAnyMethod()
                        .AllowAnyHeader();
             }));
