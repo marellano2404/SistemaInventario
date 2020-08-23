@@ -11,6 +11,55 @@ namespace Almacen.Core.BL.Articulos.Services
 {
     public class ArticuloService : IArticulo
     {
+        public async Task<MensajeRespuesta> InsertarArticulos(Articulo A)
+        {
+            using (var conexion = new SqlConnection(Helpers.ContextConfiguration.ConexionString))
+            {
+                MensajeRespuesta respuesta = new MensajeRespuesta();
+                try
+                {
+                    var command = new SqlCommand();
+                    command.Connection = conexion;
+                    command.CommandText = "Catalogos.ObtenerArticulos";
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@OP", "InsertarArticulo");
+                    command.Parameters.AddWithValue("@Descripcion", A.Descripcion);
+                    command.Parameters.AddWithValue("@ClaveProducto", A.ClaveProducto);
+                    command.Parameters.AddWithValue("@Detalles", A.Detalles);
+                    command.Parameters.AddWithValue("@Presentacion", A.Presentacion);
+                    command.Parameters.AddWithValue("@Marca", A.Marca);
+                    command.Parameters.AddWithValue("@Modelo", A.Modelo);
+                    command.Parameters.AddWithValue("@TipoMedicamento", A.TipoMedicamento);
+                    command.Parameters.AddWithValue("@TipoCatalogo", A.TipoCatalogo);
+                    command.Parameters.AddWithValue("@UnidadMedida", A.UnidadMedida);
+                    command.Parameters.AddWithValue("@CantidadPorUnidad", A.CantidadPorUnidad);
+                    command.Parameters.AddWithValue("@CodigoBarra", A.CodigoBarras);
+                    command.Parameters.AddWithValue("@Laboratorio", A.Laboratorio);
+                    command.Parameters.AddWithValue("@Estado", A.Estado);
+                    conexion.Open();
+                    var lectura = await command.ExecuteReaderAsync();
+                    if (lectura.HasRows) //que tenga renglones
+                    {
+                        while (lectura.Read())
+                        {
+                            respuesta.Exito = lectura.GetBoolean(0);
+                            respuesta.Mensaje = lectura.GetString(1);
+                        }
+                    }
+                    conexion.Close();
+                    return respuesta;
+
+                }
+                catch (Exception e)
+                {
+                    //Console.WriteLine(e.Message.ToString());
+                    respuesta.Exito = false;
+                    respuesta.Mensaje = e.Message.ToString();
+                    return respuesta;
+                }
+            }
+        }
+
         public async Task<Articulo> ObtenerArticulo(string Id)
         {
             using (var conexion = new SqlConnection(Helpers.ContextConfiguration.ConexionString))

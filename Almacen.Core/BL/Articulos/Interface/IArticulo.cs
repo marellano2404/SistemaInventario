@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Almacen.Core.ViewModels.Auxiliars;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,7 +8,8 @@ namespace Almacen.Core.BL.Articulos.Interface
 {
     public interface IArticulo
     {
-        public Task<List<ViewModels.Articulo>> ObtenerArticulos(ViewModels.Auxiliars.Pagination P);
-        public Task<ViewModels.Articulo> ObtenerArticulo(string Id);
+        Task<List<ViewModels.Articulo>> ObtenerArticulos(ViewModels.Auxiliars.Pagination P);
+        Task<ViewModels.Articulo> ObtenerArticulo(string Id);
+        Task<MensajeRespuesta> InsertarArticulos(ViewModels.Articulo A);
     }
 }

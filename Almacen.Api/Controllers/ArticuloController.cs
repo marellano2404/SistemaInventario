@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Almacen.Core.BL.Articulos.Interface;
+using Almacen.Core.ViewModels;
 using Almacen.Core.ViewModels.Auxiliars;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -45,6 +46,20 @@ namespace Almacen.Api.Controllers
             catch (Exception e)
             {
                 return BadRequest(e.ToString());
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody] Articulo datos)
+        {
+            try
+            {
+                var response = await _articulo.InsertarArticulos(datos);
+                return Ok(response);
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
             }
         }
     }
