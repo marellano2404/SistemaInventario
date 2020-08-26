@@ -13,7 +13,7 @@ namespace Almacen.Api.Controllers
     [ApiController]
     public class SeguridadController : ControllerBase
     {
-          #region PROPIEDADES
+        #region PROPIEDADES
 
         private readonly ISeguridad _SeguridadService;
 
