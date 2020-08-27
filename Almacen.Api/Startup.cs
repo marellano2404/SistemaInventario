@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Almacen.Core.BL.Articulos.Interface;
+using Almacen.Core.BL.Articulos.Services;
+using Almacen.Core.BL.SalidasAlmacen.Interfaces;
+using Almacen.Core.BL.SalidasAlmacen.Services;
 using Almacen.Core.BL.Seguridad.Interfaces;
 using Almacen.Core.BL.Seguridad.Services;
 using Almacen.Core.Helpers;
@@ -62,6 +66,8 @@ namespace Almacen.Api
             services.Configure<JWTSettings>(Configuration.GetSection("JWT"));
             services.AddDbContext<InventarioDbContext>(options => options.UseSqlServer(ContextConfiguration.ConexionString));
             services.AddTransient<ISeguridad, SeguridadService>();
+            services.AddTransient<IArticulo, ArticuloService>();
+            services.AddTransient<ISalidasAlmacen, SalidasAlmacenService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
