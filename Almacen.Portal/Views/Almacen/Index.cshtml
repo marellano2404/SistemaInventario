@@ -1,102 +1,127 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<script src="~/angularJs/globalwebang.js"></script>
 <script src="~/angularjs/viewmodels/almacencontroller.js"></script>
 <script src="~/angularJs/services/almacenModel.js"></script>
+<link href="~/css/datatables/css/dataTables.bootstrap4.css" rel="stylesheet" />
 <div ng-controller="almacenController" ng-init="CargarDatosAlmacen();" ng-cloak>
     <p>&nbsp;</p>
     <div class="col-lg-12">
         <div class="card">
             <div class="card-header">
-                <p>
-                    <h3 class="text-info">BIENVENIDO AL REGISTRO EN LINEA </h3>
-                </p>
-                <hr />
-                <h2 class="text-danger">{{valores}}</h2>
                 <hr />
                 <h2 class="text-danger">
-                    Ingrese los datos correctamente ya que se validaran y usaran para futuros tramites.
+                    Administración de Salidas de Almacen
                 </h2>
             </div>
             <div class="card-body card-block">
-                <form name="formAspirante" novalidate="">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="firstName" class="control-label mb-1">Nombre(s) </label>
-                                <input type="text" class="form-control text-uppercase" ng-pattern="/^([A-Za-z ñ/Ñ]{2,60})$/" name="firstName" id="firstName" ng-disabled="inhabilitarDatos" placeholder="Formato:ANA MARIA" ng-required="true" ng-maxlength="25" ng-model="aspirante.nombres" />
-                                <span class="MensajeErrorDatos" data-ng-show="formAspirante.firstName.$error.required && formAspirante.firstName.$dirty">Información Requerida</span>
-                                <span class="MensajeErrorDatos" data-ng-show="formAspirante.firstName.$error.pattern">Error en el formato y tamaño, Solo Mayusculas y no se aceptan aceptos!</span>
+                @*<div class="row">
+                        <div class="col-sm-12 col-md-6">
+                            <div id="bootstrap-data-table_filter" class="dataTables_filter">
+                            <label>Buscar:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="bootstrap-data-table"></label>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <label for="lastName">Apellido Paterno</label>
-                            <input type="text" class="form-control text-uppercase" ng-pattern="/^([A-Za-z ñ/Ñ]{2,60})$/" id="apepaterno" ng-disabled="inhabilitarDatos" name="apepaterno" placeholder="DE LA CRUZ" ng-required="true" ng-model="aspirante.apellidopaterno">
-                            <span class="MensajeErrorDatos" data-ng-show="formAspirante.apepaterno.$error.required && formAspirante.apepaterno.$dirty">Información Requerida</span>
-                            <span class="MensajeErrorDatos" data-ng-show="formAspirante.apepaterno.$error.pattern">Error en el formato y tamaño, Solo Mayusculas y no se aceptan aceptos!</span>
+                    </div>*@
+                <div ng-show="verListaSalidas">
+                    <table id="bootstrap-data-table" class="table table-striped table-bordered ListaRegistroTable">
+                        <caption>
+                            S A L I D A S &nbsp;&nbsp; D E &nbsp;&nbsp; A L M A C E N
+                            <a href="">
+                                <img ng-click="mostrarAgregarEspacio()" title="Agregar Salida" src="~/Content/icons/AgregarRegistro.png" />
+                            </a>
+                        </caption>
+                        <thead>
+                            <tr>
+                                <th class="ListaTh">#</th>
+                                <th>Folio</th>
+                                <th class="ListaTh">Almacen</th>
+                                <th>Farmacia</th>
+                                <th>Responsable</th>
+                                <th class="ListaTh">Fecha Salida</th>
+                                <th>Recibido</th>
+                                <th>Accíones</th>
+                            </tr>
+                        </thead>
+                        <tbody ng-repeat="A in salidasAlmacenVM | orderBy:'folio'">
+                            <tr>
+                                <td class="ListaTd">{{$index+1}}.-</td>
+                                <td>{{A.folio}}</td>
+                                <td class="ListaTd">{{A.almacen}}</td>
+                                <td>{{A.farmacia}}</td>
+                                <td>{{A.responsable}}</td>
+                                <td class="ListaTd">{{A.fechaCaptura | ctime}}</td>
+                                <td>{{A.fechaSalida | ctimeHora}}</td>
+                                <td><img ng-click="verDetalleSalida(A)" src="~/content/icons/Observaciones.png" alt="user" class="rounded" width="25"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <hr />
+                </div>
+                <div ng-show="verDetallesSalida">
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label for="address">Folio Salida</label>
+                            <input id="folio" name="folio" readonly class="form-control" ng-model="SalidaAlmacenSel.folio" type="text" />
                         </div>
-                        <div class="col-md-4">
-                            <label for="lastName">Apellido Materno</label>
-                            <input type="text" class="form-control text-uppercase" ng-pattern="/^([A-Za-z ñ/Ñ]{2,60})$/" name="apematerno" id="apematerno" ng-disabled="inhabilitarDatos" placeholder="GOMEZ" ng-required="true" ng-model="aspirante.apellidomaterno">
-                            <span class="MensajeErrorDatos" data-ng-show="formAspirante.apematerno.$error.required && formAspirante.apematerno.$dirty">Información Requerida</span>
-                            <span class="MensajeErrorDatos" data-ng-show="formAspirante.apematerno.$error.pattern">Error en el formato, Solo Mayusculas y no se aceptan aceptos, si es Extranjero ponga SAPELLIDO!</span>
+                        <div class="col-md-4 mb-3">
+                            <label for="address">Lugar Origen</label>
+                            <input id="origen" name="origen" readonly class="form-control" ng-model="SalidaAlmacenSel.almacen" type="text" />
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="address">Lugar Destino</label>
+                            <input id="destino" name="destino" readonly class="form-control" ng-model="SalidaAlmacenSel.farmacia" type="text" />
                         </div>
                     </div>
-
                     <div class="row">
-                        <div class="col-md-6  mb-3">
-                            <label for="address">Fecha Nacimiento(Valido despues del 01/Ene/2002)</label>
-                            <input id="fechanacimiento" name="fechanacimiento" placeholder="31/12/2002" ng-disabled="inhabilitarDatos" min="2002-01-01" max="2007-12-31" class="form-control" ng-model="aspirante.fechanacimiento" type="date" ng-required="true" />
-                            <span class="MensajeErrorDatos" data-ng-show="formAspirante.fechanacimiento.$error.required && formAspirante.fechanacimiento.$dirty">Información Requerida</span>
-                            <span class="MensajeErrorDatos" data-ng-show="formAspirante.fechanacimiento.$error.date">Fecha no valida!</span>
-
+                        <div class="col-md-4  mb-3">
+                            <label for="address">Responsable Destino</label>
+                            <input id="responsable" name="responsable" readonly class="form-control" ng-model="SalidaAlmacenSel.responsable" type="text" />
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="sexo">Sexo</label>
-                            <select name="SexoSelect" class="custom-select d-block w-100" ng-disabled="inhabilitarDatos" ng-model="aspirante.sexo" ng-options="i.Clave as i.Descripcion for i in ListaSexo" ng-required="true">
-                                <option value="">Selecciona...</option>
-                            </select>
-                            <span class="MensajeErrorDatosCombo" data-ng-show="formAspirante.SexoSelect.$error.required">No Seleccionado</span>
+                        <div class="col-md-4 mb-3">
+                            <label for="address">Fecha Salida</label>
+                            <input id="fechasalida" name="fechasalida" readonly class="form-control" ng-model="SalidaAlmacenSel.fechaCaptura" type="text" />
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="country">Entidad Federativa de Nacimiento</label>
-                            <select name="EstadosSelect" class="custom-select d-block w-100" ng-disabled="inhabilitarDatos" ng-model="aspirante.entidadnacimiento" ng-options="J.clave as J.estado for J in EstadosViewModel" ng-required="true" ng-change="generarCurp();">
-                                <option value="">Selecciona...</option>
-                            </select>
-                            <span class="MensajeErrorDatosCombo" data-ng-show="formAspirante.EstadosSelect.$error.required">Información Requerida</span>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="zip">CURP</label>
-                            <input type="text" class="form-control" ng-disabled="inhabilitarDatos" ng-change="validarInput(aspirante.curp);" ng-pattern="/^[0-9A-Z]{18,18}$/" maxlength="18" ng-minlength="18" id="curp" name="curp" placeholder="CURP" ng-required="true" ng-model="aspirante.curp">
-                            <span class="MensajeErrorDatos" data-ng-show="formAspirante.curp.$error.required && formAspirante.curp.$dirty">Información Requerida</span>
-                            <span class="MensajeErrorDatos" data-ng-show="formAspirante.curp.$error.pattern">Error en el formato y tamaño!</span>
-                            <pre id="resultado"></pre>
-                            <pre><a style="font-size:1.6em;" href="#" onclick="abrirNuevaVentana()">Consulta tu CURP</a></pre>
+                        <div class="col-md-4 mb-3">
+                            <label for="address">Fecha Entrega</label>
+                            <input id="fechaentrega" name="fechaentrega" readonly class="form-control" ng-model="SalidaAlmacenSel.fechaSalida" type="text" />
                         </div>
                     </div>
                     <hr class="mb-4">
-                    <row>
-                        <div class="mb-3">
-                            <label for="email">
-                                <span class="h4 text-danger">
-                                    Correo (El usuario y contraseña se enviarán a tu correo de manera automática,
-                                    es por ello que es importante revisar el correo que utilizarás al momento de tu registro.)
-                                </span>
-                            </label>
-                            <input type="email" class="form-control" id="correo" ng-disabled="inhabilitarVistaDatos" name="correo" placeholder="correo@ejemplo.com" ng-model="aspirante.correo" ng-required="true">
-                            <span class="MensajeErrorDatos" data-ng-show="formAspirante.correo.$error.required && formAspirante.correo.$dirty">Ingrese un correo valido para enviarle su clave de ingreso.</span>
-                            <span class="MensajeErrorDatos" data-ng-show="formAspirante.correo.$error.email">Error en el formato del correo!</span>
-                        </div>
-                    </row>
-                    <row>
-                        <div class="col-md-3 mb-4">
-                            <button class="btn btn-primary btn-lg btn-block" ng-disabled="validoConvocatoria" ng-click="guardarNvoAspirante(formAspirante.$valid)" type="submit">Registrarse</button>
-                        </div>
-                    </row>
-                </form>
-                <hr />
+                    <hr />
+                    <table id="bootstrap-data-table" class="table table-striped table-bordered ListaRegistroTable">
+                        <caption>
+                            A R T I C U L O S &nbsp;&nbsp; D E &nbsp;&nbsp; L A &nbsp;&nbsp; S A L I D A
+                            <a href="">
+                                <img ng-click="mostrarAddArticuloSalida()" title="Agregar Salida" src="~/Content/icons/AgregarRegistro.png" />
+                            </a>
+                        </caption>
+                        <thead>
+                            <tr>
+                                <th class="ListaTh">#</th>
+                                <th>Clave Producto</th>
+                                <th class="ListaTh">Producto</th>
+                                <th>Tipo Catalogo</th>
+                                <th>Cantidad</th>
+                                <th class="ListaTh">Unidad</th>
+                                <th>Fec. Caducidad</th>
+                                <th>Accíones</th>
+                            </tr>
+                        </thead>
+                        <tbody ng-repeat="B in DetalleSalidaVM | orderBy:'folio'">
+                            <tr>
+                                <td class="ListaTd">{{$index+1}}.-</td>
+                                <td>{{B.claveProducto}}</td>
+                                <td class="ListaTd">{{B.descripcion}}</td>
+                                <td>{{B.tipoCatalogo}}</td>
+                                <td>{{B.cantidad}}</td>
+                                <td class="ListaTd">{{B.unidad}}</td>
+                                <td>{{B.fechaCaducidad}}</td>
+                                <td><img ng-click="eliminarSalida(B)" src="~/content/icons/eliminar.png" alt="user" class="rounded" width="25"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

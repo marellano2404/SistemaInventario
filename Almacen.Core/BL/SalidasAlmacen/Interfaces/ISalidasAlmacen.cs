@@ -8,6 +8,7 @@ namespace Almacen.Core.BL.SalidasAlmacen.Interfaces
 {
     public interface ISalidasAlmacen
     {
-        Task<SalidasAlmacenViewModel> GetSalidasAlmacen(string estado);
+        Task<List<SalidasAlmacenViewModel>> GetSalidasAlmacen(int estado);
+        Task<List<DetalleSalidaViewModel>> GetDetalleSalidaAlmacen(string folio);
     }
 }

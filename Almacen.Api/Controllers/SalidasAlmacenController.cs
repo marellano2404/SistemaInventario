@@ -29,13 +29,26 @@ namespace Almacen.Api.Controllers
         #region METODOS
         /*
         */
-        [HttpGet("GetSalidasAlmacen")]
-        public async Task<IActionResult> GetSalidasAlmacen(string Estado)
+        [HttpPost("GetSalidasAlmacen")]
+        public async Task<IActionResult> GetSalidasAlmacen([FromBody]int Estado)
         {
             try
             {
-                //var token = new JWTViewModel();
                 var resultado = await _SalidasAlmacenService.GetSalidasAlmacen(Estado);
+                return Ok(resultado);
+            }
+            catch (Exception ex)
+            {
+                var mensaje = ex.Message.ToString();
+                return BadRequest();
+            }
+        }
+        [HttpPost("GetDetalleSalidasAlmacen")]
+        public async Task<IActionResult> GetDetallesSalidaAlmacen([FromBody] string FolioSalidaAlmacen)
+        {
+            try
+            {
+                var resultado = await _SalidasAlmacenService.GetDetalleSalidaAlmacen(FolioSalidaAlmacen);
                 return Ok(resultado);
             }
             catch (Exception ex)
