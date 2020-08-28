@@ -10,5 +10,7 @@ namespace Almacen.Core.BL.SalidasAlmacen.Interfaces
     {
         Task<List<SalidasAlmacenViewModel>> GetSalidasAlmacen(int estado);
         Task<List<DetalleSalidaViewModel>> GetDetalleSalidaAlmacen(string folio);
+        Task<ResultViewModel>DelDetalleSalidaAlmacen(Guid idDetalleSalidaAlmacen);
+        Task<ArticulosInventarioVM> BuscarArticuloInventario(string tipo, string valor);
     }
 }

@@ -2,7 +2,23 @@
     //#region Datos del area ParaEscolares     
     UsuarioViewModel: {},
     salidasAlmacenVM: [],
-    DetalleSalidaVM:[],
+    DetalleSalidaVM: [],
+    ResultViewModel: {},
+    ArticuloInventarioVM: {},
+    ArticuloSalidaSel:
+    {
+        idSalidaAlmacen: null,
+        idInventario: null,
+        idArticulo: null,
+        tipoUnidad: null,
+        cantidadSalida:null
+    },
+    ListaUnidades:
+    [
+        { Valor: 'PIEZA', Id: 1 },
+        { Valor: 'CAJA', Id: 2 },
+        { Valor: 'KIT', Id: 3 }
+    ],
     //#endregion  
     //////////////////////////////////////////////////////////////////////////////////////////////////METODOS PARA ASESORES
     //#region metodos................
@@ -25,7 +41,7 @@
             }
         });
     },
-    getdetalleSalidaAlmacen: function (FolioSalidaAlmacen,callbackResult) {
+    getdetalleSalidaAlmacen: function (FolioSalidaAlmacen, callbackResult) {
         var self = this;
         $.ajax({
             url: urlServer + 'SalidasAlmacen/GetDetalleSalidasAlmacen',
@@ -43,6 +59,44 @@
                 callbackResult({ result: false, message: "No se pudo accesar a la lista de servicios" });
             }
         });
+    },
+    buscarArticuloInvetario: function (Tipo,Valor,callbackResult) {
+        var self = this;
+        $.ajax({
+            url: urlServer + 'SalidasAlmacen/BuscarArticuloInventario',
+            type: 'GET',
+            cache: false,
+            contentType: "application/json",
+            data: {"Tipo":Tipo, "Valor": Valor}
+        }).done(function (res) {
+            self.ArticuloInventarioVM = res;
+            if (callbackResult !== null) {
+                callbackResult({ result: true, message: null });
+            }
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            if (callbackResult !== null) {
+                callbackResult({ result: false, message: "No se pudo accesar a la lista de servicios" });
+            }
+        });
+    },
+    borrardetalleSalidaAlmacen: function (IdDetalleSalidaAlmacen, callbackResult) {
+        var self = this;
+        $.ajax({
+            url: urlServer + 'SalidasAlmacen/EliminarDetalleSalidasAlmacen',
+            type: 'POST',
+            cache: false,
+            contentType: "application/json",
+            data: JSON.stringify(IdDetalleSalidaAlmacen)
+        }).done(function (res) {
+            self.ResultViewModel = res;
+            if (callbackResult !== null) {
+                callbackResult({ result: true, message: null });
+            }
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            if (callbackResult !== null) {
+                callbackResult({ result: false, message: "No se pudo accesar a la lista de servicios" });
+            }
+        });        
     }
     //#endregion
 };

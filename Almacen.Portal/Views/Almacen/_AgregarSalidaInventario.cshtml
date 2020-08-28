@@ -1,0 +1,121 @@
+﻿@{
+    Layout = null;
+}
+<link href="~/css/StyleContenido.css" rel="stylesheet" />
+<div class="overlay" ng-show="verModal">
+    <div class="ventanaModal">
+        <div class="ventanaModalBoxMedium">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="text-danger">
+                            Agregando Articulo de Inventario
+                        </h2>
+                    </div>
+                    <div class="card-body card-block">
+                        <form novalidate name="formBusqueda">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="firstName" class="control-label mb-4">Opciónes de Busqueda </label>
+                                    <div class="form-group">
+                                        <div class="form-check-inline form-check">
+                                            <label for="inline-radio1" class="form-check-label ">
+                                                <input type="radio" id="inline-radio1" ng-model="Tipo" name="Tipo" value="clave" class="form-check-input" ng-required="true">ClaveInventario
+                                            </label>
+                                            <label for="inline-radio2" class="form-check-label ">
+                                                <input type="radio" id="inline-radio2" ng-model="Tipo" name="Tipo" value="codigo" class="form-check-input" ng-required="true">CodigoBarras
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="firstName" class="control-label mb-1">Nombre </label>
+                                        <input type="text" class="form-control" placeholder="Ingrese codigo ó clave" name="nombrevalor" id="nombrevalor" ng-required="true" ng-maxlength="60" ng-model="Valor" />
+                                    </div>
+                                    <span class="MensajeErrorDatosCombo" data-ng-show="formBusqueda.nombrevalor.$error.required">Información Requerida</span>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="firstName" class="control-label mb-1">&nbsp; </label>
+                                        <button class="btn btn-secondary btn-lg btn-block" ng-click="buscarInventario(formBusqueda.$valid)" type="submit">Buscar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <hr class="mb-4">
+                        <form novalidate name="formSalidaArticulo">
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="address">Inventario</label>
+                                    <input id="inventario" name="inventario" readonly class="form-control" ng-model="ArticuloInventarioVM.claveInventario" type="text" />
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="address">Clave</label>
+                                    <input id="clavei" name="clavei" readonly class="form-control" ng-model="ArticuloInventarioVM.claveProducto" type="text" />
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="address">Producto</label>
+                                    <input id="arti" name="arti" readonly class="form-control" ng-model="ArticuloInventarioVM.descripcion" type="text" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4  mb-3">
+                                    <label for="address">Detalles</label>
+                                    <input id="detalles" name="detalles" readonly class="form-control" ng-model="ArticuloInventarioVM.detalles" type="text" />
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="address">Tipo Catalogo</label>
+                                    <input id="tipocata" name="tipocata" readonly class="form-control" ng-model="ArticuloInventarioVM.tipoCatalogo" type="text" />
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="address">Fecha Caducidad</label>
+                                    <input id="fechaca" name="fechaca" readonly class="form-control" ng-model="ArticuloInventarioVM.fechaCaducidad" type="text" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4  mb-3">
+                                    <label for="address">Existencias</label>
+                                    <input id="exis" name="exis" readonly class="form-control" ng-model="ArticuloInventarioVM.cantidad" type="text" />
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="address">Existencias Unidad</label>
+                                    <input id="exiun" name="exiun" readonly class="form-control" ng-model="ArticuloInventarioVM.existenciasUnidad" type="text" />
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="address">Cantidad</label>
+                                    <input id="cantidasalida" name="cantidasalida" class="form-control" ng-model="ArticuloSalidaSel.cantidadSalida" ng-required="true" type="text" />
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="address">Tipo Unidad</label>
+                                    <select name="UnidadSelect" class="custom-select d-block w-100" ng-model="ArticuloSalidaSel.tipoUnidad" ng-options="i.Id as i.Valor for i in ListaUnidades" ng-required="true">
+                                        <option value="">Selecciona...</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="address">C.Barras</label>
+                                    <input id="cbarras" name="cbarras" readonly class="form-control" ng-model="ArticuloInventarioVM.codigoBarras" type="text" />
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="address">Estado</label>
+                                    <input id="estadpo" name="estadpo" readonly class="form-control" ng-model="ArticuloInventarioVM.estado" type="text" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="firstName" class="control-label mb-1">&nbsp; </label>
+                                        <button class="btn btn-secondary btn-lg btn-block" ng-click="agregarArticuloSalida(formSalidaArticulo.$valid)" type="submit">Agregar</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

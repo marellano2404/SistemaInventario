@@ -57,6 +57,34 @@ namespace Almacen.Api.Controllers
                 return BadRequest();
             }
         }
+        [HttpPost("EliminarDetalleSalidasAlmacen")]
+        public async Task<IActionResult> DelDetallesSalidaAlmacen([FromBody] Guid IdDetalleSalidaAlmacen)
+        {
+            try
+            {
+                var resultado = await _SalidasAlmacenService.DelDetalleSalidaAlmacen(IdDetalleSalidaAlmacen);
+                return Ok(resultado);
+            }
+            catch (Exception ex)
+            {
+                var mensaje = ex.Message.ToString();
+                return BadRequest();
+            }
+        }
+        [HttpGet("BuscarArticuloInventario")]
+        public async Task<IActionResult> BuscarArticuloInventario(string Tipo, string Valor)
+        {
+            try
+            {
+                var resultado = await _SalidasAlmacenService.BuscarArticuloInventario(Tipo,Valor);
+                return Ok(resultado);
+            }
+            catch (Exception ex)
+            {
+                var mensaje = ex.Message.ToString();
+                return BadRequest();
+            }
+        }
         #endregion
     }
 }
