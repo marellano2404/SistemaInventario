@@ -10,6 +10,53 @@ namespace Almacen.Core.BL.SalidasAlmacen.Services
 {
     public class SalidasAlmacenService : ISalidasAlmacen
     {
+        public async Task<ArticulosInventarioVM> BuscarArticuloInventario(string tipo, string valor)
+        {
+            using (var Conexion = new SqlConnection(Helpers.ContextConfiguration.ConexionString))
+            {
+                var resultado = new ArticulosInventarioVM();
+                try
+                {
+                    var comando = new SqlCommand();
+                    comando.Connection = Conexion;
+                    comando.CommandText = "[Almacen].[BuscarArticuloInventario]";
+                    comando.CommandType = System.Data.CommandType.StoredProcedure;
+                    /*Agregando los parametros*/
+                    comando.Parameters.AddWithValue("@Valor", valor.Trim());
+                    comando.Parameters.AddWithValue("@TipoBusqueda", tipo.Trim());
+
+                    Conexion.Open();
+                    var Lectura = await comando.ExecuteReaderAsync();
+                    if (Lectura.HasRows)
+                    {
+                        while (Lectura.Read())
+                        {
+                            resultado.IdInventario = Lectura.GetGuid(0);
+                            resultado.IdArticulo = Lectura.GetGuid(1);
+                            resultado.ClaveProducto = Lectura.GetString(2);
+                            resultado.CodigoBarras = Lectura.GetString(3);
+                            resultado.Descripcion = Lectura.GetString(4);
+                            resultado.Detalles = Lectura.GetString(5);                            
+                            resultado.FechaCaducidad = Lectura.GetDateTime(6);
+                            resultado.TipoCatalogo = Lectura.GetString(7);
+                            resultado.ExistenciasUnidad = Lectura.GetInt32(8);
+                            resultado.Cantidad = Lectura.GetInt32(9);
+                            resultado.ClaveInventario = Lectura.GetString(10);
+                            resultado.Estado = Lectura.GetString(11);
+                        }
+                    }
+                    Conexion.Close();
+                    return resultado;
+
+                }
+                catch (Exception e)
+                {
+                    var m = e.Message.ToString();
+                    throw e;
+                }
+            }
+        }
+
         public async Task<ResultViewModel> DelDetalleSalidaAlmacen(Guid idDetalleSalidaAlmacen)
         {
             using (var Conexion = new SqlConnection(Helpers.ContextConfiguration.ConexionString))

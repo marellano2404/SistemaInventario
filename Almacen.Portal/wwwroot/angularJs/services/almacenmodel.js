@@ -4,6 +4,21 @@
     salidasAlmacenVM: [],
     DetalleSalidaVM: [],
     ResultViewModel: {},
+    ArticuloInventarioVM: {},
+    ArticuloSalidaSel:
+    {
+        idSalidaAlmacen: null,
+        idInventario: null,
+        idArticulo: null,
+        tipoUnidad: null,
+        cantidadSalida:null
+    },
+    ListaUnidades:
+    [
+        { Valor: 'PIEZA', Id: 1 },
+        { Valor: 'CAJA', Id: 2 },
+        { Valor: 'KIT', Id: 3 }
+    ],
     //#endregion  
     //////////////////////////////////////////////////////////////////////////////////////////////////METODOS PARA ASESORES
     //#region metodos................
@@ -36,6 +51,25 @@
             data: JSON.stringify(FolioSalidaAlmacen)
         }).done(function (res) {
             self.DetalleSalidaVM = res;
+            if (callbackResult !== null) {
+                callbackResult({ result: true, message: null });
+            }
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            if (callbackResult !== null) {
+                callbackResult({ result: false, message: "No se pudo accesar a la lista de servicios" });
+            }
+        });
+    },
+    buscarArticuloInvetario: function (Tipo,Valor,callbackResult) {
+        var self = this;
+        $.ajax({
+            url: urlServer + 'SalidasAlmacen/BuscarArticuloInventario',
+            type: 'GET',
+            cache: false,
+            contentType: "application/json",
+            data: {"Tipo":Tipo, "Valor": Valor}
+        }).done(function (res) {
+            self.ArticuloInventarioVM = res;
             if (callbackResult !== null) {
                 callbackResult({ result: true, message: null });
             }
