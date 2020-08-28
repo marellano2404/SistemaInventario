@@ -71,7 +71,20 @@ namespace Almacen.Api.Controllers
                 return BadRequest();
             }
         }
-
+        [HttpGet("BuscarArticuloInventario")]
+        public async Task<IActionResult> BuscarArticuloInventario(string Tipo, string Valor)
+        {
+            try
+            {
+                var resultado = await _SalidasAlmacenService.BuscarArticuloInventario(Tipo,Valor);
+                return Ok(resultado);
+            }
+            catch (Exception ex)
+            {
+                var mensaje = ex.Message.ToString();
+                return BadRequest();
+            }
+        }
         #endregion
     }
 }

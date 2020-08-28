@@ -4,7 +4,11 @@
     app.controller('almacenController', ['$scope', '$interval', function ($scope, $interval) {
         $scope.UsuarioViewModel = almacenContext.UsuarioViewModel;
         $scope.salidasAlmacenVM = almacenContext.salidasAlmacenVM; 
+        $scope.ListaUnidades = almacenContext.ListaUnidades;
         $scope.ResultViewModel = almacenContext.ResultViewModel;
+        $scope.ArticuloSalidaSel = almacenContext.ArticuloSalidaSel;
+        $scope.Tipo = null;
+        $scope.Valor = null;
         $scope.CargarDatosAlmacen = function () {
             var array = sessionStorage.getItem('datosUsuarioToken');
             $scope.UsuarioViewModel = JSON.parse(array);
@@ -30,7 +34,7 @@
         $scope.verDetalleSalida = function (Salida) {            
             almacenContext.getdetalleSalidaAlmacen(Salida.folio, function (res1) {
                 if (res1.result === true) {
-                    localStorage.setItem("folioSalida", Salida.folio);
+                    localStorage.setItem("idSalidaSel", Salida.id);
                     $scope.SalidaAlmacenSel = Salida;
                     $scope.DetalleSalidaVM = almacenContext.DetalleSalidaVM;
                     $scope.verDetallesSalida = true;
@@ -46,6 +50,29 @@
                     });
                 }
             });
+        };
+        $scope.mostrarAddArticuloSalida = function () {
+            $scope.verModal = true;
+            $scope.Modal = urlPortal + "Almacen/_AgregarSalidaInventario";
+            $scope.$apply();
+        };
+        $scope.buscarInventario = function (form) {
+            if (form === true) {
+                almacenContext.buscarArticuloInvetario(this.Tipo, this.Valor, function (res3) {
+                    if (res3.result === true) {
+                        $scope.ArticuloInventarioVM = almacenContext.ArticuloInventarioVM;                       
+                        $scope.$apply();
+                    }
+                    else {
+                        Swal.fire({
+                            title: 'Mensaje del Sistema',
+                            text: $scope.ArticuloInventarioVM.mensaje,
+                            icon: 'warning',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                });
+            }
         };
         $scope.eliminarDetalleSalida = function (DetalleSalida) {            
             almacenContext.borrardetalleSalidaAlmacen(DetalleSalida.idSalidaAlmacen, function (res2) {
@@ -87,6 +114,42 @@
                     });
                 }
             });
+        };
+        $scope.agregarArticuloSalida = function (form) {
+            if (form === true) {
+                var idSalidaAlmacenSel = localStorage.getItem("idSalidaSel");
+                $scope.ArticuloSalidaSel.idSalidaAlmacen = idSalidaAlmacenSel;
+                $scope.ArticuloSalidaSel.idInventario = $scope.ArticuloInventarioVM.idInventario;
+                $scope.ArticuloSalidaSel.idArticulo = $scope.ArticuloInventarioVM.idArticulo;
+                almacenContext.putSalidaAlmacen($scope.ArticuloSalidaSel, function (res1) {
+                    if (res1.result === true) {
+                        
+                        $scope.SalidaAlmacenSel = Salida;
+                        $scope.DetalleSalidaVM = almacenContext.DetalleSalidaVM;
+                        $scope.verDetallesSalida = true;
+                        $scope.verListaSalidas = false;
+                        $scope.$apply();
+                    }
+                    else {
+                        Swal.fire({
+                            title: 'Mensaje del Sistema',
+                            text: $scope.ResultLoginViewModel.mensaje,
+                            icon: 'warning',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                });
+            }
+            else
+            {
+                Swal.fire({
+                    title: 'Mensaje del Sistema',
+                    text: 'ingrese Cantidad y tipo de Unidad',
+                    icon: 'warning',
+                    confirmButtonText: 'OK'
+                });
+            }
+           
         };
 
     }]);
