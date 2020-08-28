@@ -31,4 +31,9 @@ namespace Almacen.Core.ViewModels
         public int ExistenciasUnidad { get; set; }
         public int Estado { get; set; }
     }
+    public class ResultViewModel
+    {
+        public bool Exito { get; set; }
+        public string Mensaje { get; set; }
+    }
 }
