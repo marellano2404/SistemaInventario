@@ -1,0 +1,39 @@
+﻿@*@model List<MVCRotativaCore.Models.Usuarios>*@
+@{
+    Layout = null;
+}
+
+
+@*<div>
+        <b>Correo: </b> @Model.Correo <br />
+        <b>Nombre: </b> @Model.Nombre
+    </div>*@
+@*<div style="border: 1px solid #666; padding: 20px">
+        <b>Correo: </b> @usuarios.Nombre <br />
+    </div>*@
+<div class="container">
+    <div style="width: 100px; height: 50px; background-color: red">
+        <p style="color: white; font-size: 20px;">Reporte de Articulos</p>
+    </div>
+
+
+    @*<table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Correo</th>
+                <th>Nombre</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var usuarios in Model)
+            {
+                <tr>
+                    <td>@usuarios.Correo</td>
+                    <td>@usuarios.Nombre</td>
+                </tr>
+            }
+        </tbody>
+    </table>*@
+
+</div>
+
