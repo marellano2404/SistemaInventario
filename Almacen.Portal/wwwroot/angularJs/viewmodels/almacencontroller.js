@@ -4,6 +4,7 @@
     app.controller('almacenController', ['$scope', '$interval', function ($scope, $interval) {
         $scope.UsuarioViewModel = almacenContext.UsuarioViewModel;
         $scope.salidasAlmacenVM = almacenContext.salidasAlmacenVM; 
+        $scope.ResultViewModel = almacenContext.ResultViewModel;
         $scope.CargarDatosAlmacen = function () {
             var array = sessionStorage.getItem('datosUsuarioToken');
             $scope.UsuarioViewModel = JSON.parse(array);
@@ -26,10 +27,10 @@
                 }
             });
         };
-        $scope.verDetalleSalida = function (Salida) {
-            
+        $scope.verDetalleSalida = function (Salida) {            
             almacenContext.getdetalleSalidaAlmacen(Salida.folio, function (res1) {
                 if (res1.result === true) {
+                    localStorage.setItem("folioSalida", Salida.folio);
                     $scope.SalidaAlmacenSel = Salida;
                     $scope.DetalleSalidaVM = almacenContext.DetalleSalidaVM;
                     $scope.verDetallesSalida = true;
@@ -46,6 +47,48 @@
                 }
             });
         };
+        $scope.eliminarDetalleSalida = function (DetalleSalida) {            
+            almacenContext.borrardetalleSalidaAlmacen(DetalleSalida.idSalidaAlmacen, function (res2) {
+                if (res2.result === true) {
+                    $scope.ResultViewModel = almacenContext.ResultViewModel;
+                    Swal.fire({
+                        title: 'Mensaje del Sistema',
+                        text: $scope.ResultViewModel.mensaje,
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    });
+                    var folioSalida = localStorage.getItem("folioSalida");
+                    almacenContext.getdetalleSalidaAlmacen(folioSalida, function (res3) {
+                        if (res3.result === true) {
+                            $scope.SalidaAlmacenSel = Salida;
+                            $scope.DetalleSalidaVM = almacenContext.DetalleSalidaVM;
+                            $scope.verDetallesSalida = true;
+                            $scope.verListaSalidas = false;
+                            $scope.$apply();
+                        }
+                        else {
+                            Swal.fire({
+                                title: 'Mensaje del Sistema',
+                                text: $scope.DetalleSalidaVM[0].mensaje,
+                                icon: 'warning',
+                                confirmButtonText: 'OK'
+                            });
+                        }
+                    });
+                    $scope.$apply();
+                }
+                else {
+                    $scope.ResultViewModel = almacenContext.ResultViewModel;
+                    Swal.fire({
+                        title: 'Mensaje del Sistema',
+                        text: $scope.ResultViewModel.mensaje,
+                        icon: 'warning',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            });
+        };
+
     }]);
     app.filter('counter', [function () {
         return function (seconds) {

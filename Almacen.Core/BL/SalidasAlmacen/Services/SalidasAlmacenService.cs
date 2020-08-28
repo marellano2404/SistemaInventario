@@ -10,6 +10,43 @@ namespace Almacen.Core.BL.SalidasAlmacen.Services
 {
     public class SalidasAlmacenService : ISalidasAlmacen
     {
+        public async Task<ResultViewModel> DelDetalleSalidaAlmacen(Guid idDetalleSalidaAlmacen)
+        {
+            using (var Conexion = new SqlConnection(Helpers.ContextConfiguration.ConexionString))
+            {
+                string Tipo = "EliminarArticulo";
+                var resultado = new ResultViewModel() { Exito = false, Mensaje = "Existe un error en Servidor" };
+                try
+                {
+                    var comando = new SqlCommand();
+                    comando.Connection = Conexion;
+                    comando.CommandText = "Almacen.DetallesSalidasAlmacen";
+                    comando.CommandType = System.Data.CommandType.StoredProcedure;
+                    /*Agregando los parametros*/
+                    comando.Parameters.AddWithValue("@Opcion", Tipo);
+                    comando.Parameters.AddWithValue("@Id", idDetalleSalidaAlmacen);
+                    Conexion.Open();
+                    var Lectura = await comando.ExecuteReaderAsync();
+                    if (Lectura.HasRows)
+                    {
+                        while (Lectura.Read())
+                        {
+                            resultado.Exito = Lectura.GetBoolean(0);
+                            resultado.Mensaje = Lectura.GetString(1);
+                        }
+                    }
+                    Conexion.Close();
+                    return resultado;
+
+                }
+                catch (Exception e)
+                {
+                    var m = e.Message.ToString();
+                    return resultado;
+                }
+            }
+        }
+
         public async Task<List<DetalleSalidaViewModel>> GetDetalleSalidaAlmacen(string folio)
         {
             using (var Conexion = new SqlConnection(Helpers.ContextConfiguration.ConexionString))
