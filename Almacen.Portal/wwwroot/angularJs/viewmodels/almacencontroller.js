@@ -35,6 +35,7 @@
             almacenContext.getdetalleSalidaAlmacen(Salida.folio, function (res1) {
                 if (res1.result === true) {
                     localStorage.setItem("idSalidaSel", Salida.id);
+                    localStorage.setItem("FolioSalida", Salida.folio);
                     $scope.SalidaAlmacenSel = Salida;
                     $scope.DetalleSalidaVM = almacenContext.DetalleSalidaVM;
                     $scope.verDetallesSalida = true;
@@ -121,14 +122,18 @@
                 $scope.ArticuloSalidaSel.idSalidaAlmacen = idSalidaAlmacenSel;
                 $scope.ArticuloSalidaSel.idInventario = $scope.ArticuloInventarioVM.idInventario;
                 $scope.ArticuloSalidaSel.idArticulo = $scope.ArticuloInventarioVM.idArticulo;
-                almacenContext.putSalidaAlmacen($scope.ArticuloSalidaSel, function (res1) {
-                    if (res1.result === true) {
-                        
-                        $scope.SalidaAlmacenSel = Salida;
-                        $scope.DetalleSalidaVM = almacenContext.DetalleSalidaVM;
-                        $scope.verDetallesSalida = true;
-                        $scope.verListaSalidas = false;
-                        $scope.$apply();
+                almacenContext.putartSalidaAlmacen($scope.ArticuloSalidaSel, function (res1) {
+                    if (res1.result === true) {  
+                        var Folio = localStorage.getItem("FolioSalida");
+                        almacenContext.getdetalleSalidaAlmacen(Folio, function (res4) {
+                            if (res4.result === true) {                                
+                                $scope.SalidaAlmacenSel = Salida;
+                                $scope.DetalleSalidaVM = almacenContext.DetalleSalidaVM;
+                                $scope.verDetallesSalida = true;
+                                $scope.verListaSalidas = false;
+                                $scope.$apply();
+                            }
+                        });
                     }
                     else {
                         Swal.fire({
@@ -144,7 +149,7 @@
             {
                 Swal.fire({
                     title: 'Mensaje del Sistema',
-                    text: 'ingrese Cantidad y tipo de Unidad',
+                    text: 'Ingrese Cantidad y tipo de Unidad',
                     icon: 'warning',
                     confirmButtonText: 'OK'
                 });

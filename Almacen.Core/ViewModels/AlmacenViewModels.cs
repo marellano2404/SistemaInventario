@@ -46,6 +46,14 @@ namespace Almacen.Core.ViewModels
         public string Estado { get; set; }
         public string ClaveInventario { get; set; }
     }
+    public class ArticuloSalidaAlmacenVM
+    {
+        public Guid IdSalidaAlmacen { get; set; }
+        public Guid IdInventario { get; set; }
+        public Guid IdArticulo { get; set; }
+        public int CantidadSalida { get; set; }
+        public int TipoUnidad { get; set; }
+    }
     public class ResultViewModel
     {
         public bool Exito { get; set; }

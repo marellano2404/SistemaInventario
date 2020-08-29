@@ -186,5 +186,46 @@ namespace Almacen.Core.BL.SalidasAlmacen.Services
                 }
             }
         }
+
+        public async Task<ResultViewModel> PutDetalleSalidaAlmacen(ArticuloSalidaAlmacenVM articuloSalidaAlmacen)
+        {
+            using (var Conexion = new SqlConnection(Helpers.ContextConfiguration.ConexionString))
+            {
+                string Tipo = "AgregarArticulo";
+                var resultado = new ResultViewModel();
+                try
+                {
+                    var comando = new SqlCommand();
+                    comando.Connection = Conexion;
+                    comando.CommandText = "Almacen.DetallesSalidasAlmacen";
+                    comando.CommandType = System.Data.CommandType.StoredProcedure;
+                    /*Agregando los parametros*/
+                    comando.Parameters.AddWithValue("@Opcion", Tipo);
+                    comando.Parameters.AddWithValue("@IdSalidaAlmacen", articuloSalidaAlmacen.IdSalidaAlmacen);
+                    comando.Parameters.AddWithValue("@IdInventario", articuloSalidaAlmacen.IdInventario);
+                    comando.Parameters.AddWithValue("@IdArticulo", articuloSalidaAlmacen.IdArticulo);
+                    comando.Parameters.AddWithValue("@Cantidad", articuloSalidaAlmacen.CantidadSalida);
+                    comando.Parameters.AddWithValue("@TipoUnidad", articuloSalidaAlmacen.TipoUnidad);
+                    Conexion.Open();
+                    var Lectura = await comando.ExecuteReaderAsync();
+                    if (Lectura.HasRows)
+                    {
+                        while (Lectura.Read())
+                        {
+                            resultado.Exito = Lectura.GetBoolean(0);
+                            resultado.Mensaje = Lectura.GetString(1);
+                        }
+                    }
+                    Conexion.Close();
+                    return resultado;
+
+                }
+                catch (Exception e)
+                {
+                    var m = e.Message.ToString();
+                    return resultado;
+                }
+            }
+        }
     }
 }

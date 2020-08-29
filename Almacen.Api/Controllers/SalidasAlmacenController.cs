@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Almacen.Core.BL.SalidasAlmacen.Interfaces;
+using Almacen.Core.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -77,6 +78,20 @@ namespace Almacen.Api.Controllers
             try
             {
                 var resultado = await _SalidasAlmacenService.BuscarArticuloInventario(Tipo,Valor);
+                return Ok(resultado);
+            }
+            catch (Exception ex)
+            {
+                var mensaje = ex.Message.ToString();
+                return BadRequest();
+            }
+        }
+        [HttpPost("PutArticuloSalidaAlmacen")]
+        public async Task<IActionResult> PutArticuloSalidaAlmacen([FromBody]ArticuloSalidaAlmacenVM ArticuloSalidaAlmacen)
+        {
+            try
+            {
+                var resultado = await _SalidasAlmacenService.PutDetalleSalidaAlmacen(ArticuloSalidaAlmacen);
                 return Ok(resultado);
             }
             catch (Exception ex)

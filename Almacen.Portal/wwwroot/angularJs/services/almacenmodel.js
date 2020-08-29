@@ -97,6 +97,25 @@
                 callbackResult({ result: false, message: "No se pudo accesar a la lista de servicios" });
             }
         });        
-    }
+    },
+    putartSalidaAlmacen: function (ArticuloSalidaAlmacen,callbackResult) {
+        var self = this;
+        $.ajax({
+            url: urlServer + 'SalidasAlmacen/PutArticuloSalidaAlmacen',
+            type: 'POST',
+            cache: false,
+            contentType: "application/json",
+            data: JSON.stringify(ArticuloSalidaAlmacen)
+        }).done(function (res) {
+            self.ResultViewModel = res;
+            if (callbackResult !== null) {
+                callbackResult({ result: true, message: null });
+            }
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            if (callbackResult !== null) {
+                callbackResult({ result: false, message: "No se pudo accesar a la lista de servicios" });
+            }
+        });
+    },
     //#endregion
 };
