@@ -1,7 +1,7 @@
 ﻿/// <reference path="../services/almacenmodel.js" />
 /// <reference path="../globalapp.js" />
 (function () {
-    app.controller('almacenController', ['$scope', '$interval', function ($scope, $interval) {
+    app.controller('almacenController', ['$scope', '$interval', '$http', function ($scope, $interval, $http) {
         $scope.UsuarioViewModel = almacenContext.UsuarioViewModel;
         $scope.salidasAlmacenVM = almacenContext.salidasAlmacenVM; 
         $scope.ListaUnidades = almacenContext.ListaUnidades;
@@ -240,29 +240,58 @@
             document.body.appendChild(form);
             form.submit();
         };
-        $scope.verReporte = function (SalidaAlmacen) {
-            var dataList = {};
-            dataList = SalidaAlmacen;
-            //url: '@Url.Action("RptSalidaAlmacen", "Almacen")',
-            $.ajax({
-                type: "POST",
-                url: "/Almacen/RptSalidaAlmacen",
-                data: '{smd: ' + JSON.stringify(SalidaAlmacen),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (response) {
-                if (response.fileName != "") {
-                        //use window.location.href for redirect to download action for download the file
-                        window.location.href = "@Url.RouteUrl(new {Controller='PDF',Action='Download'})/?file=" +response.fileName;
-                    }},
-                    failure: function (response) { alert(response.responseText);},
-                });
-            //var form = document.createElement("form");
-            //form.setAttribute("method", "post");
-            //form.setAttribute("action", "/Almacen/RptSalidaAlmacen");
-            //form.appendChild("data", JSON.stringify(dataList));
-            //document.body.appendChild(form);
-            //form.submit();
+        $scope.verReporte = function (SalidadeAlmacen) {
+            console.log(SalidadeAlmacen);
+         
+            var form = document.createElement("form");
+            form.setAttribute("method", "post");
+            form.setAttribute("action", "/Almacen/GenerarSalidaAlmacen");
+
+            var Id = document.createElement("input");
+            Id.setAttribute("type", "hidden");
+            Id.setAttribute("name", "id");
+            Id.setAttribute("value", SalidadeAlmacen.id);
+
+            var Folio = document.createElement("input");
+            Folio.setAttribute("type", "hidden");
+            Folio.setAttribute("name", "folio");
+            Folio.setAttribute("value", SalidadeAlmacen.folio);
+
+            var Almacen = document.createElement("input");
+            Almacen.setAttribute("type", "hidden");
+            Almacen.setAttribute("name", "almacen");
+            Almacen.setAttribute("value", SalidadeAlmacen.almacen);
+
+            var Farmacia = document.createElement("input");
+            Farmacia.setAttribute("type", "hidden");
+            Farmacia.setAttribute("name", "farmacia");
+            Farmacia.setAttribute("value", SalidadeAlmacen.farmacia);
+
+            var Responsable = document.createElement("input");
+            Responsable.setAttribute("type", "hidden");
+            Responsable.setAttribute("name", "responsable");
+            Responsable.setAttribute("value", SalidadeAlmacen.responsable);
+
+            var FechaCaptura = document.createElement("input");
+            FechaCaptura.setAttribute("type", "hidden");
+            FechaCaptura.setAttribute("name", "fechaCaptura");
+            FechaCaptura.setAttribute("value", SalidadeAlmacen.fechaCaptura);
+
+            var FechaSalida = document.createElement("input");
+            FechaSalida.setAttribute("type", "hidden");
+            FechaSalida.setAttribute("name", "fechaSalida");
+            FechaSalida.setAttribute("value", SalidadeAlmacen.fechaSalida);
+
+            form.appendChild(Id);
+            form.appendChild(Folio);
+            form.appendChild(Almacen);
+            form.appendChild(Farmacia);
+            form.appendChild(Responsable);
+            form.appendChild(FechaCaptura);
+            form.appendChild(FechaSalida);
+
+            document.body.appendChild(form);
+            form.submit();   
         };
         $scope.CargarDatosSalidaAlmacen = function () {
 

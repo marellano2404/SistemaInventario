@@ -33,20 +33,35 @@ namespace Almacen.Portal.Controllers
         {
             return PartialView();
         }
-        [HttpPost]
-        //public IActionResult RptSalidaAlmacen([FromBody] SalidaAlmacen dataList)
-        //{            
-        //    string dir = "~/Almacen/RptSalidaAlmacen/";
-        //    string ext = ".cshtml";           
+        //[HttpPost]
+        //public FileResult RptSalidaAlmacen([FromForm] IFormCollection SalidadeAlmacen)
+        //{
+        //    var Id = SalidadeAlmacen["Id"].ToString();
+        //    var Folio = SalidadeAlmacen["Folio"].ToString();
+        //    var FechaCaptura = SalidadeAlmacen["FechaCaptura"].ToString();
+        //    var FechaSalida = SalidadeAlmacen["FechaSalida"].ToString();
+        //    var Farmacia = SalidadeAlmacen["Farmacia"].ToString();
+        //    var Almacen = SalidadeAlmacen["Almacen"].ToString();
+        //    var Responsable = SalidadeAlmacen["Responsable"].ToString();
+
+            
+        //    return new ViewAsPdf("RptSalidaAlmacen", SalidadeAlmacen)
+        //    {
+        //        PageSize = Rotativa.AspNetCore.Options.Size.Letter,
+        //        PageOrientation = Rotativa.AspNetCore.Options.Orientation.Portrait,
+        //        FileName = "ReporteUsuarios.pdf"
+        //    };
         //}
 
-        public FileResult GenerarSalidaAlmacen([FromForm] IFormCollection SalidaAlmacen)
+        public FileResult GenerarSalidaAlmacen([FromForm] IFormCollection SalidadeAlmacen)
         {
-
-            var Clave = SalidaAlmacen["Clave"].ToString();
-            var Descripcion = SalidaAlmacen["Descripcion"].ToString();
-            var TipoCatalogo = SalidaAlmacen["TipoCatalogo"].ToString();
-            var ExistenciaUnidad = SalidaAlmacen["ExistenciaUnidad"].ToString();
+            var Id = SalidadeAlmacen["Id"].ToString();
+            var Folio = SalidadeAlmacen["Folio"].ToString();
+            var FechaCaptura = SalidadeAlmacen["FechaCaptura"].ToString();
+            var FechaSalida = SalidadeAlmacen["FechaSalida"].ToString();
+            var Farmacia = SalidadeAlmacen["Farmacia"].ToString();
+            var Almacen = SalidadeAlmacen["Almacen"].ToString();
+            var Responsable = SalidadeAlmacen["Responsable"].ToString();
 
             var PDF = new iTextSharp.text.Document(PageSize.LETTER, 50, 50, 50, 50);
 
@@ -65,13 +80,12 @@ namespace Almacen.Portal.Controllers
             iTextSharp.text.Font _standardFontPrivacidad = new iTextSharp.text.Font(FontFamily.TIMES_ROMAN, 6, iTextSharp.text.Font.NORMAL, BaseColor.BLACK);
 
             //ENCABEZADO DEL DOCUMENTO
-            string Ficha = "Holamundo: ";
+            string Ficha = Folio;
             Paragraph FichaExamenP = new Paragraph(Ficha, _standardFont);
             FichaExamenP.Alignment = Element.ALIGN_RIGHT;
             PDF.Add(FichaExamenP);
 
-            string Terminacion = "Gracias por concluir tu proceso de inscripción. Tus datos han sido registrados de forma correcta. En breve iniciaremos el curso de inducción para tí. " +
-                                  "Sera Importante que este muy pendiente de los avisos que realizaremos en la página web del Colegio de Bachilleres de Chiapas. https://www.cobach.edu.mx";
+            string Terminacion = "Este documento valida la entrega de los producto en farmacia..";
 
             Paragraph TextoPie = new Paragraph(Terminacion, _standardFont);
             TextoPie.Alignment = Element.ALIGN_JUSTIFIED;
@@ -80,14 +94,14 @@ namespace Almacen.Portal.Controllers
 
             PDF.Add(Chunk.NEWLINE);
 
-            string privacidad = "El Colegio de Bachilleres de Chiapas protegerá y tratará los datos personales contenidos en documentación oficial dentro de los términos establecidos en la " +
-                "Ley de Proteccion de Datos Personales en Poseción de Sujetos Obligados del Estado de Chiapas (LPDPPSOCHIS) y demas normativas aplicables. Para mayor información puede consultar nuestro" +
-                "aviso de privacidad, mecanismos, medios y procedimientos disponibles para ejecutar sus derechos ARCO a través de https://www.cobach.edu.mx/avisos-de-privacidad.html";
+            //string privacidad = "El Colegio de Bachilleres de Chiapas protegerá y tratará los datos personales contenidos en documentación oficial dentro de los términos establecidos en la " +
+            //    "Ley de Proteccion de Datos Personales en Poseción de Sujetos Obligados del Estado de Chiapas (LPDPPSOCHIS) y demas normativas aplicables. Para mayor información puede consultar nuestro" +
+            //    "aviso de privacidad, mecanismos, medios y procedimientos disponibles para ejecutar sus derechos ARCO a través de https://www.cobach.edu.mx/avisos-de-privacidad.html";
 
-            Paragraph TextoPrivacidad = new Paragraph(privacidad, _standardFontPrivacidad);
-            TextoPie.Alignment = Element.ALIGN_JUSTIFIED;
+            //Paragraph TextoPrivacidad = new Paragraph(privacidad, _standardFontPrivacidad);
+            //TextoPie.Alignment = Element.ALIGN_JUSTIFIED;
 
-            PDF.Add(TextoPrivacidad);
+            //PDF.Add(TextoPrivacidad);
 
             PDF.Close();
 
