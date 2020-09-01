@@ -1,11 +1,11 @@
 ﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = null;
 }
-<script src="~/angularJs/globalwebang.js"></script>
 <script src="~/angularjs/viewmodels/almacencontroller.js"></script>
 <script src="~/angularJs/services/almacenModel.js"></script>
 <link href="~/css/datatables/css/dataTables.bootstrap4.css" rel="stylesheet" />
-<div ng-controller="almacenController" ng-init="CargarDatosAlmacen();" ng-cloak>
+<link href="~/css/StyleContenido.css" rel="stylesheet" />
+<div ng-controller="almacenController" ng-init="CargarDatosSalidaAlmacen();" ng-cloak>
     <p>&nbsp;</p>
     <div class="col-lg-12">
         <div class="card">
@@ -16,44 +16,7 @@
                 </h2>
             </div>
             <div class="card-body card-block">
-                <div ng-show="verListaSalidas">
-                    <table id="bootstrap-data-table" class="table table-striped table-bordered ListaRegistroTable">
-                        <caption>
-                            S A L I D A S &nbsp;&nbsp; D E &nbsp;&nbsp; A L M A C E N
-                            <a href="">
-                                <img ng-click="mostrarAgregarEspacio()" title="Agregar Salida" src="~/Content/icons/AgregarRegistro.png" />
-                            </a>
-                        </caption>
-                        <thead>
-                            <tr>
-                                <th class="ListaTh">#</th>
-                                <th>Folio</th>
-                                <th class="ListaTh">Almacen</th>
-                                <th>Farmacia</th>
-                                <th>Responsable</th>
-                                <th class="ListaTh">Fecha Salida</th>
-                                <th>Recibido</th>
-                                <th>Accíones</th>
-                                <th>Cedula Salida</th>
-                            </tr>
-                        </thead>
-                        <tbody ng-repeat="A in salidasAlmacenVM | orderBy:'folio'">
-                            <tr>
-                                <td class="ListaTd">{{$index+1}}.-</td>
-                                <td>{{A.folio}}</td>
-                                <td class="ListaTd">{{A.almacen}}</td>
-                                <td>{{A.farmacia}}</td>
-                                <td>{{A.responsable}}</td>
-                                <td class="ListaTd">{{A.fechaCaptura | ctime}}</td>
-                                <td>{{A.fechaSalida | ctimeHora}}</td>
-                                <td><img ng-click="verDetalleSalida(A)" src="~/content/icons/Observaciones.png" alt="user" class="rounded" width="25"></td>
-                                <td><img ng-click="verReporte(A)" src="~/content/icons/Validado.png" alt="user" class="rounded" width="25"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <hr />
-                </div>
-                <div ng-show="verDetallesSalida">
+                <div>
                     <div class="row">
                         <div class="col-md-4 mb-3">
                             <label for="address">Folio Salida</label>
@@ -100,6 +63,7 @@
                                 <th class="ListaTh">Unidad</th>
                                 <th>Fec. Caducidad</th>
                                 <th>Accíones</th>
+                                <th>-</th>
                             </tr>
                         </thead>
                         <tbody ng-repeat="B in DetalleSalidaVM | orderBy:'descripcion'">
@@ -112,17 +76,12 @@
                                 <td class="ListaTd">{{B.unidad}}</td>
                                 <td>{{B.fechaCaducidad}}</td>
                                 <td><img ng-click="eliminarDetalleSalida(B)" src="~/content/icons/eliminar.png" alt="user" class="rounded" width="25"></td>
+                                <td><img ng-click="crearReporte(B)" src="~/content/icons/Validado.png" alt="user" class="rounded" width="25"></td>
                             </tr>
                         </tbody>
                     </table>
-                    <row>
-                        <div class="col-md-2 mb-4">
-                            <button class="btn btn-primary btn-lg btn-block" ng-disabled="validoSalida" ng-click="finalizarSalida()" type="submit">Finalizar Captura</button>
-                        </div>
-                    </row>
                 </div>
             </div>
         </div>
     </div>
-    <div data-ng-include="Modal"></div>
 </div>

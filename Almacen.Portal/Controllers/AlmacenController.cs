@@ -9,6 +9,12 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using static iTextSharp.text.Font;
+using Rotativa.AspNetCore;
+using System.Drawing;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using Almacen.Portal.Models;
+using Newtonsoft.Json;
 
 namespace Almacen.Portal.Controllers
 {
@@ -19,7 +25,6 @@ namespace Almacen.Portal.Controllers
         {
             this.hostingEnv = env;
         }
-
         public IActionResult Index()
         {
             return View();
@@ -28,6 +33,12 @@ namespace Almacen.Portal.Controllers
         {
             return PartialView();
         }
+        [HttpPost]
+        //public IActionResult RptSalidaAlmacen([FromBody] SalidaAlmacen dataList)
+        //{            
+        //    string dir = "~/Almacen/RptSalidaAlmacen/";
+        //    string ext = ".cshtml";           
+        //}
 
         public FileResult GenerarSalidaAlmacen([FromForm] IFormCollection SalidaAlmacen)
         {
@@ -42,7 +53,7 @@ namespace Almacen.Portal.Controllers
             PDF.AddTitle("Salidas de Almacén");
             PDF.AddCreator("Hospital Gomez Maza");
 
-            var ruta = Path.Combine(hostingEnv.WebRootPath, "Files\\SalidaAlmacen");
+            var ruta = Path.Combine(hostingEnv.WebRootPath, "Files\\SalidasAlmacen");
             var rutaImagen = Path.Combine(hostingEnv.WebRootPath, "Content\\Imgs");
 
             PdfWriter.GetInstance(PDF, new FileStream(ruta + $"/Prueba.pdf", FileMode.Create));

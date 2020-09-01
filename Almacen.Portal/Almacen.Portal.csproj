@@ -26,7 +26,7 @@
 
   <ItemGroup>
     <Folder Include="Rotativa\" />
-    <Folder Include="wwwroot\Files\SalidaAlmacen\" />
+    <Folder Include="wwwroot\Files\SalidasAlmacen\" />
   </ItemGroup>
 
 </Project>

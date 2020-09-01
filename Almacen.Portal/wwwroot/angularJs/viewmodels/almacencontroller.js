@@ -24,7 +24,7 @@
                 else {
                     Swal.fire({
                         title: 'Mensaje del Sistema',
-                        text: $scope.ResultLoginViewModel.mensaje,
+                        text: 'No se ha podido accesar a los datos, verifique.',
                         icon: 'warning',
                         confirmButtonText: 'OK'
                     });
@@ -206,6 +206,7 @@
         };
         $scope.crearReporte = function (SalidaDetalle) {
             console.log(SalidaDetalle);
+            
             var form = document.createElement("form");
             form.setAttribute("method", "post");
             form.setAttribute("action", "/Almacen/GenerarSalidaAlmacen");
@@ -238,6 +239,35 @@
 
             document.body.appendChild(form);
             form.submit();
+        };
+        $scope.verReporte = function (SalidaAlmacen) {
+            var dataList = {};
+            dataList = SalidaAlmacen;
+            //url: '@Url.Action("RptSalidaAlmacen", "Almacen")',
+            $.ajax({
+                type: "POST",
+                url: "/Almacen/RptSalidaAlmacen",
+                data: '{smd: ' + JSON.stringify(SalidaAlmacen),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                if (response.fileName != "") {
+                        //use window.location.href for redirect to download action for download the file
+                        window.location.href = "@Url.RouteUrl(new {Controller='PDF',Action='Download'})/?file=" +response.fileName;
+                    }},
+                    failure: function (response) { alert(response.responseText);},
+                });
+            //var form = document.createElement("form");
+            //form.setAttribute("method", "post");
+            //form.setAttribute("action", "/Almacen/RptSalidaAlmacen");
+            //form.appendChild("data", JSON.stringify(dataList));
+            //document.body.appendChild(form);
+            //form.submit();
+        };
+        $scope.CargarDatosSalidaAlmacen = function () {
+
+            $scope.SalidaAlmacenSel.folio = "TUX10";
+            $scope.$apply();
         };
     }]);
     app.filter('counter', [function () {
