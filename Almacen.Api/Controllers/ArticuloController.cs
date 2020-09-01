@@ -22,7 +22,7 @@ namespace Almacen.Api.Controllers
         }
 
         [HttpPost("ObtenerArticulos")]
-        public async Task<IActionResult> ObtenerTipoInmuebles([FromBody] Pagination datos)
+        public async Task<IActionResult> ObtenerArticulos([FromBody] Pagination datos)
         {
             try
             {
@@ -49,8 +49,8 @@ namespace Almacen.Api.Controllers
             }
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Articulo datos)
+        [HttpPost("InsertarArticulo")]
+        public async Task<IActionResult> InsertarArticulo([FromBody] Articulo datos)
         {
             try
             {
@@ -58,6 +58,34 @@ namespace Almacen.Api.Controllers
                 return Ok(response);
             }
             catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpPost("ModificarArticulo")]
+        public async Task<IActionResult> ModificarArticulo([FromBody] Articulo datos)
+        {
+            try
+            {
+                var response = await _articulo.ModificarArticulo(datos);
+                return Ok(response);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpDelete("EliminarArticulo/{id}")]
+        public async Task<IActionResult> EliminarArticulo(string id)
+        {
+            try
+            {
+                var response = await _articulo.EliminarArticulo(id);
+                return Ok(response);
+            }
+            catch (Exception e)
             {
                 return BadRequest(e.Message);
             }

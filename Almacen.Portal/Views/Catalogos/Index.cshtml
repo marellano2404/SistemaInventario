@@ -6,7 +6,144 @@
 <script src="~/angularjs/viewmodels/catalogoscontroller.js"></script>
 <script src="~/angularJs/services/catalogosmodel.js"></script>
 <link href="~/css/datatables/css/dataTables.bootstrap4.css" rel="stylesheet" />
-<div ng-controller="catalogoController" ng-init="iniciar()" ng-cloak>
-   <hr />
-    <h1>{{usuario.Nombre}}</h1>
+<div ng-controller="catalogoController" ng-init="CargarArticulos();" ng-cloak>
+    <p>&nbsp;</p>
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <hr />
+                <h2 class="text-danger">
+                    Administración de los Artículos
+                </h2>
+            </div>
+            <div class="card-body card-block">
+                <div ng-show="verListaArticulos">
+                    <table id="bootstrap-data-table" class="table table-striped table-bordered ListaRegistroTable">
+                        <caption>
+                            Artículos
+                            <a href="">
+                                <img ng-click="mostrarModalArticulo(1)" title="Agregar Articulo" src="~/Content/icons/AgregarRegistro.png" />
+                            </a>
+                        </caption>
+                        <thead>
+                            <tr>
+                                <th class="ListaTh">#</th>
+                                <th>Clave Producto</th>
+                                <th class="ListaTh">Descripción</th>
+                                <th>Marca</th>
+                                <th>Modelo</th>
+                                <th class="ListaTh">Tipo</th>
+                                <th>Presentación</th>
+                                <th>Laboratario</th>
+                                <th>Accíones</th>
+                            </tr>
+                        </thead>
+                        <tbody ng-repeat="A in articulosVM ">
+                            <!-- | orderBy:'claveProducto'" -->
+                            <tr>
+                                <td class="ListaTd">{{$index+1}}.-</td>
+                                <td>{{A.claveProducto}}</td>
+                                <td class="ListaTd">{{A.descripcion}}</td>
+                                <td>{{A.marca}}</td>
+                                <td>{{A.modelo}}</td>
+                                <td class="ListaTd">{{A.tipoCatalogo}}</td>
+                                <td>{{A.presentacion}}</td>
+                                <td>{{A.laboratorio}}</td>
+                                <td><img ng-click="mostrarModalArticulo(2, A.id)" src="~/content/icons/Editar.png" alt="user" class="rounded" width="25"></td>
+                                <td><img ng-click="eliminarArticulo(A.id)" src="~/content/icons/Borrar.png" alt="user" class="rounded" width="25"></td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                    <nav aria-label="...">
+                        <ul class="pagination justify-content-center pagination-sm">
+                            <li class="page-item itemPagination">
+                                <button class="btn btn-light btn-sm" ng-click="Anterior()" ng-disabled="(paginaActual<=1) ? true : false">&laquo</button>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link">
+                                    {{paginaActual}}/{{totalPaginas}}
+                                </a>
+                            </li>
+                            <li class="page-item itemPagination">
+                                <button class="btn btn-light btn-sm" ng-click="Siguiente()" ng-disabled="(paginaActual>=totalPaginas) ? true : false">&raquo</button>
+                                <!--                <a class="page-link" ng-click="Siguiente()">Siguiente</a>-->
+                            </li>
+                        </ul>
+                    </nav>
+                    <hr />
+
+                </div>
+                <div ng-show="verDetallesSalida">
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label for="address">Folio Salida</label>
+                            <input id="folio" name="folio" readonly class="form-control" ng-model="SalidaAlmacenSel.folio" type="text" />
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="address">Lugar Origen</label>
+                            <input id="origen" name="origen" readonly class="form-control" ng-model="SalidaAlmacenSel.almacen" type="text" />
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="address">Lugar Destino</label>
+                            <input id="destino" name="destino" readonly class="form-control" ng-model="SalidaAlmacenSel.farmacia" type="text" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4  mb-3">
+                            <label for="address">Responsable Destino</label>
+                            <input id="responsable" name="responsable" readonly class="form-control" ng-model="SalidaAlmacenSel.responsable" type="text" />
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="address">Fecha Salida</label>
+                            <input id="fechasalida" name="fechasalida" readonly class="form-control" ng-model="SalidaAlmacenSel.fechaCaptura" type="text" />
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="address">Fecha Entrega</label>
+                            <input id="fechaentrega" name="fechaentrega" readonly class="form-control" ng-model="SalidaAlmacenSel.fechaSalida" type="text" />
+                        </div>
+                    </div>
+                    <hr class="mb-4">
+                    <table id="bootstrap-data-table" class="table table-striped table-bordered ListaRegistroTable">
+                        <caption>
+                            A R T I C U L O S &nbsp;&nbsp; D E &nbsp;&nbsp; L A &nbsp;&nbsp; S A L I D A
+                            <a href="">
+                                <img ng-click="mostrarAddArticuloSalida()" title="Agregar Salida" src="~/Content/icons/AgregarRegistro.png" />
+                            </a>
+                        </caption>
+                        <thead>
+                            <tr>
+                                <th class="ListaTh">#</th>
+                                <th>Clave Producto</th>
+                                <th class="ListaTh">Producto</th>
+                                <th>Tipo Catalogo</th>
+                                <th>Cantidad</th>
+                                <th class="ListaTh">Unidad</th>
+                                <th>Fec. Caducidad</th>
+                                <th>Accíones</th>
+                            </tr>
+                        </thead>
+                        <tbody ng-repeat="B in DetalleSalidaVM | orderBy:'descripcion'">
+                            <tr>
+                                <td class="ListaTd">{{$index+1}}.-</td>
+                                <td>{{B.claveProducto}}</td>
+                                <td class="ListaTd">{{B.descripcion}}</td>
+                                <td>{{B.tipoCatalogo}}</td>
+                                <td>{{B.cantidad}}</td>
+                                <td class="ListaTd">{{B.unidad}}</td>
+                                <td>{{B.fechaCaducidad}}</td>
+                                <td><img ng-click="eliminarDetalleSalida(B)" src="~/content/icons/eliminar.png" alt="user" class="rounded" width="25"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <row>
+                        <div class="col-md-2 mb-4">
+                            <button class="btn btn-primary btn-lg btn-block" ng-disabled="validoSalida" ng-click="finalizarSalida()" type="submit">Finalizar Captura</button>
+                        </div>
+                    </row>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-ng-include="Modal"></div>
 </div>
