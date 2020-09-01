@@ -97,6 +97,43 @@
                 callbackResult({ result: false, message: "No se pudo accesar a la lista de servicios" });
             }
         });        
+    },
+    putSalidaAlmacen: function (DetalleSalidaAlmacen, callbackResult) {
+        var self = this;
+        $.ajax({
+            url: urlServer + 'SalidasAlmacen/PutDetalleSalidasAlmacen',
+            type: 'POST',
+            cache: false,
+            contentType: "application/json",
+            data: JSON.stringify(DetalleSalidaAlmacen)
+        }).done(function (res) {
+            self.ResultViewModel = res;
+            if (callbackResult !== null) {
+                callbackResult({ result: true, message: null });
+            }
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            if (callbackResult !== null) {
+                callbackResult({ result: false, message: "No se pudo accesar a la lista de servicios" });
+            }
+        });
+    },
+    cerrarSalidaAlmacen: function (IdSalida,callbackResult) {
+        var self = this;
+        $.ajax({
+            url: urlServer + 'SalidasAlmacen/CerrarSalidaAlmacen',
+            type: 'POST',
+            cache: false,
+            contentType: "application/json",
+            data: JSON.stringify(IdSalida)
+        }).done(function (res) {
+            if (callbackResult !== null) {
+                callbackResult({ result: true, message: null });
+            }
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            if (callbackResult !== null) {
+                callbackResult({ result: false, message: "No se pudo accesar a la lista de servicios" });
+            }
+        });
     }
     //#endregion
 };

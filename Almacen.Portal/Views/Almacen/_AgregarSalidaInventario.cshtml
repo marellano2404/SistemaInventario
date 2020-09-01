@@ -11,6 +11,10 @@
                         <h2 class="text-danger">
                             Agregando Articulo de Inventario
                         </h2>
+                        <a href="">
+                            <img ng-click="cerrarModal()" src="~/content/icons/cerrar.png"
+                                 style="width:27px;height:27px; margin-top:-1%; float:right; padding:2px; margin-right:-1px;" />
+                        </a>
                     </div>
                     <div class="card-body card-block">
                         <form novalidate name="formBusqueda">
@@ -46,51 +50,51 @@
                         <hr class="mb-4">
                         <form novalidate name="formSalidaArticulo">
                             <div class="row">
-                                <div class="col-md-4 mb-3">
+                                <div class="col-md-3 mb-3">
                                     <label for="address">Inventario</label>
                                     <input id="inventario" name="inventario" readonly class="form-control" ng-model="ArticuloInventarioVM.claveInventario" type="text" />
                                 </div>
-                                <div class="col-md-4 mb-3">
+                                <div class="col-md-3 mb-3">
                                     <label for="address">Clave</label>
                                     <input id="clavei" name="clavei" readonly class="form-control" ng-model="ArticuloInventarioVM.claveProducto" type="text" />
                                 </div>
-                                <div class="col-md-4 mb-3">
+                                <div class="col-md-6 mb-6">
                                     <label for="address">Producto</label>
                                     <input id="arti" name="arti" readonly class="form-control" ng-model="ArticuloInventarioVM.descripcion" type="text" />
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-4  mb-3">
+                                <div class="col-md-8 mb-8">
                                     <label for="address">Detalles</label>
                                     <input id="detalles" name="detalles" readonly class="form-control" ng-model="ArticuloInventarioVM.detalles" type="text" />
                                 </div>
-                                <div class="col-md-4 mb-3">
+                                <div class="col-md-2 mb-2">
                                     <label for="address">Tipo Catalogo</label>
                                     <input id="tipocata" name="tipocata" readonly class="form-control" ng-model="ArticuloInventarioVM.tipoCatalogo" type="text" />
                                 </div>
-                                <div class="col-md-4 mb-3">
-                                    <label for="address">Fecha Caducidad</label>
-                                    <input id="fechaca" name="fechaca" readonly class="form-control" ng-model="ArticuloInventarioVM.fechaCaducidad" type="text" />
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4  mb-3">
-                                    <label for="address">Existencias</label>
-                                    <input id="exis" name="exis" readonly class="form-control" ng-model="ArticuloInventarioVM.cantidad" type="text" />
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <label for="address">Existencias Unidad</label>
-                                    <input id="exiun" name="exiun" readonly class="form-control" ng-model="ArticuloInventarioVM.existenciasUnidad" type="text" />
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <label for="address">Cantidad</label>
-                                    <input id="cantidasalida" name="cantidasalida" class="form-control" ng-model="ArticuloSalidaSel.cantidadSalida" ng-required="true" type="text" />
-                                </div>
-                                <div class="col-md-4 mb-3">
+                                <div class="col-md-2 mb-2">
                                     <label for="address">Tipo Unidad</label>
                                     <select name="UnidadSelect" class="custom-select d-block w-100" ng-model="ArticuloSalidaSel.tipoUnidad" ng-options="i.Id as i.Valor for i in ListaUnidades" ng-required="true">
                                         <option value="">Selecciona...</option>
                                     </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3 mb-2">
+                                    <label for="address">Existencias</label>
+                                    <input id="exis" name="exis" readonly class="form-control" ng-model="ArticuloInventarioVM.cantidad" type="text" />
+                                </div>
+                                <div class="col-md-3 mb-2">
+                                    <label for="address">Existencias Unidad</label>
+                                    <input id="exiun" name="exiun" readonly class="form-control" ng-model="ArticuloInventarioVM.existenciasUnidad" type="text" />
+                                </div>
+                                <div class="col-md-3 mb-2">
+                                    <label for="address">Fecha Caducidad</label>
+                                    <input id="fechaca" name="fechaca" readonly class="form-control" ng-model="ArticuloInventarioVM.fechaCaducidad" type="text" />
+                                </div>
+                                <div class="col-md-3 mb-2">
+                                    <label for="address">Cantidad</label>
+                                    <input id="cantidasalida" name="cantidasalida" class="form-control" ng-model="ArticuloSalidaSel.cantidadSalida" ng-required="true" type="number" />
                                 </div>
                             </div>
                             <div class="row">

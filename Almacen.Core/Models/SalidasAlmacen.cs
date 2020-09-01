@@ -14,8 +14,10 @@ namespace Almacen.Core.Models
         [StringLength(50)]
         public string Folio { get; set; }
         [Column(TypeName = "date")]
-        public DateTime? FechaVenta { get; set; }
-        public Guid? IdCliente { get; set; }
-        public Guid? IdEstablecimiento { get; set; }
+        public DateTime? FechaSalida { get; set; }
+        public Guid? IdFarmacia { get; set; }
+        public Guid? IdAlmacen { get; set; }
+        public DateTime FechaCaptura { get; set; }
+        public int Estatus { get; set; }
     }
 }

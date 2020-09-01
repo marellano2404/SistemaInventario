@@ -16,13 +16,6 @@
                 </h2>
             </div>
             <div class="card-body card-block">
-                @*<div class="row">
-                        <div class="col-sm-12 col-md-6">
-                            <div id="bootstrap-data-table_filter" class="dataTables_filter">
-                            <label>Buscar:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="bootstrap-data-table"></label>
-                            </div>
-                        </div>
-                    </div>*@
                 <div ng-show="verListaSalidas">
                     <table id="bootstrap-data-table" class="table table-striped table-bordered ListaRegistroTable">
                         <caption>
@@ -108,7 +101,7 @@
                                 <th>Accíones</th>
                             </tr>
                         </thead>
-                        <tbody ng-repeat="B in DetalleSalidaVM | orderBy:'folio'">
+                        <tbody ng-repeat="B in DetalleSalidaVM | orderBy:'descripcion'">
                             <tr>
                                 <td class="ListaTd">{{$index+1}}.-</td>
                                 <td>{{B.claveProducto}}</td>
@@ -121,6 +114,11 @@
                             </tr>
                         </tbody>
                     </table>
+                    <row>
+                        <div class="col-md-2 mb-4">
+                            <button class="btn btn-primary btn-lg btn-block" ng-disabled="validoSalida" ng-click="finalizarSalida()" type="submit">Finalizar Captura</button>
+                        </div>
+                    </row>
                 </div>
             </div>
         </div>
