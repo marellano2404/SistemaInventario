@@ -204,6 +204,65 @@
                 }
             });
         };
+        $scope.crearReporte = function (SalidaDetalle) {
+
+            var form = document.createElement("form");
+            form.setAttribute("method", "post");
+            form.setAttribute("action", "/Almacen/GenerarCedulaSalida");
+
+            var Plantel = document.createElement("input");
+            Plantel.setAttribute("type", "hidden");
+            Plantel.setAttribute("name", "Plantel");
+            Plantel.setAttribute("value", $scope.DatosCedulaInscripcion.plantel);
+            //FechaInicio.setAttribute("value", 01-07-2019);
+            var NombreCompleto = document.createElement("input");
+            NombreCompleto.setAttribute("type", "hidden");
+            NombreCompleto.setAttribute("name", "NombreCompleto");
+            NombreCompleto.setAttribute("value", $scope.DatosCedulaInscripcion.nombres + ' ' + $scope.DatosCedulaInscripcion.apellidos);
+
+            var Curp = document.createElement("input");
+            Curp.setAttribute("type", "hidden");
+            Curp.setAttribute("name", "Curp");
+            Curp.setAttribute("value", $scope.DatosCedulaInscripcion.curp);
+
+            var FichaExamen = document.createElement("input");
+            FichaExamen.setAttribute("type", "hidden");
+            FichaExamen.setAttribute("name", "FichaExamen");
+            FichaExamen.setAttribute("value", $scope.DatosCedulaInscripcion.fichaExamen);
+
+            var FechaOficio = document.createElement("input");
+            FechaOficio.setAttribute("type", "hidden");
+            FechaOficio.setAttribute("name", "fechaOficio");
+            FechaOficio.setAttribute("value", $scope.DatosCedulaInscripcion.fecha_Operacion);
+
+            var FechaNacimiento = document.createElement("input");
+            FechaNacimiento.setAttribute("type", "hidden");
+            FechaNacimiento.setAttribute("name", "fechaNacimiento");
+            FechaNacimiento.setAttribute("value", $scope.DatosCedulaInscripcion.fechaNacimiento);
+
+
+            var Sexo = document.createElement("input");
+            Sexo.setAttribute("type", "hidden");
+            Sexo.setAttribute("name", "Sexo");
+            Sexo.setAttribute("value", $scope.DatosCedulaInscripcion.sexo);
+
+            var Turno = document.createElement("input");
+            Turno.setAttribute("type", "hidden");
+            Turno.setAttribute("name", "Turno");
+            Turno.setAttribute("value", $scope.DatosCedulaInscripcion.turno);
+
+            form.appendChild(Plantel);
+            form.appendChild(NombreCompleto);
+            form.appendChild(Curp);
+            form.appendChild(FichaExamen);
+            form.appendChild(FechaOficio);
+            form.appendChild(FechaNacimiento);
+            form.appendChild(Sexo);
+            form.appendChild(Turno);
+
+            document.body.appendChild(form);
+            form.submit();
+        };
     }]);
     app.filter('counter', [function () {
         return function (seconds) {
