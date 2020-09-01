@@ -24,5 +24,12 @@ namespace Almacen.Portal.Controllers
         {
             return View();
         }
+
+        public IActionResult _AgregarArticulo()
+        {
+            return PartialView();
+        }
+
+
     }
 }
