@@ -34,6 +34,7 @@
                                 <th class="ListaTh">Fecha Salida</th>
                                 <th>Recibido</th>
                                 <th>Accíones</th>
+                                <th>Cedula Salida</th>
                             </tr>
                         </thead>
                         <tbody ng-repeat="A in salidasAlmacenVM | orderBy:'folio'">
@@ -46,6 +47,7 @@
                                 <td class="ListaTd">{{A.fechaCaptura | ctime}}</td>
                                 <td>{{A.fechaSalida | ctimeHora}}</td>
                                 <td><img ng-click="verDetalleSalida(A)" src="~/content/icons/Observaciones.png" alt="user" class="rounded" width="25"></td>
+                                <td><img ng-click="crearReporte(B)" src="~/content/icons/Validado.png" alt="user" class="rounded" width="25"></td>
                             </tr>
                         </tbody>
                     </table>
@@ -99,7 +101,6 @@
                                 <th class="ListaTh">Unidad</th>
                                 <th>Fec. Caducidad</th>
                                 <th>Accíones</th>
-                                <th>Cedula Salida</th>
                             </tr>
                         </thead>
                         <tbody ng-repeat="B in DetalleSalidaVM | orderBy:'descripcion'">
@@ -112,7 +113,6 @@
                                 <td class="ListaTd">{{B.unidad}}</td>
                                 <td>{{B.fechaCaducidad}}</td>
                                 <td><img ng-click="eliminarDetalleSalida(B)" src="~/content/icons/eliminar.png" alt="user" class="rounded" width="25"></td>
-                                <td><img ng-click="crearReporte(B)" src="~/content/icons/Validado.png" alt="user" class="rounded" width="25"></td>
                             </tr>
                         </tbody>
                     </table>
