@@ -205,60 +205,36 @@
             });
         };
         $scope.crearReporte = function (SalidaDetalle) {
-
+            console.log(SalidaDetalle);
             var form = document.createElement("form");
             form.setAttribute("method", "post");
-            form.setAttribute("action", "/Almacen/GenerarCedulaSalida");
+            form.setAttribute("action", "/Almacen/GenerarSalidaAlmacen");
 
-            var Plantel = document.createElement("input");
-            Plantel.setAttribute("type", "hidden");
-            Plantel.setAttribute("name", "Plantel");
-            Plantel.setAttribute("value", $scope.DatosCedulaInscripcion.plantel);
+            var Clave = document.createElement("input");
+            Clave.setAttribute("type", "hidden");
+            Clave.setAttribute("name", "Clave");
+            Clave.setAttribute("value", SalidaDetalle.claveProducto);
             //FechaInicio.setAttribute("value", 01-07-2019);
-            var NombreCompleto = document.createElement("input");
-            NombreCompleto.setAttribute("type", "hidden");
-            NombreCompleto.setAttribute("name", "NombreCompleto");
-            NombreCompleto.setAttribute("value", $scope.DatosCedulaInscripcion.nombres + ' ' + $scope.DatosCedulaInscripcion.apellidos);
+            var Descripcion = document.createElement("input");
+            Descripcion.setAttribute("type", "hidden");
+            Descripcion.setAttribute("name", "Descripcion");
+            Descripcion.setAttribute("value", SalidaDetalle.descripcion);
 
-            var Curp = document.createElement("input");
-            Curp.setAttribute("type", "hidden");
-            Curp.setAttribute("name", "Curp");
-            Curp.setAttribute("value", $scope.DatosCedulaInscripcion.curp);
+            var TipoCatalogo = document.createElement("input");
+            TipoCatalogo.setAttribute("type", "hidden");
+            TipoCatalogo.setAttribute("name", "TipoCatalogo");
+            TipoCatalogo.setAttribute("value", SalidaDetalle.tipoCatalogo);
 
-            var FichaExamen = document.createElement("input");
-            FichaExamen.setAttribute("type", "hidden");
-            FichaExamen.setAttribute("name", "FichaExamen");
-            FichaExamen.setAttribute("value", $scope.DatosCedulaInscripcion.fichaExamen);
+            var ExistenciaUnidad = document.createElement("input");
+            ExistenciaUnidad.setAttribute("type", "hidden");
+            ExistenciaUnidad.setAttribute("name", "ExistenciaUnidad");
+            ExistenciaUnidad.setAttribute("value", SalidaDetalle.existenciaUnidad);
+        
 
-            var FechaOficio = document.createElement("input");
-            FechaOficio.setAttribute("type", "hidden");
-            FechaOficio.setAttribute("name", "fechaOficio");
-            FechaOficio.setAttribute("value", $scope.DatosCedulaInscripcion.fecha_Operacion);
-
-            var FechaNacimiento = document.createElement("input");
-            FechaNacimiento.setAttribute("type", "hidden");
-            FechaNacimiento.setAttribute("name", "fechaNacimiento");
-            FechaNacimiento.setAttribute("value", $scope.DatosCedulaInscripcion.fechaNacimiento);
-
-
-            var Sexo = document.createElement("input");
-            Sexo.setAttribute("type", "hidden");
-            Sexo.setAttribute("name", "Sexo");
-            Sexo.setAttribute("value", $scope.DatosCedulaInscripcion.sexo);
-
-            var Turno = document.createElement("input");
-            Turno.setAttribute("type", "hidden");
-            Turno.setAttribute("name", "Turno");
-            Turno.setAttribute("value", $scope.DatosCedulaInscripcion.turno);
-
-            form.appendChild(Plantel);
-            form.appendChild(NombreCompleto);
-            form.appendChild(Curp);
-            form.appendChild(FichaExamen);
-            form.appendChild(FechaOficio);
-            form.appendChild(FechaNacimiento);
-            form.appendChild(Sexo);
-            form.appendChild(Turno);
+            form.appendChild(Clave);
+            form.appendChild(Descripcion);
+            form.appendChild(TipoCatalogo);
+            form.appendChild(ExistenciaUnidad);
 
             document.body.appendChild(form);
             form.submit();

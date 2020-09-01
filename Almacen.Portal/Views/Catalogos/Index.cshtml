@@ -1,104 +1,12 @@
-﻿@{
+﻿
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<script src="~/angularjs/viewmodels/alumnocontroller.js"></script>
-<script src="~/angularJs/services/alumnoModel.js"></script>
-<div ng-controller="alumnoNgController" ng-cloak>
-    <p>&nbsp;</p>
-    <div class="col-lg-12">
-        <div class="card">
-            <div class="card-header">
-                <p>
-                    <h3 class="text-info">BIENVENIDO AL REGISTRO EN LINEA </h3>
-                </p>
-                <hr />
-                <h2 class="text-danger">{{valores}}</h2>
-                <hr />
-                <h2 class="text-danger">
-                    Ingrese los datos correctamente ya que se validaran y usaran para futuros tramites.
-                </h2>
-            </div>
-            <div class="card-body card-block">
-                <form name="formAspirante" novalidate="">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="firstName" class="control-label mb-1">Nombre(s) </label>
-                                <input type="text" class="form-control text-uppercase" ng-pattern="/^([A-Za-z ñ/Ñ]{2,60})$/" name="firstName" id="firstName" ng-disabled="inhabilitarDatos" placeholder="Formato:ANA MARIA" ng-required="true" ng-maxlength="25" ng-model="aspirante.nombres" />
-                                <span class="MensajeErrorDatos" data-ng-show="formAspirante.firstName.$error.required && formAspirante.firstName.$dirty">Información Requerida</span>
-                                <span class="MensajeErrorDatos" data-ng-show="formAspirante.firstName.$error.pattern">Error en el formato y tamaño, Solo Mayusculas y no se aceptan aceptos!</span>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <label for="lastName">Apellido Paterno</label>
-                            <input type="text" class="form-control text-uppercase" ng-pattern="/^([A-Za-z ñ/Ñ]{2,60})$/" id="apepaterno" ng-disabled="inhabilitarDatos" name="apepaterno" placeholder="DE LA CRUZ" ng-required="true" ng-model="aspirante.apellidopaterno">
-                            <span class="MensajeErrorDatos" data-ng-show="formAspirante.apepaterno.$error.required && formAspirante.apepaterno.$dirty">Información Requerida</span>
-                            <span class="MensajeErrorDatos" data-ng-show="formAspirante.apepaterno.$error.pattern">Error en el formato y tamaño, Solo Mayusculas y no se aceptan aceptos!</span>
-                        </div>
-                        <div class="col-md-4">
-                            <label for="lastName">Apellido Materno</label>
-                            <input type="text" class="form-control text-uppercase" ng-pattern="/^([A-Za-z ñ/Ñ]{2,60})$/" name="apematerno" id="apematerno" ng-disabled="inhabilitarDatos" placeholder="GOMEZ" ng-required="true" ng-model="aspirante.apellidomaterno">
-                            <span class="MensajeErrorDatos" data-ng-show="formAspirante.apematerno.$error.required && formAspirante.apematerno.$dirty">Información Requerida</span>
-                            <span class="MensajeErrorDatos" data-ng-show="formAspirante.apematerno.$error.pattern">Error en el formato, Solo Mayusculas y no se aceptan aceptos, si es Extranjero ponga SAPELLIDO!</span>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6  mb-3">
-                            <label for="address">Fecha Nacimiento(Valido despues del 01/Ene/2002)</label>
-                            <input id="fechanacimiento" name="fechanacimiento" placeholder="31/12/2002" ng-disabled="inhabilitarDatos" min="2002-01-01" max="2007-12-31" class="form-control" ng-model="aspirante.fechanacimiento" type="date" ng-required="true" />
-                            <span class="MensajeErrorDatos" data-ng-show="formAspirante.fechanacimiento.$error.required && formAspirante.fechanacimiento.$dirty">Información Requerida</span>
-                            <span class="MensajeErrorDatos" data-ng-show="formAspirante.fechanacimiento.$error.date">Fecha no valida!</span>
-
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="sexo">Sexo</label>
-                            <select name="SexoSelect" class="custom-select d-block w-100" ng-disabled="inhabilitarDatos" ng-model="aspirante.sexo" ng-options="i.Clave as i.Descripcion for i in ListaSexo" ng-required="true">
-                                <option value="">Selecciona...</option>
-                            </select>
-                            <span class="MensajeErrorDatosCombo" data-ng-show="formAspirante.SexoSelect.$error.required">No Seleccionado</span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="country">Entidad Federativa de Nacimiento</label>
-                            <select name="EstadosSelect" class="custom-select d-block w-100" ng-disabled="inhabilitarDatos" ng-model="aspirante.entidadnacimiento" ng-options="J.clave as J.estado for J in EstadosViewModel" ng-required="true" ng-change="generarCurp();">
-                                <option value="">Selecciona...</option>
-                            </select>
-                            <span class="MensajeErrorDatosCombo" data-ng-show="formAspirante.EstadosSelect.$error.required">Información Requerida</span>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="zip">CURP</label>
-                            <input type="text" class="form-control" ng-disabled="inhabilitarDatos" ng-change="validarInput(aspirante.curp);" ng-pattern="/^[0-9A-Z]{18,18}$/" maxlength="18" ng-minlength="18" id="curp" name="curp" placeholder="CURP" ng-required="true" ng-model="aspirante.curp">
-                            <span class="MensajeErrorDatos" data-ng-show="formAspirante.curp.$error.required && formAspirante.curp.$dirty">Información Requerida</span>
-                            <span class="MensajeErrorDatos" data-ng-show="formAspirante.curp.$error.pattern">Error en el formato y tamaño!</span>
-                            <pre id="resultado"></pre>
-                            <pre><a style="font-size:1.6em;" href="#" onclick="abrirNuevaVentana()">Consulta tu CURP</a></pre>
-                        </div>
-                    </div>
-                    <hr class="mb-4">
-                    <row>
-                        <div class="mb-3">
-                            <label for="email">
-                                <span class="h4 text-danger">
-                                    Correo (El usuario y contraseña se enviarán a tu correo de manera automática,
-                                    es por ello que es importante revisar el correo que utilizarás al momento de tu registro.)
-                                </span>
-                            </label>
-                            <input type="email" class="form-control" id="correo" ng-disabled="inhabilitarVistaDatos" name="correo" placeholder="correo@ejemplo.com" ng-model="aspirante.correo" ng-required="true">
-                            <span class="MensajeErrorDatos" data-ng-show="formAspirante.correo.$error.required && formAspirante.correo.$dirty">Ingrese un correo valido para enviarle su clave de ingreso.</span>
-                            <span class="MensajeErrorDatos" data-ng-show="formAspirante.correo.$error.email">Error en el formato del correo!</span>
-                        </div>
-                    </row>
-                    <row>
-                        <div class="col-md-3 mb-4">
-                            <button class="btn btn-primary btn-lg btn-block" ng-disabled="validoConvocatoria" ng-click="guardarNvoAspirante(formAspirante.$valid)" type="submit">Registrarse</button>
-                        </div>
-                    </row>
-                </form>
-                <hr />
-            </div>
-        </div>
-    </div>
-    <div data-ng-include="Modal"></div>
+<script src="~/angularJs/globalwebang.js"></script>
+<script src="~/angularjs/viewmodels/catalogoscontroller.js"></script>
+<script src="~/angularJs/services/catalogosmodel.js"></script>
+<link href="~/css/datatables/css/dataTables.bootstrap4.css" rel="stylesheet" />
+<div ng-controller="catalogoController" ng-init="iniciar()" ng-cloak>
+   <hr />
+    <h1>{{usuario.Nombre}}</h1>
 </div>

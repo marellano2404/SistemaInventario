@@ -9,6 +9,14 @@
             catalogoContext.UsuarioViewModel = $scope.UsuarioViewModel;
         };
 
+        $scope.iniciar = () => {
+            let usuario = {
+                "Nombre": "Daniel",
+                "Edad" : "16"
+            };
+            $scope.usuario = usuario;
+        }
+
     }]);
     app.filter('counter', [function () {
         return function (seconds) {
