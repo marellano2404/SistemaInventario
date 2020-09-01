@@ -1,0 +1,12 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/angularJs/globalwebang.js"></script>
+<script src="~/angularjs/viewmodels/catalogoscontroller.js"></script>
+<script src="~/angularJs/services/catalogosmodel.js"></script>
+<link href="~/css/datatables/css/dataTables.bootstrap4.css" rel="stylesheet" />
+<div ng-controller="catalogoController" ng-init="iniciar()" ng-cloak>
+   <hr />
+    <h1>{{usuario.Nombre}}</h1>
+</div>
