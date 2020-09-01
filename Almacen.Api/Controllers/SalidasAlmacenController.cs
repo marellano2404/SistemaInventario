@@ -86,12 +86,26 @@ namespace Almacen.Api.Controllers
                 return BadRequest();
             }
         }
-        [HttpPost("PutArticuloSalidaAlmacen")]
-        public async Task<IActionResult> PutArticuloSalidaAlmacen([FromBody]ArticuloSalidaAlmacenVM ArticuloSalidaAlmacen)
+        [HttpPost("PutDetalleSalidasAlmacen")]
+        public async Task<IActionResult> PutArticuloSalidaAlmacen([FromBody]ArticuloSalidaAlmacenVM DetalleSalidaAlmacen)
         {
             try
             {
-                var resultado = await _SalidasAlmacenService.PutDetalleSalidaAlmacen(ArticuloSalidaAlmacen);
+                var resultado = await _SalidasAlmacenService.PutDetalleSalidaAlmacen(DetalleSalidaAlmacen);
+                return Ok(resultado);
+            }
+            catch (Exception ex)
+            {
+                var mensaje = ex.Message.ToString();
+                return BadRequest();
+            }
+        }
+        [HttpPost("CerrarSalidaAlmacen")]
+        public async Task<IActionResult> CerrarSalidadeAlmacen([FromBody]Guid IdSalida)
+        {
+            try
+            {
+                var resultado = await _SalidasAlmacenService.CerrarSalidaAlmacen(IdSalida);
                 return Ok(resultado);
             }
             catch (Exception ex)

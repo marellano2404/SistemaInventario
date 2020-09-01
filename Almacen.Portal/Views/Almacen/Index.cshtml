@@ -101,7 +101,7 @@
                                 <th>Accíones</th>
                             </tr>
                         </thead>
-                        <tbody ng-repeat="B in DetalleSalidaVM | orderBy:'folio'">
+                        <tbody ng-repeat="B in DetalleSalidaVM | orderBy:'descripcion'">
                             <tr>
                                 <td class="ListaTd">{{$index+1}}.-</td>
                                 <td>{{B.claveProducto}}</td>
@@ -114,6 +114,11 @@
                             </tr>
                         </tbody>
                     </table>
+                    <row>
+                        <div class="col-md-2 mb-4">
+                            <button class="btn btn-primary btn-lg btn-block" ng-disabled="validoSalida" ng-click="finalizarSalida()" type="submit">Finalizar Captura</button>
+                        </div>
+                    </row>
                 </div>
             </div>
         </div>
