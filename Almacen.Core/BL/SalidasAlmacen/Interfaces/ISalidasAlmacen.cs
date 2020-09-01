@@ -13,5 +13,6 @@ namespace Almacen.Core.BL.SalidasAlmacen.Interfaces
         Task<ResultViewModel>DelDetalleSalidaAlmacen(Guid idDetalleSalidaAlmacen);
         Task<ArticulosInventarioVM> BuscarArticuloInventario(string tipo, string valor);
         Task<ResultViewModel>PutDetalleSalidaAlmacen(ArticuloSalidaAlmacenVM articuloSalidaAlmacen);
+        Task<bool>CerrarSalidaAlmacen(Guid idSalida);
     }
 }

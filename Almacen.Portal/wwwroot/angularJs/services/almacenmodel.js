@@ -98,14 +98,14 @@
             }
         });        
     },
-    putartSalidaAlmacen: function (ArticuloSalidaAlmacen,callbackResult) {
+    putSalidaAlmacen: function (DetalleSalidaAlmacen, callbackResult) {
         var self = this;
         $.ajax({
-            url: urlServer + 'SalidasAlmacen/PutArticuloSalidaAlmacen',
+            url: urlServer + 'SalidasAlmacen/PutDetalleSalidasAlmacen',
             type: 'POST',
             cache: false,
             contentType: "application/json",
-            data: JSON.stringify(ArticuloSalidaAlmacen)
+            data: JSON.stringify(DetalleSalidaAlmacen)
         }).done(function (res) {
             self.ResultViewModel = res;
             if (callbackResult !== null) {
@@ -117,5 +117,23 @@
             }
         });
     },
+    cerrarSalidaAlmacen: function (IdSalida,callbackResult) {
+        var self = this;
+        $.ajax({
+            url: urlServer + 'SalidasAlmacen/CerrarSalidaAlmacen',
+            type: 'POST',
+            cache: false,
+            contentType: "application/json",
+            data: JSON.stringify(IdSalida)
+        }).done(function (res) {
+            if (callbackResult !== null) {
+                callbackResult({ result: true, message: null });
+            }
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            if (callbackResult !== null) {
+                callbackResult({ result: false, message: "No se pudo accesar a la lista de servicios" });
+            }
+        });
+    }
     //#endregion
 };

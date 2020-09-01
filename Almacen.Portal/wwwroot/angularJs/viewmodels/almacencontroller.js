@@ -35,7 +35,7 @@
             almacenContext.getdetalleSalidaAlmacen(Salida.folio, function (res1) {
                 if (res1.result === true) {
                     localStorage.setItem("idSalidaSel", Salida.id);
-                    localStorage.setItem("FolioSalida", Salida.folio);
+                    localStorage.setItem("folioSalida", Salida.folio);
                     $scope.SalidaAlmacenSel = Salida;
                     $scope.DetalleSalidaVM = almacenContext.DetalleSalidaVM;
                     $scope.verDetallesSalida = true;
@@ -67,7 +67,7 @@
                     else {
                         Swal.fire({
                             title: 'Mensaje del Sistema',
-                            text: $scope.ArticuloInventarioVM.mensaje,
+                            text: 'No se encontro ningun articulo con esos datos!',
                             icon: 'warning',
                             confirmButtonText: 'OK'
                         });
@@ -81,14 +81,13 @@
                     $scope.ResultViewModel = almacenContext.ResultViewModel;
                     Swal.fire({
                         title: 'Mensaje del Sistema',
-                        text: $scope.ResultViewModel.mensaje,
+                        text: 'Se ha eliminado correctamente su articulo',
                         icon: 'success',
                         confirmButtonText: 'OK'
                     });
                     var folioSalida = localStorage.getItem("folioSalida");
                     almacenContext.getdetalleSalidaAlmacen(folioSalida, function (res3) {
                         if (res3.result === true) {
-                            $scope.SalidaAlmacenSel = Salida;
                             $scope.DetalleSalidaVM = almacenContext.DetalleSalidaVM;
                             $scope.verDetallesSalida = true;
                             $scope.verListaSalidas = false;
@@ -122,23 +121,48 @@
                 $scope.ArticuloSalidaSel.idSalidaAlmacen = idSalidaAlmacenSel;
                 $scope.ArticuloSalidaSel.idInventario = $scope.ArticuloInventarioVM.idInventario;
                 $scope.ArticuloSalidaSel.idArticulo = $scope.ArticuloInventarioVM.idArticulo;
-                almacenContext.putartSalidaAlmacen($scope.ArticuloSalidaSel, function (res1) {
-                    if (res1.result === true) {  
-                        var Folio = localStorage.getItem("FolioSalida");
-                        almacenContext.getdetalleSalidaAlmacen(Folio, function (res4) {
-                            if (res4.result === true) {                                
-                                $scope.SalidaAlmacenSel = Salida;
-                                $scope.DetalleSalidaVM = almacenContext.DetalleSalidaVM;
-                                $scope.verDetallesSalida = true;
-                                $scope.verListaSalidas = false;
-                                $scope.$apply();
-                            }
-                        });
+                almacenContext.putSalidaAlmacen($scope.ArticuloSalidaSel, function (res5) {
+                    if (res5.result === true) {
+                        $scope.ResultViewModel = almacenContext.ResultViewModel;
+                        if ($scope.ResultViewModel.exito === true) {
+                            Swal.fire({
+                                title: 'Mensaje del Sistema',
+                                text: 'Se agrego correctamente el articulo!.',
+                                icon: 'success',
+                                confirmButtonText: 'OK'
+                            });
+                            var folioSalida = localStorage.getItem("folioSalida");
+                            almacenContext.getdetalleSalidaAlmacen(folioSalida, function (res4) {
+                                if (res4.result === true) {
+                                    $scope.DetalleSalidaVM = almacenContext.DetalleSalidaVM;
+                                    $scope.verModal = false;
+                                    $scope.verDetallesSalida = true;
+                                    $scope.verListaSalidas = false;
+                                    $scope.$apply();
+                                }
+                                else {
+                                    Swal.fire({
+                                        title: 'Mensaje del Sistema',
+                                        text: $scope.DetalleSalidaVM[0].mensaje,
+                                        icon: 'warning',
+                                        confirmButtonText: 'OK'
+                                    });
+                                }
+                            });
+                        }
+                        else {
+                            Swal.fire({
+                                title: 'Mensaje del Sistema',
+                                text: $scope.ResultViewModel.mensaje,
+                                icon: 'warning',
+                                confirmButtonText: 'OK'
+                            });
+                        }
                     }
                     else {
                         Swal.fire({
                             title: 'Mensaje del Sistema',
-                            text: $scope.ResultLoginViewModel.mensaje,
+                            text: 'Hubo un detalle en la comunicación con el servidor.',
                             icon: 'warning',
                             confirmButtonText: 'OK'
                         });
@@ -156,7 +180,30 @@
             }
            
         };
-
+        $scope.cerrarModal = function () {
+            $scope.verModal = false;
+            $scope.Modal = "";
+            $scope.$apply();
+        };
+        $scope.finalizarSalida = function () {
+            var idSalida = localStorage.getItem("idSalidaSel");
+            almacenContext.cerrarSalidaAlmacen(idSalida, function (res4) {
+                if (res4.result === true) {
+                    //$scope.DetalleSalidaVM = almacenContext.DetalleSalidaVM;                    
+                    $scope.verDetallesSalida = false;
+                    $scope.verListaSalidas = true;
+                    $scope.$apply();
+                }
+                else {
+                    Swal.fire({
+                        title: 'Mensaje del Sistema',
+                        text: 'Ocurrio un error en el guardado!.',
+                        icon: 'warning',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            });
+        };
     }]);
     app.filter('counter', [function () {
         return function (seconds) {

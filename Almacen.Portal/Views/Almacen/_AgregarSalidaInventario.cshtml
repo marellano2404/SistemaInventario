@@ -11,6 +11,10 @@
                         <h2 class="text-danger">
                             Agregando Articulo de Inventario
                         </h2>
+                        <a href="">
+                            <img ng-click="cerrarModal()" src="~/content/icons/cerrar.png"
+                                 style="width:27px;height:27px; margin-top:-1%; float:right; padding:2px; margin-right:-1px;" />
+                        </a>
                     </div>
                     <div class="card-body card-block">
                         <form novalidate name="formBusqueda">
@@ -54,7 +58,7 @@
                                     <label for="address">Clave</label>
                                     <input id="clavei" name="clavei" readonly class="form-control" ng-model="ArticuloInventarioVM.claveProducto" type="text" />
                                 </div>
-                                <div class="col-md-5 mb-5">
+                                <div class="col-md-6 mb-6">
                                     <label for="address">Producto</label>
                                     <input id="arti" name="arti" readonly class="form-control" ng-model="ArticuloInventarioVM.descripcion" type="text" />
                                 </div>
