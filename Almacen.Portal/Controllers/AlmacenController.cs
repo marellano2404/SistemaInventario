@@ -45,7 +45,7 @@ namespace Almacen.Portal.Controllers
             var ruta = Path.Combine(hostingEnv.WebRootPath, "Files\\SalidaAlmacen");
             var rutaImagen = Path.Combine(hostingEnv.WebRootPath, "Content\\Imgs");
 
-            PdfWriter.GetInstance(PDF, new FileStream(ruta + $"/Prueba" + ".pdf", FileMode.Create));
+            PdfWriter.GetInstance(PDF, new FileStream(ruta + $"/Prueba.pdf", FileMode.Create));
             PDF.Open();
 
             /*Fuentes*/
@@ -82,15 +82,15 @@ namespace Almacen.Portal.Controllers
 
             try
             {
-                var DocumentoByte = StreamFile(ruta + $"/Prueba"+".pdf");
-                var file = ruta + $"\\Prueba"+".pdf";
+                var DocumentoByte = StreamFile(ruta + $"/Prueba.pdf");
+                var file = ruta + $"\\Prueba.pdf";
 
 
                 if (System.IO.File.Exists(file))
                 {
                     System.IO.File.Delete(file);
                 }
-                return File(DocumentoByte, System.Net.Mime.MediaTypeNames.Application.Octet, "Prueba" + ".pdf");
+                return File(DocumentoByte, System.Net.Mime.MediaTypeNames.Application.Octet, "Prueba.pdf");
 
 
             }
