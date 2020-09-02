@@ -15,6 +15,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using Almacen.Portal.Models;
 using Newtonsoft.Json;
+using Microsoft.VisualBasic;
 
 namespace Almacen.Portal.Controllers
 {
@@ -33,25 +34,35 @@ namespace Almacen.Portal.Controllers
         {
             return PartialView();
         }
-        //[HttpPost]
-        //public FileResult RptSalidaAlmacen([FromForm] IFormCollection SalidadeAlmacen)
-        //{
-        //    var Id = SalidadeAlmacen["Id"].ToString();
-        //    var Folio = SalidadeAlmacen["Folio"].ToString();
-        //    var FechaCaptura = SalidadeAlmacen["FechaCaptura"].ToString();
-        //    var FechaSalida = SalidadeAlmacen["FechaSalida"].ToString();
-        //    var Farmacia = SalidadeAlmacen["Farmacia"].ToString();
-        //    var Almacen = SalidadeAlmacen["Almacen"].ToString();
-        //    var Responsable = SalidadeAlmacen["Responsable"].ToString();
+        [HttpPost]
+        public IActionResult RptSalidaAlmacen([FromForm] IFormCollection SalidadeAlmacen)
+        {
+            var IdSt = SalidadeAlmacen["Id"].ToString();
+            var FolioSt = SalidadeAlmacen["Folio"].ToString();
+            var FechaCapturaSt = SalidadeAlmacen["FechaCaptura"].ToString();
+            var FechaSalidaSt = SalidadeAlmacen["FechaSalida"].ToString();
+            var FarmaciaSt = SalidadeAlmacen["Farmacia"].ToString();
+            var AlmacenSt = SalidadeAlmacen["Almacen"].ToString();
+            var ResponsableST = SalidadeAlmacen["Responsable"].ToString();
 
-            
-        //    return new ViewAsPdf("RptSalidaAlmacen", SalidadeAlmacen)
-        //    {
-        //        PageSize = Rotativa.AspNetCore.Options.Size.Letter,
-        //        PageOrientation = Rotativa.AspNetCore.Options.Orientation.Portrait,
-        //        FileName = "ReporteUsuarios.pdf"
-        //    };
-        //}
+            SalidaAlmacen salidaAlmacenDt = new SalidaAlmacen()
+            {
+                Id = Guid.Parse(IdSt.ToString()),
+                Folio = FolioSt.Trim(),
+                FechaCaptura = DateTime.Parse(FechaCapturaSt.ToString()),
+                FechaSalida = DateTime.Parse(FechaSalidaSt.ToString()),
+                Farmacia = FarmaciaSt.Trim(),
+                Almacen = AlmacenSt.Trim(),
+                Responsable = ResponsableST.Trim()
+            };
+
+            return new ViewAsPdf("RptSalidaAlmacen", salidaAlmacenDt)
+            {
+                PageSize = Rotativa.AspNetCore.Options.Size.Letter,
+                PageOrientation = Rotativa.AspNetCore.Options.Orientation.Portrait,
+                FileName = "ReporteSalidaAlmacen.pdf"
+            };
+        }
 
         public FileResult GenerarSalidaAlmacen([FromForm] IFormCollection SalidadeAlmacen)
         {

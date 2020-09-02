@@ -245,7 +245,7 @@
          
             var form = document.createElement("form");
             form.setAttribute("method", "post");
-            form.setAttribute("action", "/Almacen/GenerarSalidaAlmacen");
+            form.setAttribute("action", "/Almacen/RptSalidaAlmacen");
 
             var Id = document.createElement("input");
             Id.setAttribute("type", "hidden");
