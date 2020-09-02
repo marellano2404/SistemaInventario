@@ -22,73 +22,73 @@
                             <div class="row">
                                 <div class="col-md-3 mb-3">
                                     <label for="address">Clave del Producto</label>
-                                    <input name="claveProducto" class="form-control" ng-model="articulosVM.claveProducto" type="text" placeholder="Clave del Producto" ng-required="true" />
+                                    <input name="claveProducto" class="form-control" ng-model="articuloVM.claveProducto" type="text" placeholder="Clave del Producto" ng-required="true" />
                                 </div>
                                 <div class="col-md-5 mb-3">
                                     <label for="address">Descripción</label>
-                                    <input name="descripcion" class="form-control" ng-model="articulosVM.descripcion" type="text" placeholder="Descripción" ng-required="true" />
+                                    <input name="descripcion" class="form-control" ng-model="articuloVM.descripcion" type="text" placeholder="Descripción" ng-required="true" />
                                 </div>
                                 <div class="col-md-4 mb-6">
                                     <label for="address">Detalles</label>
-                                    <input name="detalles" class="form-control" ng-model="articulosVM.detalles" type="text" placeholder="Detalles" ng-required="true" />
+                                    <input name="detalles" class="form-control" ng-model="articuloVM.detalles" type="text" placeholder="Detalles" ng-required="true" />
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6 mb-6">
                                     <label for="address">Presentación</label>
-                                    <input name="presentacion" class="form-control" ng-model="articulosVM.presentacion" type="text" placeholder="Presentación" ng-required="true" />
+                                    <input name="presentacion" class="form-control" ng-model="articuloVM.presentacion" type="text" placeholder="Presentación" ng-required="true" />
                                 </div>
                                 <div class="col-md-3 mb-2">
                                     <label for="address">Laboratorio</label>
-                                    <input name="laboratorio" class="form-control" ng-model="articulosVM.laboratorio" type="number" placeholder="Laboratorio" ng-required="true" />
+                                    <input name="laboratorio" class="form-control" ng-model="articuloVM.laboratorio" type="number" placeholder="Laboratorio" ng-required="true" />
                                 </div>
                                 <div class="col-md-3 mb-2">
                                     <label for="address">Marca</label>
-                                    <input name="marca" class="form-control" ng-model="articulosVM.marca" type="text" placeholder="Marca" ng-required="true" />
+                                    <input name="marca" class="form-control" ng-model="articuloVM.marca" type="text" placeholder="Marca" ng-required="true" />
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-4 mb-2">
                                     <label for="address">Tipo Catalogo</label>
-                                    <input name="tipo" class="form-control" ng-model="articulosVM.tipoCatalogo" type="text" placeholder="Tipo" ng-required="true" />
+                                    <input name="tipo" class="form-control" ng-model="articuloVM.tipoCatalogo" type="text" placeholder="Tipo" ng-required="true" />
                                 </div>
                                 <div class="col-md-4 mb-2">
                                     <label for="address">Lote</label>
-                                    <input name="lote" class="form-control" ng-model="articulosVM.lote" type="text" placeholder="Lote" ng-required="true" />
+                                    <input name="lote" class="form-control" ng-model="articuloVM.lote" type="text" placeholder="Lote" ng-required="true" />
                                 </div>
                                 <div class="col-md-4 mb-2">
                                     <label for="address">Cantidad</label>
-                                    <input name="cantidad" class="form-control" ng-model="articulosVM.cantidad" type="number" placeholder="Cantidad" ng-required="true" />
+                                    <input name="cantidad" class="form-control" ng-model="articuloVM.cantidadPorUnidad" type="number" placeholder="Cantidad" ng-required="true" />
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-4 mb-2">
                                     <label for="address">Código de Barras</label>
-                                    <input name="cbarras" class="form-control" ng-model="articulosVM.codigoBarras" type="text" placeholder="Código de Barras" ng-required="true" />
+                                    <input name="cbarras" class="form-control" ng-model="articuloVM.codigoBarras" type="text" placeholder="Código de Barras" ng-required="true" />
                                 </div>
                                 <div class="col-md-4 mb-2">
                                     <label for="address">Tipo de Medicamento</label>
-                                    <select name="TipoMedicamentoSelect" class="custom-select d-block w-100" ng-model="articulosVM.tipoMedicamento" ng-required="true">
+                                    <select name="TipoMedicamentoSelect" class="custom-select d-block w-100" ng-model="articuloVM.tipoMedicamento" ng-required="true">
                                         <option value="">Selecciona...</option>
-                                        <option value="1">Libre Acceso</option>
-                                        <option value="2">Controlados</option>
-                                        <option value="3">Con Receta</option>
+                                        <option value=1>Libre Acceso</option>
+                                        <option value=2>Controlados</option>
+                                        <option value=3>Con Receta</option>
                                     </select>
                                 </div>
                                 <div class="col-md-4 mb-2">
                                     <label for="address">Unidad de Medida</label>
                                     <!--ng-options="i.Id as i.Valor for i in ListaUnidades" ng-required="true"-->
-                                    <select name="UnidadMedidaSelect" class="custom-select d-block w-100" ng-model="articulosVM.unidadMedida" ng-required="true">
+                                    <select name="UnidadMedidaSelect" class="custom-select d-block w-100" ng-model="articuloVM.unidadMedida" ng-required="true">
                                         <option value="">Selecciona...</option>
-                                        <option value="1">Pieza</option>
-                                        <option value="2">Caja</option>
-                                        <option value="3">Kit</option>
-                                        <option value="4">Kilogramo</option>
-                                        <option value="5">Metro</option>
-                                        <option value="6">Gramo</option>
-                                        <option value="7">Centimetro</option>
-                                        <option value="8">Litro</option>
-                                        <option value="9">Mililitro</option>
+                                        <option value=1>Pieza</option>
+                                        <option value=2>Caja</option>
+                                        <option value=3>Kit</option>
+                                        <option value=4>Kilogramo</option>
+                                        <option value=5>Metro</option>
+                                        <option value=6>Gramo</option>
+                                        <option value=7>Centimetro</option>
+                                        <option value=8>Litro</option>
+                                        <option value=9>Mililitro</option>
                                     </select>
                                 </div>
                             </div>

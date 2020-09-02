@@ -12,7 +12,7 @@ namespace Almacen.Core.BL.Articulos.Services
 {
     public class ArticuloService : IArticulo
     {
-        public async Task<MensajeRespuesta> InsertarArticulos(ViewModels.ArticuloViewModel A)
+        public async Task<MensajeRespuesta> InsertarArticulos(ArticuloViewModel A)
         {
             using (var conexion = new SqlConnection(Helpers.ContextConfiguration.ConexionString))
             {

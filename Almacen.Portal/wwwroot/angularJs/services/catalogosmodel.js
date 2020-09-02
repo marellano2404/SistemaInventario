@@ -1,7 +1,7 @@
 ﻿var catalogoContext = {
     //#region Datos del area ParaEscolares     
     UsuarioViewModel: {},
-    ArticuloVM: {},
+    articuloVM: {},
     ResultViewModel: {},
     ArticulosVM: [],
     //#endregion  
@@ -47,14 +47,14 @@
         });
     },
 
-    postArticulos: function (datos, callbackResult) {
+    postArticulos: function (datoArticulo, callbackResult) {
         var self = this;
         $.ajax({
             url: urlServer + 'Articulo/InsertarArticulo',
             type: 'POST',
             cache: false,
             contentType: "application/json",
-            data: JSON.stringify(datos)
+            data: JSON.stringify(datoArticulo)
         }).done(function (res) {
             self.ResultViewModel = res;
             if (callbackResult !== null) {

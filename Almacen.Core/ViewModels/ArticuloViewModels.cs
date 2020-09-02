@@ -33,11 +33,11 @@ namespace Almacen.Core.ViewModels
         public string Presentacion { get; set; }
         public string Marca { get; set; }
         public string Lote { get; set; }
-        public int? TipoMedicamento { get; set; }
+        public string TipoMedicamento { get; set; }
         public string TipoCatalogo { get; set; }
-        public int? UnidadMedida { get; set; }
+        public string UnidadMedida { get; set; }
         public int? CantidadPorUnidad { get; set; }
-        public string CodigoBaras { get; set; }
+        public string CodigoBarras { get; set; }
         public int? Laboratorio { get; set; }
     }
 }

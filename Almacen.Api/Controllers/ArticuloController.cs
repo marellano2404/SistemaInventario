@@ -50,11 +50,11 @@ namespace Almacen.Api.Controllers
         }
 
         [HttpPost("InsertarArticulo")]
-        public async Task<IActionResult> InsertarArticulo([FromBody] ArticuloViewModel datos)
+        public async Task<IActionResult> InsertarArticulo([FromBody] ArticuloViewModel datoArticulo)
         {
             try
             {
-                var response = await _articulo.InsertarArticulos(datos);
+                var response = await _articulo.InsertarArticulos(datoArticulo);
                 return Ok(response);
             }
             catch(Exception e)

@@ -4,7 +4,7 @@
     app.controller('catalogoController', ['$scope', '$interval', function ($scope, $interval) {
         $scope.UsuarioViewModel = catalogoContext.UsuarioViewModel;
         $scope.articulosVM = catalogoContext.ArticulosVM;
-        $scope.articuloVM = catalogoContext.ArticuloVM;
+        $scope.articuloVM = catalogoContext.articuloVM;
         $scope.ResultViewModel = catalogoContext.ResultViewModel;
         $scope.totalRegistros = 10;
         $scope.paginaActual = 1;
@@ -76,9 +76,9 @@
             // final de métodos de paginación
 
             $scope.agregarArticulo = function(form) {
-                console.log($scope.articulosVM)
+                console.log($scope.articuloVM)
                 if (form) {
-                    catalogoContext.postArticulos($scope.articulosVM, function (response) {
+                    catalogoContext.postArticulos($scope.articuloVM, function (response) {
                         if (response.result === true) {
                             $scope.ResultViewModel = catalogoContext.ResultViewModel;
                             console.log($scope.ResultViewModel)
