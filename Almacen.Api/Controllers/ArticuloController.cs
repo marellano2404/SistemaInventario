@@ -50,7 +50,7 @@ namespace Almacen.Api.Controllers
         }
 
         [HttpPost("InsertarArticulo")]
-        public async Task<IActionResult> InsertarArticulo([FromBody] Articulo datos)
+        public async Task<IActionResult> InsertarArticulo([FromBody] ArticuloViewModel datos)
         {
             try
             {
@@ -64,7 +64,7 @@ namespace Almacen.Api.Controllers
         }
 
         [HttpPost("ModificarArticulo")]
-        public async Task<IActionResult> ModificarArticulo([FromBody] Articulo datos)
+        public async Task<IActionResult> ModificarArticulo([FromBody] ArticuloViewModel datos)
         {
             try
             {
