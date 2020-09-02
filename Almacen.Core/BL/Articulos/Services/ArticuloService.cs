@@ -12,7 +12,7 @@ namespace Almacen.Core.BL.Articulos.Services
 {
     public class ArticuloService : IArticulo
     {
-        public async Task<MensajeRespuesta> InsertarArticulos(Articulo A)
+        public async Task<MensajeRespuesta> InsertarArticulos(ViewModels.ArticuloViewModel A)
         {
             using (var conexion = new SqlConnection(Helpers.ContextConfiguration.ConexionString))
             {
@@ -29,14 +29,13 @@ namespace Almacen.Core.BL.Articulos.Services
                     command.Parameters.AddWithValue("@Detalles", A.Detalles);
                     command.Parameters.AddWithValue("@Presentacion", A.Presentacion);
                     command.Parameters.AddWithValue("@Marca", A.Marca);
-                    command.Parameters.AddWithValue("@Modelo", string.IsNullOrWhiteSpace(A.Modelo) ? "" : A.Modelo);
+                    command.Parameters.AddWithValue("@Lote", A.Lote);
                     command.Parameters.AddWithValue("@TipoMedicamento", A.TipoMedicamento);
                     command.Parameters.AddWithValue("@TipoCatalogo", A.TipoCatalogo);
                     command.Parameters.AddWithValue("@UnidadMedida", A.UnidadMedida);
                     command.Parameters.AddWithValue("@CantidadPorUnidad", A.CantidadPorUnidad);
-                    command.Parameters.AddWithValue("@CodigoBarra", A.CodigoBarras);
+                    command.Parameters.AddWithValue("@CodigoBarra", A.CodigoBaras);
                     command.Parameters.AddWithValue("@Laboratorio", A.Laboratorio);
-                    command.Parameters.AddWithValue("@Estado", A.Estado);
                     conexion.Open();
                     var lectura = await command.ExecuteReaderAsync();
                     if (lectura.HasRows) //que tenga renglones
@@ -61,11 +60,11 @@ namespace Almacen.Core.BL.Articulos.Services
             }
         }
 
-        public async Task<Articulo> ObtenerArticulo(string Id)
+        public async Task<ViewModels.ArticulosViewModel> ObtenerArticulo(string Id)
         {
             using (var conexion = new SqlConnection(Helpers.ContextConfiguration.ConexionString))
             {
-                Articulo respuesta = new Articulo();
+                ViewModels.ArticulosViewModel respuesta = new ViewModels.ArticulosViewModel();
                 try
                 {
                     var command = new SqlCommand();
@@ -86,12 +85,12 @@ namespace Almacen.Core.BL.Articulos.Services
                             respuesta.Detalles = lectura.GetString(3);
                             respuesta.Presentacion = lectura.GetString(4);
                             respuesta.Marca = lectura.GetString(5);
-                            respuesta.Modelo = lectura.GetString(6);
+                            respuesta.Lote = lectura.GetString(6);
                             respuesta.TipoMedicamento = lectura.GetInt32(7);
                             respuesta.TipoCatalogo = lectura.GetString(8);
                             respuesta.UnidadMedida = lectura.GetInt32(9);
                             respuesta.CantidadPorUnidad = lectura.GetInt32(10);
-                            respuesta.CodigoBarras = lectura.GetString(11);
+                            respuesta.CodigoBaras = lectura.GetString(11);
                             respuesta.Laboratorio = lectura.GetInt32(12);
                             respuesta.Estado = lectura.GetInt32(13);
                         }
@@ -108,11 +107,11 @@ namespace Almacen.Core.BL.Articulos.Services
             }
         }
 
-        public async Task<List<ViewModels.Articulo>> ObtenerArticulos(Pagination P)
+        public async Task<List<ViewModels.ArticulosViewModel>> ObtenerArticulos(Pagination P)
         {
             using (var conexion = new SqlConnection(Helpers.ContextConfiguration.ConexionString))
             {
-                List<ViewModels.Articulo> Lista = new List<ViewModels.Articulo>();
+                List<ViewModels.ArticulosViewModel> Lista = new List<ViewModels.ArticulosViewModel>();
                 try
                 {
                     var command = new SqlCommand();
@@ -129,7 +128,7 @@ namespace Almacen.Core.BL.Articulos.Services
                         while (lectura.Read())
                         {
                             Lista.Add(
-                                new ViewModels.Articulo
+                                new ViewModels.ArticulosViewModel
                                 {
                                     Id = lectura.GetGuid(0),
                                     Descripcion = lectura.GetString(1),
@@ -137,12 +136,12 @@ namespace Almacen.Core.BL.Articulos.Services
                                     Detalles = lectura.GetString(3),
                                     Presentacion = lectura.GetString(4),
                                     Marca = lectura.GetString(5),
-                                    Modelo = lectura.GetString(6),
+                                    Lote = lectura.GetString(6),
                                     TipoMedicamento = lectura.GetInt32(7),
                                     TipoCatalogo = lectura.GetString(8),
                                     UnidadMedida = lectura.GetInt32(9),
                                     CantidadPorUnidad = lectura.GetInt32(10),
-                                    CodigoBarras = lectura.GetString(11),
+                                    CodigoBaras = lectura.GetString(11),
                                     Laboratorio = lectura.GetInt32(12),
                                     Estado = lectura.GetInt32(13),
                                     Cantidad = lectura.GetInt32(14)
@@ -161,7 +160,7 @@ namespace Almacen.Core.BL.Articulos.Services
             }
         }
 
-        public async Task<MensajeRespuesta> ModificarArticulo(Articulo A)
+        public async Task<MensajeRespuesta> ModificarArticulo(ViewModels.ArticuloViewModel A)
         {
             using (var conexion = new SqlConnection(Helpers.ContextConfiguration.ConexionString))
             {
@@ -179,14 +178,13 @@ namespace Almacen.Core.BL.Articulos.Services
                     command.Parameters.AddWithValue("@Detalles", A.Detalles);
                     command.Parameters.AddWithValue("@Presentacion", A.Presentacion);
                     command.Parameters.AddWithValue("@Marca", A.Marca);
-                    command.Parameters.AddWithValue("@Modelo", A.Modelo);
+                    command.Parameters.AddWithValue("@Lote", A.Lote);
                     command.Parameters.AddWithValue("@TipoMedicamento", A.TipoMedicamento);
                     command.Parameters.AddWithValue("@TipoCatalogo", A.TipoCatalogo);
                     command.Parameters.AddWithValue("@UnidadMedida", A.UnidadMedida);
                     command.Parameters.AddWithValue("@CantidadPorUnidad", A.CantidadPorUnidad);
-                    command.Parameters.AddWithValue("@CodigoBarra", A.CodigoBarras);
+                    command.Parameters.AddWithValue("@CodigoBarra", A.CodigoBaras);
                     command.Parameters.AddWithValue("@Laboratorio", A.Laboratorio);
-                    command.Parameters.AddWithValue("@Estado", A.Estado);
                     conexion.Open();
                     var lectura = await command.ExecuteReaderAsync();
                     if (lectura.HasRows) //que tenga renglones

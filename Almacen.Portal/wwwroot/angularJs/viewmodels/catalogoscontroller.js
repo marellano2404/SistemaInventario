@@ -76,23 +76,9 @@
             // final de métodos de paginación
 
             $scope.agregarArticulo = function(form) {
+                console.log($scope.articulosVM)
                 if (form) {
-                    console.log($scope.articulosVM)
-                    let datos = {
-                        "Descripcion": $scope.articulosVM.descripcion,
-                        "ClaveProducto": $scope.articulosVM.claveProducto,
-                        "Detalles": $scope.articulosVM.detalles,
-                        "Presentacion": $scope.articulosVM.presentacion,
-                        "Marca": $scope.articulosVM.marca,
-                        //"Modelo" $scope.articulosVM.modelo,
-                        "TipoMedicamento": $scope.articulosVM.tipoMedicamento,
-                        "TipoCatalogo": $scope.articulosVM.tipoCatalogo,
-                        "UnidadMedida": $scope.articulosVM.unidadMedida,
-                        "CantidadPorUnidad": $scope.articulosVM.cantidad,
-                        "CodigoBarras": $scope.articulosVM.codigoBarras,
-                        "Laboratorio": $scope.articulosVM.laboratorio
-                    }
-                    catalogoContext.postArticulos(datos, function (response) {
+                    catalogoContext.postArticulos($scope.articulosVM, function (response) {
                         if (response.result === true) {
                             $scope.ResultViewModel = catalogoContext.ResultViewModel;
                             console.log($scope.ResultViewModel)
