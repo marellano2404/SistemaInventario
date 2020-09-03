@@ -6,6 +6,9 @@
         $scope.articulosVM = catalogoContext.ArticulosVM;
         $scope.articuloVM = catalogoContext.articuloVM;
         $scope.ResultViewModel = catalogoContext.ResultViewModel;
+        $scope.tipoMedicamentos = catalogoContext.TipoMedicamentos;
+        $scope.laboratoriosVM = catalogoContext.laboratoriosVM;
+        $scope.tipoUnidadesVM = catalogoContext.tipoUnidadesVM;
         $scope.totalRegistros = 10;
         $scope.paginaActual = 1;        
         
@@ -26,7 +29,7 @@
                         let total = (item.cantidad / $scope.totalRegistros);
                         $scope.totalPaginas = Math.ceil(total);
                     });
-                    console.log($scope.articulosVM)
+                    
                 }
                 else {
                     Swal.fire({
@@ -38,174 +41,207 @@
                 }
             });
 
-            $scope.cerrarModal = function (modal) {
-                if (modal == 1) {
-                    $scope.verModalAgregar = false;
-                    $scope.Modal = "";
-                    $scope.$apply();
-                } else {
-                    $scope.verModalEditar = false;
-                    $scope.Modal = "";
-                    $scope.$apply();
-                }
-                
-            };
-            $scope.mostrarModalArticulo = function (modal, id = "") {
-                if (modal == 1) {
-                    $scope.articuloVM = {}; //limpiamos el objeto
-                    $scope.verModalAgregar = true;
-                    $scope.verModalEditar = false;
-                   
-                } else {
-                    $scope.verModalAgregar = false;
-                    $scope.verModalEditar = true;
-                    $scope.editarArticulo(id);
-                }
-                $scope.Modal = urlPortal + "Catalogos/_AgregarArticulo";
-                $scope.$apply();
-            };
-            // Métodos de la páginación
-            $scope.Anterior = function() {
-                $scope.paginaActual--;
-                $scope.CargarArticulos();
-            }
-            $scope.Siguiente = function() {
-                $scope.paginaActual++;
-                $scope.CargarArticulos();
-            }
-            // final de métodos de paginación
+        };
 
-            $scope.agregarArticulo = function(form) {
-                console.log($scope.articuloVM)
-                if (form) {
-                    catalogoContext.postArticulos($scope.articuloVM, function (response) {
-                        if (response.result === true) {
-                            $scope.ResultViewModel = catalogoContext.ResultViewModel;
-                            console.log($scope.ResultViewModel)
-                            $scope.cerrarModal(1); //cerramos el modal
-                            if ($scope.ResultViewModel.exito) {
-                                Swal.fire({
-                                    title: 'Mensaje del Sistema',
-                                    text: 'Se modifico correctamente el articulo!.',
-                                    icon: 'success',
-                                    confirmButtonText: 'Entendido'
-                                });
-                            }
-                        }
-                        else {
+        //#region Métodos Modal
+        $scope.cerrarModal = function (modal) {
+            if (modal == 1) {
+                $scope.verModalAgregar = false;
+                $scope.Modal = "";
+                $scope.$apply();
+            } else {
+                $scope.verModalEditar = false;
+                $scope.Modal = "";
+                $scope.$apply();
+            }
+
+        };
+        $scope.mostrarModalArticulo = function (modal, id = "") {
+            if (modal == 1) {
+                $scope.articuloVM = {}; //limpiamos el objeto
+                $scope.verModalAgregar = true;
+                $scope.verModalEditar = false;
+
+            } else {
+                $scope.verModalAgregar = false;
+                $scope.verModalEditar = true;
+                $scope.editarArticulo(id);
+            }
+            $scope.Modal = urlPortal + "Catalogos/_AgregarArticulo";
+            $scope.$apply();
+        };
+        //#endregion
+
+        //#region Métodos de la páginación
+        $scope.Anterior = function () {
+            $scope.paginaActual--;
+            $scope.CargarArticulos();
+        }
+        $scope.Siguiente = function () {
+            $scope.paginaActual++;
+            $scope.CargarArticulos();
+        }
+        //#endregion
+
+        //#region Métodos CRUD Artículos
+        $scope.agregarArticulo = function (form) {
+            console.log($scope.articuloVM)
+            if (form) {
+                catalogoContext.postArticulos($scope.articuloVM, function (response) {
+                    if (response.result === true) {
+                        $scope.ResultViewModel = catalogoContext.ResultViewModel;
+                        console.log($scope.ResultViewModel)
+                        $scope.cerrarModal(1); //cerramos el modal
+                        if ($scope.ResultViewModel.exito) {
                             Swal.fire({
                                 title: 'Mensaje del Sistema',
-                                text: 'Hubo un detalle al agregar el articulo!.',
-                                icon: 'warning',
+                                text: 'Se modifico correctamente el articulo!.',
+                                icon: 'success',
                                 confirmButtonText: 'Entendido'
                             });
                         }
-                    });
-                }
-                else {
-                    Swal.fire({
-                        title: 'Mensaje del Sistema',
-                        text: 'Faltan datos por completar, verifique por favor.',
-                        icon: 'warning',
-                        confirmButtonText: 'Entendido'
-                    });
-                }
-            }
-            // llamar el metodo cuando se habrá el modal de edición.
-            $scope.editarArticulo = function (id) {
-                console.log(id);
-                catalogoContext.getArticuloId(id, function (response) {
-                    if (response.result === true) {
-                        $scope.articuloVM = catalogoContext.articuloVM;
-                        console.log($scope.articuloVM)
                     }
                     else {
                         Swal.fire({
                             title: 'Mensaje del Sistema',
-                            text: 'Hubo un detalle al obtener el articulo!.',
+                            text: 'Hubo un detalle al agregar el articulo!.',
                             icon: 'warning',
                             confirmButtonText: 'Entendido'
                         });
                     }
                 });
-            };
-
-            $scope.modificarArticulo = function (form) {
-                if (form) {
-                    catalogoContext.putArticulos($scope.articuloVM, function (response) {
-                        if (response.result === true) {
-                            $scope.ResultViewModel = catalogoContext.ResultViewModel;
-                            console.log($scope.ResultViewModel)
-                            $scope.cerrarModal(2); //cerramos el modal
-                            if ($scope.ResultViewModel.exito) {
-                                Swal.fire({
-                                    title: 'Mensaje del Sistema',
-                                    text: 'Se agrego correctamente el articulo!.',
-                                    icon: 'success',
-                                    confirmButtonText: 'Entendido'
-                                });
-                            }
-                        } else {
-                            Swal.fire({
-                                title: 'Mensaje del Sistema',
-                                text: 'Hubo un detalle al modificar el articulo!.',
-                                icon: 'warning',
-                                confirmButtonText: 'Entendido'
-                            });
-                        }
-                    });
+            }
+            else {
+                Swal.fire({
+                    title: 'Mensaje del Sistema',
+                    text: 'Faltan datos por completar, verifique por favor.',
+                    icon: 'warning',
+                    confirmButtonText: 'Entendido'
+                });
+            }
+        };
+        // llamar el metodo cuando se habrá el modal de edición.
+        $scope.editarArticulo = function (id) {
+            console.log(id);
+            catalogoContext.getArticuloId(id, function (response) {
+                if (response.result === true) {
+                    $scope.articuloVM = catalogoContext.articuloVM;
+                    console.log($scope.articuloVM)
                 }
                 else {
                     Swal.fire({
                         title: 'Mensaje del Sistema',
-                        text: 'Faltan datos por completar, verifique por favor.',
+                        text: 'Hubo un detalle al obtener el articulo!.',
                         icon: 'warning',
                         confirmButtonText: 'Entendido'
                     });
                 }
-            };
-
-            $scope.eliminarArticulo = function (id){
-                Swal.fire({
-                    title: 'Sistema',
-                    text: "Estás seguro de eliminar el Articulo.?",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Si, eliminar..'
-                }).then((result) => {
-                    if (result.value) {
-                        catalogoContext.deleteArticulos(id, function (response) {
-                            if (response.result === true) {
-                                $scope.ResultViewModel = catalogoContext.ResultViewModel;
-                                console.log($scope.ResultViewModel);
-                                $scope.CargarArticulos(); //refrescamos
-                                if (result.value) {
-                                    Swal.fire(
-                                        'Sistema!',
-                                        'El registro se ha eliminado correctamente.',
-                                        'success'
-                                    )
-                                }
-                            }
-                            else {
-                                Swal.fire({
-                                    title: 'Mensaje del Sistema',
-                                    text: 'No se ha podido accesar a los datos, verifique.',
-                                    icon: 'warning',
-                                    confirmButtonText: 'OK'
-                                });
-                            }
-                        });
-                    }
-                    
-                    
-                })
-            }
-
+            });
+            //obteniendo los laboratorios y tipoUnidades
+            catalogoContext.getLaboratorios(function (response) {
+                if (response.result === true) {
+                    $scope.laboratoriosVM = catalogoContext.laboratoriosVM;
+                    console.log($scope.laboratoriosVM)
+                }
+                else {
+                    Swal.fire({
+                        title: 'Mensaje del Sistema',
+                        text: 'Hubo un detalle al obtener los Labortorios!.',
+                        icon: 'warning',
+                        confirmButtonText: 'Entendido'
+                    });
+                }
+            });
+            catalogoContext.getTipoUnidades(function (response) {
+                if (response.result === true) {
+                    $scope.tipoUnidadesVM = catalogoContext.tipoUnidadesVM;
+                    console.log($scope.tipoUnidadesVM)
+                }
+                else {
+                    Swal.fire({
+                        title: 'Mensaje del Sistema',
+                        text: 'Hubo un detalle al obtener los Tipos de Unidades!.',
+                        icon: 'warning',
+                        confirmButtonText: 'Entendido'
+                    });
+                }
+            });
         };
 
+        $scope.modificarArticulo = function (form) {
+            if (form) {
+                catalogoContext.putArticulos($scope.articuloVM, function (response) {
+                    if (response.result === true) {
+                        $scope.ResultViewModel = catalogoContext.ResultViewModel;
+                        console.log($scope.ResultViewModel)
+                        $scope.cerrarModal(2); //cerramos el modal
+                        if ($scope.ResultViewModel.exito) {
+                            Swal.fire({
+                                title: 'Mensaje del Sistema',
+                                text: 'Se agrego correctamente el articulo!.',
+                                icon: 'success',
+                                confirmButtonText: 'Entendido'
+                            });
+                        }
+                    } else {
+                        Swal.fire({
+                            title: 'Mensaje del Sistema',
+                            text: 'Hubo un detalle al modificar el articulo!.',
+                            icon: 'warning',
+                            confirmButtonText: 'Entendido'
+                        });
+                    }
+                });
+            }
+            else {
+                Swal.fire({
+                    title: 'Mensaje del Sistema',
+                    text: 'Faltan datos por completar, verifique por favor.',
+                    icon: 'warning',
+                    confirmButtonText: 'Entendido'
+                });
+            }
+        };
+
+        $scope.eliminarArticulo = function (id) {
+            Swal.fire({
+                title: 'Sistema',
+                text: "Estás seguro de eliminar el Articulo.?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, eliminar..'
+            }).then((result) => {
+                if (result.value) {
+                    catalogoContext.deleteArticulos(id, function (response) {
+                        if (response.result === true) {
+                            $scope.ResultViewModel = catalogoContext.ResultViewModel;
+                            console.log($scope.ResultViewModel);
+                            $scope.CargarArticulos(); //refrescamos
+                            if (result.value) {
+                                Swal.fire(
+                                    'Sistema!',
+                                    'El registro se ha eliminado correctamente.',
+                                    'success'
+                                )
+                            }
+                        }
+                        else {
+                            Swal.fire({
+                                title: 'Mensaje del Sistema',
+                                text: 'No se ha podido accesar a los datos, verifique.',
+                                icon: 'warning',
+                                confirmButtonText: 'OK'
+                            });
+                        }
+                    });
+                }
+
+
+            })
+        };
+        //#endregion
     }]);
 
 

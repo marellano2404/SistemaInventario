@@ -30,9 +30,9 @@ namespace Almacen.Core.BL.Articulos.Services
                     command.Parameters.AddWithValue("@Presentacion", A.Presentacion);
                     command.Parameters.AddWithValue("@Marca", A.Marca);
                     command.Parameters.AddWithValue("@Lote", A.Lote);
-                    command.Parameters.AddWithValue("@TipoMedicamento", int.Parse(A.TipoMedicamento));
+                    command.Parameters.AddWithValue("@TipoMedicamento", A.TipoMedicamento);
                     command.Parameters.AddWithValue("@TipoCatalogo", A.TipoCatalogo);
-                    command.Parameters.AddWithValue("@UnidadMedida", int.Parse(A.UnidadMedida));
+                    command.Parameters.AddWithValue("@UnidadMedida", A.UnidadMedida);
                     command.Parameters.AddWithValue("@CantidadPorUnidad", A.CantidadPorUnidad);
                     command.Parameters.AddWithValue("@CodigoBarra", A.CodigoBarras);
                     command.Parameters.AddWithValue("@Laboratorio", A.Laboratorio);
@@ -179,9 +179,9 @@ namespace Almacen.Core.BL.Articulos.Services
                     command.Parameters.AddWithValue("@Presentacion", A.Presentacion);
                     command.Parameters.AddWithValue("@Marca", A.Marca);
                     command.Parameters.AddWithValue("@Lote", A.Lote);
-                    command.Parameters.AddWithValue("@TipoMedicamento", int.Parse(A.TipoMedicamento));
+                    command.Parameters.AddWithValue("@TipoMedicamento", A.TipoMedicamento);
                     command.Parameters.AddWithValue("@TipoCatalogo", A.TipoCatalogo);
-                    command.Parameters.AddWithValue("@UnidadMedida", int.Parse(A.UnidadMedida));
+                    command.Parameters.AddWithValue("@UnidadMedida", A.UnidadMedida);
                     command.Parameters.AddWithValue("@CantidadPorUnidad", A.CantidadPorUnidad);
                     command.Parameters.AddWithValue("@CodigoBarra", A.CodigoBarras);
                     command.Parameters.AddWithValue("@Laboratorio", A.Laboratorio);

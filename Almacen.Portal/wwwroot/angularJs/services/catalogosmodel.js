@@ -4,6 +4,14 @@
     articuloVM: {},
     ResultViewModel: {},
     ArticulosVM: [],
+    TipoMedicamentos:
+    [
+        { id: 1, descripcion: "Libre Acceso" },
+        { id: 2, descripcion: "Controlados"},
+        { id: 3, descripcion: "Con Receta" }
+        ],
+    laboratoriosVM: [],
+    tipoUnidadesVM: [],
     //#endregion  
     //////////////////////////////////////////////////////////////////////////////////////////////////METODOS PARA ASESORES
     //#region metodos...............
@@ -37,6 +45,43 @@
             //data: JSON.stringify(datos)
         }).done(function (res) {
             self.articuloVM = res;
+            if (callbackResult !== null) {
+                callbackResult({ result: true, message: null });
+            }
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            if (callbackResult !== null) {
+                callbackResult({ result: false, message: "No se pudo accesar a la lista de servicios" });
+            }
+        });
+    },
+
+    getLaboratorios: function (callbackResult) {
+        var self = this;
+        $.ajax({
+            url: urlServer + 'Laboratorio/ObtenerLaboratorios',
+            type: 'GET',
+            cache: false,
+            contentType: "application/json"
+        }).done(function (res) {
+            self.laboratoriosVM = res;
+            if (callbackResult !== null) {
+                callbackResult({ result: true, message: null });
+            }
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            if (callbackResult !== null) {
+                callbackResult({ result: false, message: "No se pudo accesar a la lista de servicios" });
+            }
+        });
+    },
+    getTipoUnidades: function (callbackResult) {
+        var self = this;
+        $.ajax({
+            url: urlServer + 'TipoUnidades/ObtenerTipoUnidades',
+            type: 'GET',
+            cache: false,
+            contentType: "application/json"
+        }).done(function (res) {
+            self.tipoUnidadesVM = res;
             if (callbackResult !== null) {
                 callbackResult({ result: true, message: null });
             }

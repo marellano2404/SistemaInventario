@@ -40,7 +40,10 @@
                                 </div>
                                 <div class="col-md-3 mb-2">
                                     <label for="address">Laboratorio</label>
-                                    <input name="laboratorio" class="form-control" ng-model="articuloVM.laboratorio" type="number" placeholder="Laboratorio" ng-required="true" />
+                                    @*<input name="laboratorio" class="form-control" ng-model="articuloVM.laboratorio" type="number" placeholder="Laboratorio" ng-required="true" />*@
+                                    <select name="laboratorio" class="custom-select d-block w-100" ng-options="L.id as L.descripcion for L in laboratoriosVM" ng-model="articuloVM.laboratorio" ng-required="true">
+                                        <option value="">Selecciona...</option>
+                                    </select>
                                 </div>
                                 <div class="col-md-3 mb-2">
                                     <label for="address">Marca</label>
@@ -59,17 +62,8 @@
                                 <div class="col-md-4 mb-2">
                                     <label for="address">Unidad de Medida</label>
                                     <!--ng-options="i.Id as i.Valor for i in ListaUnidades" ng-required="true"-->
-                                    <select name="UnidadMedidaSelect" class="custom-select d-block w-100" ng-model="articuloVM.unidadMedida" ng-required="true">
+                                    <select name="UnidadMedidaSelect" class="custom-select d-block w-100" ng-options="U.id as U.descripcion for U in tipoUnidadesVM" ng-model="articuloVM.unidadMedida" ng-required="true">
                                         <option value="">Selecciona...</option>
-                                        <option value=1>Pieza</option>
-                                        <option value=2>Caja</option>
-                                        <option value=3>Kit</option>
-                                        <option value=4>Kilogramo</option>
-                                        <option value=5>Metro</option>
-                                        <option value=6>Gramo</option>
-                                        <option value=7>Centimetro</option>
-                                        <option value=8>Litro</option>
-                                        <option value=9>Mililitro</option>
                                     </select>
                                 </div>
                                 
@@ -81,11 +75,8 @@
                                 </div>
                                 <div class="col-md-4 mb-2">
                                     <label for="address">Tipo de Medicamento</label>
-                                    <select name="TipoMedicamentoSelect" class="custom-select d-block w-100" ng-model="articuloVM.tipoMedicamento" ng-required="true">
+                                    <select name="TipoMedicamentoSelect" class="custom-select d-block w-100" ng-options="D.id as D.descripcion for D in tipoMedicamentos" ng-model="articuloVM.tipoMedicamento" ng-required="true">
                                         <option value="">Selecciona...</option>
-                                        <option value=1>Libre Acceso</option>
-                                        <option value=2>Controlados</option>
-                                        <option value=3>Con Receta</option>
                                     </select>
                                 </div>
                                 <div class="col-md-4 mb-2">
@@ -148,7 +139,10 @@
                                 </div>
                                 <div class="col-md-3 mb-2">
                                     <label for="address">Laboratorio</label>
-                                    <input name="laboratorio" class="form-control" ng-model="articuloVM.laboratorio" type="number" placeholder="Laboratorio" ng-required="true"/>
+                                    @*<input name="laboratorio" class="form-control" ng-model="articuloVM.laboratorio" type="number" placeholder="Laboratorio" ng-required="true"/>*@
+                                    <select name="laboratorio" class="custom-select d-block w-100" ng-options="L.id as L.descripcion for L in laboratoriosVM" ng-model="articuloVM.laboratorio" ng-required="true">
+                                        <option value="">Selecciona...</option>
+                                    </select>
                                 </div>
                                 <div class="col-md-3 mb-2">
                                     <label for="address">Marca</label>
@@ -167,17 +161,8 @@
                                 <div class="col-md-4 mb-2">
                                     <label for="address">Unidad de Medida</label>
                                     <!--ng-options="i.Id as i.Valor for i in ListaUnidades" ng-required="true"-->
-                                    <select name="UnidadMedidaSelect" class="custom-select d-block w-100" ng-model="articuloVM.unidadMedida" ng-required="true">
-                                        <option value="" selected>Selecciona...</option>
-                                        <option value=1>Pieza</option>
-                                        <option value=2>Caja</option>
-                                        <option value=3>Kit</option>
-                                        <option value=4>Kilogramo</option>
-                                        <option value=5>Metro</option>
-                                        <option value=6>Gramo</option>
-                                        <option value=7>Centimetro</option>
-                                        <option value=8>Litro</option>
-                                        <option value=9>Mililitro</option>
+                                    <select name="UnidadMedidaSelect" class="custom-select d-block w-100" ng-options="U.id as U.descripcion for U in tipoUnidadesVM" ng-model="articuloVM.unidadMedida" ng-required="true">
+                                        <option value="">Selecciona...</option>
                                     </select>
                                 </div>
                             </div>
@@ -188,11 +173,8 @@
                                 </div>
                                 <div class="col-md-4 mb-2">
                                     <label for="address">Tipo de Medicamento</label>
-                                    <select name="TipoMedicamentoSelect" class="custom-select d-block w-100" ng-model="articuloVM.tipoMedicamento" ng-required="true">
-                                        <option value="" selected>Selecciona...</option>
-                                        <option value=1>Libre Acceso</option>
-                                        <option value=2>Controlados</option>
-                                        <option value=3>Con Receta</option>
+                                    <select name="TipoMedicamentoSelect" class="custom-select d-block w-100" ng-options="D.id as D.descripcion for D in tipoMedicamentos" ng-model="articuloVM.tipoMedicamento"  ng-required="true">
+                                        <option value="">Selecciona...</option>
                                     </select>
                                 </div>
                                 <div class="col-md-4 mb-2">

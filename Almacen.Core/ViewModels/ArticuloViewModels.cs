@@ -33,9 +33,9 @@ namespace Almacen.Core.ViewModels
         public string Presentacion { get; set; }
         public string Marca { get; set; }
         public string Lote { get; set; }
-        public string TipoMedicamento { get; set; } //int
+        public int? TipoMedicamento { get; set; } //int
         public string TipoCatalogo { get; set; }
-        public string UnidadMedida { get; set; } //int
+        public int? UnidadMedida { get; set; } //int
         public int? CantidadPorUnidad { get; set; }
         public string CodigoBarras { get; set; }
         public int? Laboratorio { get; set; }

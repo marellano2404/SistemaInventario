@@ -5,12 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using Almacen.Core.BL.Articulos.Interface;
 using Almacen.Core.BL.Articulos.Services;
+using Almacen.Core.BL.Catalogos.Interface;
+using Almacen.Core.BL.Catalogos.Services;
 using Almacen.Core.BL.SalidasAlmacen.Interfaces;
 using Almacen.Core.BL.SalidasAlmacen.Services;
 using Almacen.Core.BL.Seguridad.Interfaces;
 using Almacen.Core.BL.Seguridad.Services;
 using Almacen.Core.Helpers;
 using Almacen.Core.Models;
+using Almacen.Core.ViewModels;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -68,6 +71,8 @@ namespace Almacen.Api
             services.AddTransient<ISeguridad, SeguridadService>();
             services.AddTransient<IArticulo, ArticuloService>();
             services.AddTransient<ISalidasAlmacen, SalidasAlmacenService>();
+            services.AddTransient<ILaboratorio, LaboratorioService>();
+            services.AddTransient<ITipoUnidad, TipoUnidadesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
