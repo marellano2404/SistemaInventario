@@ -57,9 +57,22 @@
                                     <input name="lote" class="form-control" ng-model="articuloVM.lote" type="text" placeholder="Lote" ng-required="true" />
                                 </div>
                                 <div class="col-md-4 mb-2">
-                                    <label for="address">Cantidad</label>
-                                    <input name="cantidad" class="form-control" ng-model="articuloVM.cantidadPorUnidad" type="number" placeholder="Cantidad" ng-required="true" />
+                                    <label for="address">Unidad de Medida</label>
+                                    <!--ng-options="i.Id as i.Valor for i in ListaUnidades" ng-required="true"-->
+                                    <select name="UnidadMedidaSelect" class="custom-select d-block w-100" ng-model="articuloVM.unidadMedida" ng-required="true">
+                                        <option value="">Selecciona...</option>
+                                        <option value=1>Pieza</option>
+                                        <option value=2>Caja</option>
+                                        <option value=3>Kit</option>
+                                        <option value=4>Kilogramo</option>
+                                        <option value=5>Metro</option>
+                                        <option value=6>Gramo</option>
+                                        <option value=7>Centimetro</option>
+                                        <option value=8>Litro</option>
+                                        <option value=9>Mililitro</option>
+                                    </select>
                                 </div>
+                                
                             </div>
                             <div class="row">
                                 <div class="col-md-4 mb-2">
@@ -76,20 +89,8 @@
                                     </select>
                                 </div>
                                 <div class="col-md-4 mb-2">
-                                    <label for="address">Unidad de Medida</label>
-                                    <!--ng-options="i.Id as i.Valor for i in ListaUnidades" ng-required="true"-->
-                                    <select name="UnidadMedidaSelect" class="custom-select d-block w-100" ng-model="articuloVM.unidadMedida" ng-required="true">
-                                        <option value="">Selecciona...</option>
-                                        <option value=1>Pieza</option>
-                                        <option value=2>Caja</option>
-                                        <option value=3>Kit</option>
-                                        <option value=4>Kilogramo</option>
-                                        <option value=5>Metro</option>
-                                        <option value=6>Gramo</option>
-                                        <option value=7>Centimetro</option>
-                                        <option value=8>Litro</option>
-                                        <option value=9>Mililitro</option>
-                                    </select>
+                                    <label for="address">Cantidad</label>
+                                    <input name="cantidad" class="form-control" ng-model="articuloVM.cantidadPorUnidad" type="number" placeholder="Cantidad" ng-required="true" />
                                 </div>
                             </div>
 
@@ -164,8 +165,20 @@
                                     <input name="lote" class="form-control" ng-model="articuloVM.lote" type="text" placeholder="Lote" ng-required="true" />
                                 </div>
                                 <div class="col-md-4 mb-2">
-                                    <label for="address">Cantidad</label>
-                                    <input name="cantidad" class="form-control" ng-model="articuloVM.cantidad" type="number" placeholder="Cantidad" ng-required="true" />
+                                    <label for="address">Unidad de Medida</label>
+                                    <!--ng-options="i.Id as i.Valor for i in ListaUnidades" ng-required="true"-->
+                                    <select name="UnidadMedidaSelect" class="custom-select d-block w-100" ng-model="articuloVM.unidadMedida" ng-required="true">
+                                        <option value="" selected>Selecciona...</option>
+                                        <option value=1>Pieza</option>
+                                        <option value=2>Caja</option>
+                                        <option value=3>Kit</option>
+                                        <option value=4>Kilogramo</option>
+                                        <option value=5>Metro</option>
+                                        <option value=6>Gramo</option>
+                                        <option value=7>Centimetro</option>
+                                        <option value=8>Litro</option>
+                                        <option value=9>Mililitro</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="row">
@@ -177,26 +190,14 @@
                                     <label for="address">Tipo de Medicamento</label>
                                     <select name="TipoMedicamentoSelect" class="custom-select d-block w-100" ng-model="articuloVM.tipoMedicamento" ng-required="true">
                                         <option value="" selected>Selecciona...</option>
-                                        <option value="1">Libre Acceso</option>
-                                        <option value="2">Controlados</option>
-                                        <option value="3">Con Receta</option>
+                                        <option value=1>Libre Acceso</option>
+                                        <option value=2>Controlados</option>
+                                        <option value=3>Con Receta</option>
                                     </select>
                                 </div>
                                 <div class="col-md-4 mb-2">
-                                    <label for="address">Unidad de Medida</label>
-                                    <!--ng-options="i.Id as i.Valor for i in ListaUnidades" ng-required="true"-->
-                                    <select name="UnidadMedidaSelect" class="custom-select d-block w-100" ng-model="articuloVM.unidadMedida" ng-required="true">
-                                        <option value="" selected>Selecciona...</option>
-                                        <option value="1">Pieza</option>
-                                        <option value="2">Caja</option>
-                                        <option value="3">Kit</option>
-                                        <option value="4">Kilogramo</option>
-                                        <option value="5">Metro</option>
-                                        <option value="6">Gramo</option>
-                                        <option value="7">Centimetro</option>
-                                        <option value="8">Litro</option>
-                                        <option value="9">Mililitro</option>
-                                    </select>
+                                    <label for="address">Cantidad</label>
+                                    <input name="cantidad" class="form-control" ng-model="articuloVM.cantidadPorUnidad" type="number" placeholder="Cantidad" ng-required="true" />
                                 </div>
                             </div>
 

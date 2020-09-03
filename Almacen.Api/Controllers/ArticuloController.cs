@@ -64,11 +64,11 @@ namespace Almacen.Api.Controllers
         }
 
         [HttpPost("ModificarArticulo")]
-        public async Task<IActionResult> ModificarArticulo([FromBody] ArticuloViewModel datos)
+        public async Task<IActionResult> ModificarArticulo([FromBody] ArticuloViewModel datoArticulo)
         {
             try
             {
-                var response = await _articulo.ModificarArticulo(datos);
+                var response = await _articulo.ModificarArticulo(datoArticulo);
                 return Ok(response);
             }
             catch (Exception e)

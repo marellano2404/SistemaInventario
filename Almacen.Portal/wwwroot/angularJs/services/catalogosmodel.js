@@ -36,7 +36,7 @@
             contentType: "application/json",
             //data: JSON.stringify(datos)
         }).done(function (res) {
-            self.ArticuloVM = res;
+            self.articuloVM = res;
             if (callbackResult !== null) {
                 callbackResult({ result: true, message: null });
             }
@@ -67,14 +67,14 @@
         });
     },
 
-    putArticulos: function (datos, callbackResult) {
+    putArticulos: function (datoArticulo, callbackResult) {
         var self = this;
         $.ajax({
             url: urlServer + 'Articulo/ModificarArticulo',
             type: 'POST',
             cache: false,
             contentType: "application/json",
-            data: JSON.stringify(datos)
+            data: JSON.stringify(datoArticulo)
         }).done(function (res) {
             self.ResultViewModel = res;
             if (callbackResult !== null) {

@@ -7,8 +7,7 @@
         $scope.articuloVM = catalogoContext.articuloVM;
         $scope.ResultViewModel = catalogoContext.ResultViewModel;
         $scope.totalRegistros = 10;
-        $scope.paginaActual = 1;
-        $scope.formUpdate = {};
+        $scope.paginaActual = 1;        
         
         $scope.CargarArticulos = function () {
             var array = sessionStorage.getItem('datosUsuarioToken');
@@ -53,6 +52,7 @@
             };
             $scope.mostrarModalArticulo = function (modal, id = "") {
                 if (modal == 1) {
+                    $scope.articuloVM = {}; //limpiamos el objeto
                     $scope.verModalAgregar = true;
                     $scope.verModalEditar = false;
                    
@@ -82,12 +82,15 @@
                         if (response.result === true) {
                             $scope.ResultViewModel = catalogoContext.ResultViewModel;
                             console.log($scope.ResultViewModel)
-                            Swal.fire({
-                                title: 'Mensaje del Sistema',
-                                text: 'Se agrego correctamente el articulo!.',
-                                icon: 'success',
-                                confirmButtonText: 'Entendido'
-                            });
+                            $scope.cerrarModal(1); //cerramos el modal
+                            if ($scope.ResultViewModel.exito) {
+                                Swal.fire({
+                                    title: 'Mensaje del Sistema',
+                                    text: 'Se modifico correctamente el articulo!.',
+                                    icon: 'success',
+                                    confirmButtonText: 'Entendido'
+                                });
+                            }
                         }
                         else {
                             Swal.fire({
@@ -113,7 +116,7 @@
                 console.log(id);
                 catalogoContext.getArticuloId(id, function (response) {
                     if (response.result === true) {
-                        $scope.articuloVM = catalogoContext.ArticuloVM;
+                        $scope.articuloVM = catalogoContext.articuloVM;
                         console.log($scope.articuloVM)
                     }
                     else {
@@ -133,6 +136,15 @@
                         if (response.result === true) {
                             $scope.ResultViewModel = catalogoContext.ResultViewModel;
                             console.log($scope.ResultViewModel)
+                            $scope.cerrarModal(2); //cerramos el modal
+                            if ($scope.ResultViewModel.exito) {
+                                Swal.fire({
+                                    title: 'Mensaje del Sistema',
+                                    text: 'Se agrego correctamente el articulo!.',
+                                    icon: 'success',
+                                    confirmButtonText: 'Entendido'
+                                });
+                            }
                         } else {
                             Swal.fire({
                                 title: 'Mensaje del Sistema',

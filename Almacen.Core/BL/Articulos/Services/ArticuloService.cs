@@ -30,11 +30,11 @@ namespace Almacen.Core.BL.Articulos.Services
                     command.Parameters.AddWithValue("@Presentacion", A.Presentacion);
                     command.Parameters.AddWithValue("@Marca", A.Marca);
                     command.Parameters.AddWithValue("@Lote", A.Lote);
-                    command.Parameters.AddWithValue("@TipoMedicamento", A.TipoMedicamento);
+                    command.Parameters.AddWithValue("@TipoMedicamento", int.Parse(A.TipoMedicamento));
                     command.Parameters.AddWithValue("@TipoCatalogo", A.TipoCatalogo);
-                    command.Parameters.AddWithValue("@UnidadMedida", A.UnidadMedida);
+                    command.Parameters.AddWithValue("@UnidadMedida", int.Parse(A.UnidadMedida));
                     command.Parameters.AddWithValue("@CantidadPorUnidad", A.CantidadPorUnidad);
-                    command.Parameters.AddWithValue("@CodigoBarra", A.CodigoBaras);
+                    command.Parameters.AddWithValue("@CodigoBarra", A.CodigoBarras);
                     command.Parameters.AddWithValue("@Laboratorio", A.Laboratorio);
                     conexion.Open();
                     var lectura = await command.ExecuteReaderAsync();
@@ -90,7 +90,7 @@ namespace Almacen.Core.BL.Articulos.Services
                             respuesta.TipoCatalogo = lectura.GetString(8);
                             respuesta.UnidadMedida = lectura.GetInt32(9);
                             respuesta.CantidadPorUnidad = lectura.GetInt32(10);
-                            respuesta.CodigoBaras = lectura.GetString(11);
+                            respuesta.CodigoBarras = lectura.GetString(11);
                             respuesta.Laboratorio = lectura.GetInt32(12);
                             respuesta.Estado = lectura.GetInt32(13);
                         }
@@ -141,7 +141,7 @@ namespace Almacen.Core.BL.Articulos.Services
                                     TipoCatalogo = lectura.GetString(8),
                                     UnidadMedida = lectura.GetInt32(9),
                                     CantidadPorUnidad = lectura.GetInt32(10),
-                                    CodigoBaras = lectura.GetString(11),
+                                    CodigoBarras = lectura.GetString(11),
                                     Laboratorio = lectura.GetInt32(12),
                                     Estado = lectura.GetInt32(13),
                                     Cantidad = lectura.GetInt32(14)
@@ -179,11 +179,11 @@ namespace Almacen.Core.BL.Articulos.Services
                     command.Parameters.AddWithValue("@Presentacion", A.Presentacion);
                     command.Parameters.AddWithValue("@Marca", A.Marca);
                     command.Parameters.AddWithValue("@Lote", A.Lote);
-                    command.Parameters.AddWithValue("@TipoMedicamento", A.TipoMedicamento);
+                    command.Parameters.AddWithValue("@TipoMedicamento", int.Parse(A.TipoMedicamento));
                     command.Parameters.AddWithValue("@TipoCatalogo", A.TipoCatalogo);
-                    command.Parameters.AddWithValue("@UnidadMedida", A.UnidadMedida);
+                    command.Parameters.AddWithValue("@UnidadMedida", int.Parse(A.UnidadMedida));
                     command.Parameters.AddWithValue("@CantidadPorUnidad", A.CantidadPorUnidad);
-                    command.Parameters.AddWithValue("@CodigoBarra", A.CodigoBaras);
+                    command.Parameters.AddWithValue("@CodigoBarra", A.CodigoBarras);
                     command.Parameters.AddWithValue("@Laboratorio", A.Laboratorio);
                     conexion.Open();
                     var lectura = await command.ExecuteReaderAsync();
