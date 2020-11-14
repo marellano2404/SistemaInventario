@@ -1,0 +1,108 @@
+﻿@model DatosReporteSalidaAlmacen
+@{
+    Layout = null;
+}
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/css/StyleReportes.css" rel="stylesheet" />
+    <link href="~/css/datatables/css/dataTables.bootstrap4.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="card-header">
+        <div id="contentCabecera">
+            <div class="left">
+                <img src="~/content/Imgs/SecretariaSalud.jpg" />
+            </div>
+            <div class="center">
+                <h1>
+                    Cedula de Salida de Almacen
+                </h1>
+            </div>
+
+            <div class="right">
+                <img src="~/content/Imgs/SecretariaSaludChiapas.jpg" />
+            </div>
+        </div>
+        <br />
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="ml-4" style="margin-left: 5px; width:150px">
+                <label for="address1">Folio: </label>
+                @Html.TextBoxFor(model => model.Cabecera.Folio, new { Class = "form-control" })
+            </div>
+            <div class="ml-4" style="width:250px">
+                <label for="awddress2">Origen: </label>
+                @Html.TextBoxFor(model => model.Cabecera.Almacen, new { Class = "form-control" })
+            </div>
+            <div class="ml-4" style="width:250px">
+                <label for="adadress3">Destino:</label>
+                @Html.TextBoxFor(model => model.Cabecera.Farmacia, new { Class = "form-control" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="ml-5" style="margin-left: 5px; width:300px">
+                <label for="address4">Responsable Destino:</label>
+                @Html.TextBoxFor(model => model.Cabecera.Responsable, new { Class = "form-control" })
+            </div>
+            <div class="ml-3">
+                <label for="addredss5">Fecha Salida:</label>
+                @Html.TextBoxFor(model => model.Cabecera.FechaCaptura, new { Class = "form-control" })
+            </div>
+            <div class="ml-3">
+                <label for="addrsess6">Fecha Entrega:</label>
+                @Html.TextBoxFor(model => model.Cabecera.FechaSalida, new { Class = "form-control" })
+            </div>
+        </div>
+        <hr class="mb-4">
+        <table class="table table-striped table-bordered">
+            <caption>
+                A R T I C U L O S &nbsp;&nbsp; D E &nbsp;&nbsp; L A &nbsp;&nbsp; S A L I D A
+            </caption>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Clave Producto</th>
+                    <th>Producto</th>
+                    <th>Tipo Catalogo</th>
+                    <th>Cantidad</th>
+                    <th>Unidad</th>
+                    <th>Fec. Caducidad</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    if (@Model != null)
+                    {
+                        foreach (var item in @Model.Lista)
+                        {
+                            <tr>
+                                <td> 1.- </td>
+                                <td> @item.ClaveProducto</td>
+                                <td> @item.Descripcion</td>
+                                <td> @item.TipoCatalogo</td>
+                                <td> @item.Cantidad</td>
+                                <td> @item.Unidad</td>
+                                <td> @item.FechaCaducidad</td>
+                            </tr>
+                        }
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="md-6">
+                <label for="firma1">Firma Entrega</label>
+                <p class="form-control">________________________________________</p>
+            </div>
+            <div class="md-6">
+                <label for="firma2">Firma Recibido</label>
+                <p class="form-control">_________________________________________</p>
+            </div>
+        </div>       
+    </div>
+</body>
+</html>

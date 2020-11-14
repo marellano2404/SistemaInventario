@@ -19,9 +19,14 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.6" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Rotativa.AspNetCore" Version="1.2.0-beta" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.7.1" />
   </ItemGroup>
 
-  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
+  <ItemGroup>
+    <Folder Include="Reportes\" />
+    <Folder Include="Rotativa\" />
+    <Folder Include="wwwroot\Files\SalidasAlmacen\" />
+  </ItemGroup>
 
 </Project>

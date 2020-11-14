@@ -1,7 +1,7 @@
 ﻿/// <reference path="../services/almacenmodel.js" />
 /// <reference path="../globalapp.js" />
 (function () {
-    app.controller('almacenController', ['$scope', '$interval', function ($scope, $interval) {
+    app.controller('almacenController', ['$scope', '$interval', '$http', function ($scope, $interval, $http) {
         $scope.UsuarioViewModel = almacenContext.UsuarioViewModel;
         $scope.salidasAlmacenVM = almacenContext.salidasAlmacenVM; 
         $scope.ListaUnidades = almacenContext.ListaUnidades;
@@ -24,7 +24,7 @@
                 else {
                     Swal.fire({
                         title: 'Mensaje del Sistema',
-                        text: $scope.ResultLoginViewModel.mensaje,
+                        text: 'No se ha podido accesar a los datos, verifique.',
                         icon: 'warning',
                         confirmButtonText: 'OK'
                     });
@@ -203,6 +203,100 @@
                     });
                 }
             });
+        };
+        $scope.crearReporte = function (SalidaDetalle) {
+            console.log(SalidaDetalle);
+            
+            var form = document.createElement("form");
+            form.setAttribute("method", "post");
+            form.setAttribute("action", "/Almacen/GenerarSalidaAlmacen");
+
+            var Clave = document.createElement("input");
+            Clave.setAttribute("type", "hidden");
+            Clave.setAttribute("name", "Clave");
+            Clave.setAttribute("value", SalidaDetalle.claveProducto);
+            //FechaInicio.setAttribute("value", 01-07-2019);
+            var Descripcion = document.createElement("input");
+            Descripcion.setAttribute("type", "hidden");
+            Descripcion.setAttribute("name", "Descripcion");
+            Descripcion.setAttribute("value", SalidaDetalle.descripcion);
+
+            var TipoCatalogo = document.createElement("input");
+            TipoCatalogo.setAttribute("type", "hidden");
+            TipoCatalogo.setAttribute("name", "TipoCatalogo");
+            TipoCatalogo.setAttribute("value", SalidaDetalle.tipoCatalogo);
+
+            var ExistenciaUnidad = document.createElement("input");
+            ExistenciaUnidad.setAttribute("type", "hidden");
+            ExistenciaUnidad.setAttribute("name", "ExistenciaUnidad");
+            ExistenciaUnidad.setAttribute("value", SalidaDetalle.existenciaUnidad);
+        
+
+            form.appendChild(Clave);
+            form.appendChild(Descripcion);
+            form.appendChild(TipoCatalogo);
+            form.appendChild(ExistenciaUnidad);
+
+            document.body.appendChild(form);
+            form.submit();
+        };
+        $scope.verReporte = function (SalidadeAlmacen) {
+            console.log(SalidadeAlmacen);
+         
+            var form = document.createElement("form");
+            form.setAttribute("method", "post");
+            form.setAttribute("action", "/Almacen/RptSalidaAlmacen");
+
+            var Id = document.createElement("input");
+            Id.setAttribute("type", "hidden");
+            Id.setAttribute("name", "id");
+            Id.setAttribute("value", SalidadeAlmacen.id);
+
+            var Folio = document.createElement("input");
+            Folio.setAttribute("type", "hidden");
+            Folio.setAttribute("name", "folio");
+            Folio.setAttribute("value", SalidadeAlmacen.folio);
+
+            var Almacen = document.createElement("input");
+            Almacen.setAttribute("type", "hidden");
+            Almacen.setAttribute("name", "almacen");
+            Almacen.setAttribute("value", SalidadeAlmacen.almacen);
+
+            var Farmacia = document.createElement("input");
+            Farmacia.setAttribute("type", "hidden");
+            Farmacia.setAttribute("name", "farmacia");
+            Farmacia.setAttribute("value", SalidadeAlmacen.farmacia);
+
+            var Responsable = document.createElement("input");
+            Responsable.setAttribute("type", "hidden");
+            Responsable.setAttribute("name", "responsable");
+            Responsable.setAttribute("value", SalidadeAlmacen.responsable);
+
+            var FechaCaptura = document.createElement("input");
+            FechaCaptura.setAttribute("type", "hidden");
+            FechaCaptura.setAttribute("name", "fechaCaptura");
+            FechaCaptura.setAttribute("value", SalidadeAlmacen.fechaCaptura);
+
+            var FechaSalida = document.createElement("input");
+            FechaSalida.setAttribute("type", "hidden");
+            FechaSalida.setAttribute("name", "fechaSalida");
+            FechaSalida.setAttribute("value", SalidadeAlmacen.fechaSalida);
+
+            form.appendChild(Id);
+            form.appendChild(Folio);
+            form.appendChild(Almacen);
+            form.appendChild(Farmacia);
+            form.appendChild(Responsable);
+            form.appendChild(FechaCaptura);
+            form.appendChild(FechaSalida);
+
+            document.body.appendChild(form);
+            form.submit();   
+        };
+        $scope.CargarDatosSalidaAlmacen = function () {
+
+            $scope.SalidaAlmacenSel.folio = "TUX10";
+            $scope.$apply();
         };
     }]);
     app.filter('counter', [function () {

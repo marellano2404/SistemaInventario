@@ -97,6 +97,8 @@ namespace Almacen.Portal
                     pattern: "{controller=Home}/{action=Login}");
                 //endpoints.MapRazorPages();                
             });
+
+            Rotativa.AspNetCore.RotativaConfiguration.Setup(env.WebRootPath, "../Rotativa");
         }
     }
 }

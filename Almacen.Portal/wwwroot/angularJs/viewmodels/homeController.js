@@ -66,9 +66,13 @@
                 });
             }
         };
-        $scope.validarFuncion = function (modulo) {
-            window.location.href = urlPortal + modulo + "/Index"; 
-            localStorage.setItem("modulo",modulo);
+        $scope.validarFuncion = function (area,modulo) {
+            window.location.href = urlPortal + area + "/" + modulo; 
+            localStorage.setItem("modulo", area);
+        };     
+        $scope.validarSeccion = function (area, modulo) {
+            window.location.href = urlPortal + area + "/" + modulo;
+            localStorage.setItem("modulo", area);
         };     
         //#endregion
 
