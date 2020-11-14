@@ -1,89 +1,108 @@
-﻿@model SalidaAlmacen
+﻿@model DatosReporteSalidaAlmacen
 @{
     Layout = null;
 }
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <link href="~/css/StyleContenido.css" rel="stylesheet" />
+    <link href="~/css/StyleReportes.css" rel="stylesheet" />
     <link href="~/css/datatables/css/dataTables.bootstrap4.css" rel="stylesheet" />
 </head>
 <body>
-    <div class="card">
-        <div class="card-header">
-            Cedula de Salida de Almacen
-            <hr />
-        </div>
-        <div class="card-body card-block">
-            <div>
-                <h2 class="text-danger">
-                    Salida de Almacen
-                </h2>
-                <div class="row">
-                    <div class="col-md-4 mb-3">
-                        <label for="address">Folio Salida: </label>
-                        @Html.DisplayTextFor(model => model.Folio)
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <label for="address">Lugar Origen: </label>
-                        @Html.DisplayTextFor(model => model.Almacen)
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <label for="address">Lugar Destino</label>
-                        @Html.DisplayTextFor(model => model.Farmacia)
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4  mb-3">
-                        <label for="address">Responsable Destino</label>
-                        @Html.DisplayTextFor(model => model.Responsable)
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <label for="address">Fecha Salida</label>
-                        @Html.DisplayTextFor(model => model.FechaCaptura)
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <label for="address">Fecha Entrega</label>
-                        @Html.DisplayTextFor(model => model.FechaSalida)
-                    </div>
-                </div>
-                <hr class="mb-4">
-                <table id="bootstrap-data-table" class="table table-striped table-bordered ListaRegistroTable">
-                    <caption>
-                        A R T I C U L O S &nbsp;&nbsp; D E &nbsp;&nbsp; L A &nbsp;&nbsp; S A L I D A
-                        <a href="">
-                            <img ng-click="mostrarAddArticuloSalida()" title="Agregar Salida" src="~/Content/icons/AgregarRegistro.png" />
-                        </a>
-                    </caption>
-                    <thead>
-                        <tr>
-                            <th class="ListaTh">#</th>
-                            <th>Clave Producto</th>
-                            <th class="ListaTh">Producto</th>
-                            <th>Tipo Catalogo</th>
-                            <th>Cantidad</th>
-                            <th class="ListaTh">Unidad</th>
-                            <th>Fec. Caducidad</th>
-                            <th>Accíones</th>
-                            <th>-</th>
-                        </tr>
-                    </thead>
-                    <tbody ng-repeat="B in DetalleSalidaVM | orderBy:'descripcion'">
-                        <tr>
-                            <td class="ListaTd">{{$index+1}}.-</td>
-                            <td>{{B.claveProducto}}</td>
-                            <td class="ListaTd">{{B.descripcion}}</td>
-                            <td>{{B.tipoCatalogo}}</td>
-                            <td>{{B.cantidad}}</td>
-                            <td class="ListaTd">{{B.unidad}}</td>
-                            <td>{{B.fechaCaducidad}}</td>
-                            <td><img ng-click="eliminarDetalleSalida(B)" src="~/content/icons/eliminar.png" alt="user" class="rounded" width="25"></td>
-                            <td><img ng-click="crearReporte(B)" src="~/content/icons/Validado.png" alt="user" class="rounded" width="25"></td>
-                        </tr>
-                    </tbody>
-                </table>
+    <div class="card-header">
+        <div id="contentCabecera">
+            <div class="left">
+                <img src="~/content/Imgs/SecretariaSalud.jpg" />
+            </div>
+            <div class="center">
+                <h1>
+                    Cedula de Salida de Almacen
+                </h1>
+            </div>
+
+            <div class="right">
+                <img src="~/content/Imgs/SecretariaSaludChiapas.jpg" />
             </div>
         </div>
+        <br />
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="ml-4" style="margin-left: 5px; width:150px">
+                <label for="address1">Folio: </label>
+                @Html.TextBoxFor(model => model.Cabecera.Folio, new { Class = "form-control" })
+            </div>
+            <div class="ml-4" style="width:250px">
+                <label for="awddress2">Origen: </label>
+                @Html.TextBoxFor(model => model.Cabecera.Almacen, new { Class = "form-control" })
+            </div>
+            <div class="ml-4" style="width:250px">
+                <label for="adadress3">Destino:</label>
+                @Html.TextBoxFor(model => model.Cabecera.Farmacia, new { Class = "form-control" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="ml-5" style="margin-left: 5px; width:300px">
+                <label for="address4">Responsable Destino:</label>
+                @Html.TextBoxFor(model => model.Cabecera.Responsable, new { Class = "form-control" })
+            </div>
+            <div class="ml-3">
+                <label for="addredss5">Fecha Salida:</label>
+                @Html.TextBoxFor(model => model.Cabecera.FechaCaptura, new { Class = "form-control" })
+            </div>
+            <div class="ml-3">
+                <label for="addrsess6">Fecha Entrega:</label>
+                @Html.TextBoxFor(model => model.Cabecera.FechaSalida, new { Class = "form-control" })
+            </div>
+        </div>
+        <hr class="mb-4">
+        <table class="table table-striped table-bordered">
+            <caption>
+                A R T I C U L O S &nbsp;&nbsp; D E &nbsp;&nbsp; L A &nbsp;&nbsp; S A L I D A
+            </caption>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Clave Producto</th>
+                    <th>Producto</th>
+                    <th>Tipo Catalogo</th>
+                    <th>Cantidad</th>
+                    <th>Unidad</th>
+                    <th>Fec. Caducidad</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    if (@Model != null)
+                    {
+                        foreach (var item in @Model.Lista)
+                        {
+                            <tr>
+                                <td> 1.- </td>
+                                <td> @item.ClaveProducto</td>
+                                <td> @item.Descripcion</td>
+                                <td> @item.TipoCatalogo</td>
+                                <td> @item.Cantidad</td>
+                                <td> @item.Unidad</td>
+                                <td> @item.FechaCaducidad</td>
+                            </tr>
+                        }
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="md-6">
+                <label for="firma1">Firma Entrega</label>
+                <p class="form-control">________________________________________</p>
+            </div>
+            <div class="md-6">
+                <label for="firma2">Firma Recibido</label>
+                <p class="form-control">_________________________________________</p>
+            </div>
+        </div>       
     </div>
 </body>
 </html>

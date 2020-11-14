@@ -34,7 +34,7 @@ namespace Almacen.Core.BL.Articulos.Services
                     command.Parameters.AddWithValue("@TipoCatalogo", A.TipoCatalogo);
                     command.Parameters.AddWithValue("@UnidadMedida", A.UnidadMedida);
                     command.Parameters.AddWithValue("@CantidadPorUnidad", A.CantidadPorUnidad);
-                    command.Parameters.AddWithValue("@CodigoBarra", A.CodigoBaras);
+                    command.Parameters.AddWithValue("@CodigoBarra", A.CodigoBarras);
                     command.Parameters.AddWithValue("@Laboratorio", A.Laboratorio);
                     conexion.Open();
                     var lectura = await command.ExecuteReaderAsync();
@@ -183,7 +183,7 @@ namespace Almacen.Core.BL.Articulos.Services
                     command.Parameters.AddWithValue("@TipoCatalogo", A.TipoCatalogo);
                     command.Parameters.AddWithValue("@UnidadMedida", A.UnidadMedida);
                     command.Parameters.AddWithValue("@CantidadPorUnidad", A.CantidadPorUnidad);
-                    command.Parameters.AddWithValue("@CodigoBarra", A.CodigoBaras);
+                    command.Parameters.AddWithValue("@CodigoBarra", A.CodigoBarras);
                     command.Parameters.AddWithValue("@Laboratorio", A.Laboratorio);
                     conexion.Open();
                     var lectura = await command.ExecuteReaderAsync();
