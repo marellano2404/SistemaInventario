@@ -1,0 +1,127 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/angularJs/globalwebang.js"></script>
+<script src="~/angularjs/viewmodels/almacencontroller.js"></script>
+<script src="~/angularJs/services/almacenModel.js"></script>
+<link href="~/css/datatables/css/dataTables.bootstrap4.css" rel="stylesheet" />
+<div ng-controller="almacenController" ng-init="CargarDatosAlmacen();" ng-cloak>
+    <p>&nbsp;</p>
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <hr />
+                <h2 class="text-danger">
+                    Administración de Entradas de Almacen
+                </h2>
+            </div>
+            <div class="card-body card-block">
+                <div ng-show="verListaSalidas">
+                    <table id="bootstrap-data-table" class="table table-striped table-bordered ListaRegistroTable">
+                        <caption>
+                            E N T R A D A S &nbsp;&nbsp; D E &nbsp;&nbsp; A L M A C E N
+                            <a href="">
+                                <img ng-click="mostrarAgregarEspacio()" title="Agregar Salida" src="~/Content/icons/AgregarRegistro.png" />
+                            </a>
+                        </caption>
+                        <thead>
+                            <tr>
+                                <th class="ListaTh">#</th>
+                                <th>Factura</th>
+                                <th class="ListaTh">Almacen</th>
+                                <th>O. Donador</th>
+                                <th>Responsable</th>
+                                <th class="ListaTh">Fecha Entrada</th>
+                                <th>Recibido</th>
+                                <th>Accíones</th>
+                            </tr>
+                        </thead>
+                        <tbody ng-repeat="A in salidasAlmacenVM | orderBy:'folio'">
+                            <tr>
+                                <td class="ListaTd">{{$index+1}}.-</td>
+                                <td>{{A.folio}}</td>
+                                <td class="ListaTd">{{A.almacen}}</td>
+                                <td>{{A.farmacia}}</td>
+                                <td>{{A.responsable}}</td>
+                                <td class="ListaTd">{{A.fechaCaptura | ctime}}</td>
+                                <td>{{A.fechaSalida | ctimeHora}}</td>
+                                <td><img ng-click="verDetalleSalida(A)" src="~/content/icons/Observaciones.png" alt="user" class="rounded" width="25"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <hr />
+                </div>
+                <div ng-show="verDetalleEntrada">
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label for="address">Folio Salida</label>
+                            <input id="folio" name="folio" readonly class="form-control" ng-model="SalidaAlmacenSel.folio" type="text" />
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="address">Lugar Origen</label>
+                            <input id="origen" name="origen" readonly class="form-control" ng-model="SalidaAlmacenSel.almacen" type="text" />
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="address">Lugar Destino</label>
+                            <input id="destino" name="destino" readonly class="form-control" ng-model="SalidaAlmacenSel.farmacia" type="text" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4  mb-3">
+                            <label for="address">Responsable Destino</label>
+                            <input id="responsable" name="responsable" readonly class="form-control" ng-model="SalidaAlmacenSel.responsable" type="text" />
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="address">Fecha Salida</label>
+                            <input id="fechasalida" name="fechasalida" readonly class="form-control" ng-model="SalidaAlmacenSel.fechaCaptura" type="text" />
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="address">Fecha Entrega</label>
+                            <input id="fechaentrega" name="fechaentrega" readonly class="form-control" ng-model="SalidaAlmacenSel.fechaSalida" type="text" />
+                        </div>
+                    </div>
+                    <hr class="mb-4">
+                    <table id="bootstrap-data-table" class="table table-striped table-bordered ListaRegistroTable">
+                        <caption>
+                            A R T I C U L O S &nbsp;&nbsp; D E &nbsp;&nbsp; L A &nbsp;&nbsp; E N T R A D A
+                            <a href="">
+                                <img ng-click="mostrarAddArticuloSalida()" title="Agregar Salida" src="~/Content/icons/AgregarRegistro.png" />
+                            </a>
+                        </caption>
+                        <thead>
+                            <tr>
+                                <th class="ListaTh">#</th>
+                                <th>Clave Producto</th>
+                                <th class="ListaTh">Producto</th>
+                                <th>Tipo Catalogo</th>
+                                <th>Cantidad</th>
+                                <th class="ListaTh">Unidad</th>
+                                <th>Fec. Caducidad</th>
+                                <th>Accíones</th>
+                            </tr>
+                        </thead>
+                        <tbody ng-repeat="B in DetalleSalidaVM | orderBy:'descripcion'">
+                            <tr>
+                                <td class="ListaTd">{{$index+1}}.-</td>
+                                <td>{{B.claveProducto}}</td>
+                                <td class="ListaTd">{{B.descripcion}}</td>
+                                <td>{{B.tipoCatalogo}}</td>
+                                <td>{{B.cantidad}}</td>
+                                <td class="ListaTd">{{B.unidad}}</td>
+                                <td>{{B.fechaCaducidad}}</td>
+                                <td><img ng-click="eliminarDetalleSalida(B)" src="~/content/icons/eliminar.png" alt="user" class="rounded" width="25"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <row>
+                        <div class="col-md-2 mb-4">
+                            <button class="btn btn-primary btn-lg btn-block" ng-disabled="validoSalida" ng-click="finalizarSalida()" type="submit">Finalizar Captura</button>
+                        </div>
+                    </row>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div data-ng-include="Modal"></div>
+</div>

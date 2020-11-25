@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Almacen.Core.BL.Almacen.Interfaces;
+using Almacen.Core.BL.Almacen.Services;
 using Almacen.Core.BL.Articulos.Interface;
 using Almacen.Core.BL.Articulos.Services;
 using Almacen.Core.BL.SalidasAlmacen.Interfaces;
@@ -68,6 +70,7 @@ namespace Almacen.Api
             services.AddTransient<ISeguridad, SeguridadService>();
             services.AddTransient<IArticulo, ArticuloService>();
             services.AddTransient<ISalidasAlmacen, SalidasAlmacenService>();
+            services.AddTransient<IAlmacen, AlmacenServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
