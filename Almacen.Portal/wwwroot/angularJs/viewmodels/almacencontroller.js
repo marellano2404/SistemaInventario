@@ -7,6 +7,7 @@
         $scope.ListaUnidades = almacenContext.ListaUnidades;
         $scope.ResultViewModel = almacenContext.ResultViewModel;
         $scope.ArticuloSalidaSel = almacenContext.ArticuloSalidaSel;
+        $scope.ArticulosInventarioVM = almacenContext.ArticulosInventarioVM;
         $scope.Tipo = null;
         $scope.Valor = null;
         $scope.CargarDatosAlmacen = function () {
@@ -189,9 +190,8 @@
             var idSalida = localStorage.getItem("idSalidaSel");
             almacenContext.cerrarSalidaAlmacen(idSalida, function (res4) {
                 if (res4.result === true) {
-                    //$scope.DetalleSalidaVM = almacenContext.DetalleSalidaVM;                    
-                    $scope.verDetallesSalida = false;
-                    $scope.verListaSalidas = true;
+                    $scope.ArticulosInventarioVM = almacenContext.ArticulosInventarioVM; 
+
                     $scope.$apply();
                 }
                 else {
@@ -297,6 +297,27 @@
 
             $scope.SalidaAlmacenSel.folio = "TUX10";
             $scope.$apply();
+        };
+        $scope.CargarInventarioAlmacen = function () {
+            almacenContext.getListainventario(function (res4) {
+                if (res4.result === true) {
+                    $scope.ArticulosInventarioVM = almacenContext.ArticulosInventarioVM;                   
+                    $scope.verDetallesSalida = false;
+                    $scope.verListaSalidas = true;
+                    $scope.$apply();
+                }
+                else {
+                    Swal.fire({
+                        title: 'Mensaje del Sistema',
+                        text: 'Ocurrio un error en el guardado!.',
+                        icon: 'warning',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            });
+        };
+        $scope.ReporteInventarioAlmacen = function () {
+
         };
     }]);
     app.filter('counter', [function () {

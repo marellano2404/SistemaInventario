@@ -52,7 +52,7 @@
                         <caption>
                             A R T I C U L O S &nbsp;&nbsp; A L M A C E N
                             <a href="">
-                                <img ng-click="mostrarAddArticuloSalida()" title="Agregar Salida" src="~/Content/icons/AgregarRegistro.png" />
+                                <img ng-click="mostrarReporte()" title="Bajar Reporte" src="~/Content/icons/PlantillasMenu.png" />
                             </a>
                         </caption>
                         <thead>
@@ -61,24 +61,26 @@
                                 <th>Clave Producto</th>
                                 <th>Codigo Barras</th>
                                 <th class="ListaTh">Producto</th>
+                                <th class="ListaTh">Tipo</th>
                                 <th>Tipo Unidad</th>
-                                <th class="ListaTh">Unidades</th>
+                                <th class="ListaTh">Cant x Uni</th>
                                 <th>Cantidad</th>
                                 <th>Existencias</th>
-                                <th>Estado</th>
+                                <th>Laboratorio</th>
                             </tr>
                         </thead>
-                        <tbody ng-repeat="B in DetalleSalidaVM | orderBy:'descripcion'">
+                        <tbody ng-repeat="B in ArticulosInventarioVM | orderBy:'descripcion'">
                             <tr>
                                 <td class="ListaTd">{{$index+1}}.-</td>
                                 <td>{{B.claveProducto}}</td>
-                                <td class="ListaTd">{{B.descripcion}}</td>
+                                <td class="ListaTd">{{B.codigoBarras}}</td>
+                                <td>{{B.descripcion}}</td>
                                 <td>{{B.tipoCatalogo}}</td>
-                                <td>{{B.cantidad}}</td>
                                 <td class="ListaTd">{{B.unidad}}</td>
-                                <td>{{B.fechaCaducidad}}</td>
-                                <td>{{B.fechaCaducidad}}</td>
-                                <td><img ng-click="eliminarDetalleSalida(B)" src="~/content/icons/eliminar.png" alt="user" class="rounded" width="25"></td>
+                                <td>{{B.cantidadPorUnidad}}</td>
+                                <td>{{B.cantidad}}</td>
+                                <td>{{B.existenciasUnidad}}</td>
+                                <td>{{B.laboratorio}}</td>
                             </tr>
                         </tbody>
                     </table>

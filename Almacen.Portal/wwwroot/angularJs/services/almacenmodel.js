@@ -5,6 +5,7 @@
     DetalleSalidaVM: [],
     ResultViewModel: {},
     ArticuloInventarioVM: {},
+    ArticulosInventarioVM: [],
     ArticuloSalidaSel:
     {
         idSalidaAlmacen: null,
@@ -126,6 +127,24 @@
             contentType: "application/json",
             data: JSON.stringify(IdSalida)
         }).done(function (res) {
+            if (callbackResult !== null) {
+                callbackResult({ result: true, message: null });
+            }
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            if (callbackResult !== null) {
+                callbackResult({ result: false, message: "No se pudo accesar a la lista de servicios" });
+            }
+        });
+    },
+    getListainventario: function (callbackResult) {
+        var self = this;
+        $.ajax({
+            url: urlServer + 'Almacen/GetInventarioAlmacen',
+            type: 'POST',
+            cache: false,
+            contentType: "application/json"
+        }).done(function (res) {
+            self.ArticulosInventarioVM = res;
             if (callbackResult !== null) {
                 callbackResult({ result: true, message: null });
             }

@@ -2,8 +2,8 @@
 var urlPortal = "/";
 //var urlServer = "http://marellano-002-site2.etempurl.com/";
 //var urlPortal = "/sicecesba/";
-//var urlserver = "http://" + window.location.hostname + ":84/api/";
-//var urlportal = "/aspirantescobach/";
+//var urlserver = "https://" + window.location.hostname + "/ApiAlmacen/Api/";
+//var urlportal = "/Inventarioycontrol/";
 var itemsPorPagina = 10;
 function obtenerToken() {
     /// <signature>

@@ -41,6 +41,69 @@ namespace Almacen.Portal.Controllers
         {
             return View();
         }
+        //[HttpPost]
+        //public IActionResult RptInventarioAlmacen([FromForm] IFormCollection SalidadeAlmacen)
+        //{
+        //    DatosReporteSalidaAlmacen datosReporte = new DatosReporteSalidaAlmacen();
+
+        //    var IdSt = SalidadeAlmacen["Id"].ToString();
+        //    var FolioSt = SalidadeAlmacen["Folio"].ToString();
+        //    var FechaCapturaSt = SalidadeAlmacen["FechaCaptura"].ToString();
+        //    var FechaSalidaSt = SalidadeAlmacen["FechaSalida"].ToString();
+        //    var FarmaciaSt = SalidadeAlmacen["Farmacia"].ToString();
+        //    var AlmacenSt = SalidadeAlmacen["Almacen"].ToString();
+        //    var ResponsableST = SalidadeAlmacen["Responsable"].ToString();
+
+        //    datosReporte.Cabecera.Id = Guid.Parse(IdSt.ToString());
+        //    datosReporte.Cabecera.Folio = FolioSt.Trim();
+        //    datosReporte.Cabecera.FechaCaptura = DateTime.Parse(FechaCapturaSt.ToString());
+        //    datosReporte.Cabecera.FechaSalida = DateTime.Parse(FechaSalidaSt.ToString());
+        //    datosReporte.Cabecera.Farmacia = FarmaciaSt.Trim();
+        //    datosReporte.Cabecera.Almacen = AlmacenSt.Trim();
+        //    datosReporte.Cabecera.Responsable = ResponsableST.Trim();
+
+        //    List<DetalleSalidaVM> listaDetalle = new List<DetalleSalidaVM>();
+        //    DetalleSalidaVM DetalleSalida = new DetalleSalidaVM()
+        //    {
+        //        Cantidad = 1,
+        //        Descripcion = "articulo1",
+        //        ClaveProducto = "clave1",
+        //        CodigoBarras = "138626829",
+        //        Detalles = "detalle1",
+        //        Estado = 1,
+        //        ExistenciasUnidad = 10,
+        //        FechaCaducidad = DateTime.Parse("2020-01-01".ToString()),
+        //        TipoCatalogo = "CAUSES",
+        //        Unidad = "CAJA"
+        //    };
+        //    listaDetalle.Add(DetalleSalida);
+        //    DetalleSalidaVM DetalleSalida2 = new DetalleSalidaVM()
+        //    {
+        //        Cantidad = 1,
+        //        Descripcion = "articulo2",
+        //        ClaveProducto = "clave2",
+        //        CodigoBarras = "7138626829",
+        //        Detalles = "detalle2",
+        //        Estado = 1,
+        //        ExistenciasUnidad = 5,
+        //        FechaCaducidad = DateTime.Parse("2020-01-01".ToString()),
+        //        TipoCatalogo = "CAUSES",
+        //        Unidad = "CAJA"
+        //    };
+        //    listaDetalle.Add(DetalleSalida2);
+
+        //    foreach (var item in listaDetalle)
+        //    {
+        //        datosReporte.Lista.Add(item);
+        //    }
+
+        //    return new Rotativa.AspNetCore.ViewAsPdf("RptSalidaAlmacen", datosReporte)
+        //    {
+        //        PageSize = Rotativa.AspNetCore.Options.Size.Letter,
+        //        PageOrientation = Rotativa.AspNetCore.Options.Orientation.Portrait,
+        //        FileName = "RptSalidadeAlmacen.pdf"
+        //    };
+        //}
         [HttpPost]
         public IActionResult RptSalidaAlmacen([FromForm] IFormCollection SalidadeAlmacen)
         {
@@ -66,8 +129,8 @@ namespace Almacen.Portal.Controllers
             DetalleSalidaVM DetalleSalida = new DetalleSalidaVM()
             {
                 Cantidad = 1,
-                Descripcion = "articulo1",
-                ClaveProducto = "clave1",
+                Descripcion = "ACICLOVIR Comprimido o tableta 200 mg",
+                ClaveProducto = "010.000.0103.00",
                 CodigoBarras = "138626829",
                 Detalles = "detalle1",
                 Estado = 1,
@@ -80,8 +143,8 @@ namespace Almacen.Portal.Controllers
             DetalleSalidaVM DetalleSalida2 = new DetalleSalidaVM()
             {
                 Cantidad = 1,
-                Descripcion = "articulo2",
-                ClaveProducto = "clave2",
+                Descripcion = "BETAMETASONA Solucion inyectable 4 mg/mL",
+                ClaveProducto = "010.000.0104.04",
                 CodigoBarras = "7138626829",
                 Detalles = "detalle2",
                 Estado = 1,
