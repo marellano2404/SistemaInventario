@@ -62,4 +62,8 @@ namespace Almacen.Core.ViewModels
         public bool Exito { get; set; }
         public string Mensaje { get; set; }
     }
+    public class EntradasAlmacenVM
+    {
+        public int MyProperty { get; set; }
+    }
 }

@@ -32,6 +32,30 @@
                 }
             });
         };
+        //#region - - - - - - - - - - - - - - - - - -  Entrada de Almacen - - - - - - - - - - - - - - - - - - - - 
+        $scope.EntradasAlmacenInit = function () {
+            var array = sessionStorage.getItem('datosUsuarioToken');
+            $scope.UsuarioViewModel = JSON.parse(array);
+            almacenContext.UsuarioViewModel = $scope.UsuarioViewModel;
+            almacenContext.getEntradasAlmacen(0, function (res5) {
+                if (res5.result === true) {
+                    $scope.verListaSalidas = true;
+                    $scope.verDetallesSalida = false;
+                    $scope.salidasAlmacenVM = almacenContext.salidasAlmacenVM;
+
+                    $scope.$apply();
+                }
+                else {
+                    Swal.fire({
+                        title: 'Mensaje del Sistema',
+                        text: 'No se ha podido accesar a los datos, verifique.',
+                        icon: 'warning',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            });
+        };
+        //#endregion
         $scope.verDetalleSalida = function (Salida) {            
             almacenContext.getdetalleSalidaAlmacen(Salida.folio, function (res1) {
                 if (res1.result === true) {

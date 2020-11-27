@@ -136,7 +136,7 @@
             }
         });
     },
-    getListainventario: function (callbackResult) {
+    getListainventario: function () {
         var self = this;
         $.ajax({
             url: urlServer + 'Almacen/GetInventarioAlmacen',
@@ -148,7 +148,28 @@
             if (callbackResult !== null) {
                 callbackResult({ result: true, message: null });
             }
-        }).fail(function (jqXHR, textStatus, errorThrown) {
+        }).fail(function (jqXHR, textcallbackResultStatus, errorThrown) {
+            if (callbackResult !== null) {
+                callbackResult({ result: false, message: "No se pudo accesar a la lista de servicios" });
+            }
+        });
+    },
+    //#endregion
+    //#region Metodo para Entradas de Almacen
+    getEntradasAlmacen: function (estado, callbackResult) {
+        var self = this;
+        $.ajax({
+            url: urlServer + 'Almacen/GetEntradasAlmacen',
+            type: 'POST',
+            cache: false,
+            contentType: "application/json", 
+            data: JSON.stringify(estado)
+        }).done(function (res) {
+            self.ArticulosInventarioVM = res;
+            if (callbackResult !== null) {
+                callbackResult({ result: true, message: null });
+            }
+        }).fail(function (jqXHR, textcallbackResultStatus, errorThrown) {
             if (callbackResult !== null) {
                 callbackResult({ result: false, message: "No se pudo accesar a la lista de servicios" });
             }

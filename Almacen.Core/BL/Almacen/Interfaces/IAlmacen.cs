@@ -9,5 +9,6 @@ namespace Almacen.Core.BL.Almacen.Interfaces
     public interface IAlmacen
     {
         Task<List<ArticulosInventarioVM>> GetListaInventario();
+        Task<List<EntradasAlmacenVM>> GetEntradasdeAlmacen(int estado);
     }
 }

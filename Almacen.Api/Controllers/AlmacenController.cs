@@ -42,6 +42,20 @@ namespace Almacen.Api.Controllers
                 return BadRequest();
             }
         }
+        [HttpPost("GetEntradasAlmacen")]
+        public async Task<IActionResult> GetEntradasAlmacen(int Estado)
+        {
+            try
+            {
+                var resultado = await _AlmacenService.GetEntradasdeAlmacen(Estado);
+                return Ok(resultado);
+            }
+            catch (Exception ex)
+            {
+                var mensaje = ex.Message.ToString();
+                return BadRequest();
+            }
+        }
         #endregion
 
     }
